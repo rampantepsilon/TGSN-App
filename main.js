@@ -217,6 +217,11 @@ function createWindow(){
         })
     }
 
+    /*mainWindow.webContents.on('new-window', function(event, url){
+      event.preventDefault();
+      shell.openExternal(url);
+    })*/
+
     homeWindow = mainWindow;
 }
 
@@ -245,7 +250,7 @@ app.on('activate', () => {
 app.commandLine.appendSwitch('disable-features', 'CrossOriginOpenerPolicy')
 
 // Listen for web contents being created
-app.on('web-contents-created', (e, contents) => {
+/*app.on('web-contents-created', (e, contents) => {
 
     // Check for a webview
     if (contents.getType() == 'webview') {
@@ -267,3 +272,4 @@ app.on('web-contents-created', (e, contents) => {
       })
     }
   })
+*/

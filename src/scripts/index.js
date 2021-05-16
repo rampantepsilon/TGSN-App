@@ -52,19 +52,21 @@ function init(){
         }
     }
 
-    /*//Add Editor Silently
-    var cell = content.insertCell(webview.length);
-    cell.innerHTML = `<webview style='width:100%; height:100%' useragent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36" src='linkEditor.html'></webview>`;
-    cell.style.width = '100%';
-    cell.setAttribute('id', webview.length + 1);*/
-
     for (i = 1; i < (webview.length + 1); i++){
         if (i != 1){
             $('#' + i).hide();
         }
     }
 
-    uName.innerHTML = `Not Signed In<br><button onclick='login()'>Login</button>`
+    //Login Functions
+    var sUser = sessionStorage.getItem('username');
+    var sLogo = sessionStorage.getItem('logo');
+    if (sUser){
+      document.getElementById('uNameStatic').innerHTML = sUser + `<br><button onclick='logout()'>Logout</button>`;
+      document.getElementById('userPic').innerHTML = `<img src='` + sLogo + `' width='60px' height='60px' style='border-radius: 50% 50% 50% 50%;'>`
+    } else {
+      uName.innerHTML = `Not Signed In<br><button onclick='login()'>Login</button>`
+    }
 }
 
 //Login (WIP)
@@ -112,10 +114,11 @@ function fLogin(){
           if (uName == userNames[j].toLowerCase()){
             document.getElementById('uNameStatic').innerHTML = userNames[j] + `<br><button onclick='logout()'>Logout</button>`;
             document.getElementById('userPic').innerHTML = `<img src='` + users['logo'][j] + `' width='60px' height='60px' style='border-radius: 50% 50% 50% 50%;'>`
+            //Set Storage
+            sessionStorage.setItem('username', userNames[j])
+            sessionStorage.setItem('logo', users['logo'][j])
           }
         }
-
-        //Set Storage
       } else {
         document.getElementById('loginError').innerHTML = 'Incorrect Password'
       }
