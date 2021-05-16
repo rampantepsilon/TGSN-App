@@ -1,0 +1,86 @@
+<html>
+    <head>
+        <title>TGSN Staff HQ v0.0.1-alpha</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src='./scripts/index.js'></script>
+        <script id='buttonScript' src='./scripts/default.js'></script>
+        <link href="https://fonts.googleapis.com/css?family=Raleway:600|Sancreek&display=swap" rel="stylesheet">
+        <link href='./styles.css' rel='stylesheet'>
+    </head>
+
+    <body onload='init()'><!-- The core Firebase JS SDK is always required and must be listed first -->
+      <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-app.js"></script>
+      <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-firestore.js"></script>
+
+      <script>
+        // Your web app's Firebase configuration
+        var firebaseConfig = {
+          apiKey: "AIzaSyBAF1jevSp8_E5Okk9z6sMi-t4eRS4N9DE",
+          authDomain: "tgsn-site-v7.firebaseapp.com",
+          databaseURL: "https://tgsn-site-v7.firebaseio.com",
+          projectId: "tgsn-site-v7",
+          storageBucket: "tgsn-site-v7.appspot.com",
+          messagingSenderId: "565689666494",
+          appId: "1:565689666494:web:fc488b17f5018f569547ef"
+        };
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+      </script>
+        <table id='main' style='width: 100%;'>
+          <tr>
+            <td height='20px'>
+              <!--Start Nav Bar-->
+              <table width='100%' height='95px' align='center' style='background-color: rgba(0,0,0,0.75);'>
+                <tr id='siteName' height='95px'>
+                  <td width='86px' valign='middle'><img src='./images/tgsn.jpg' width='86px' height='86px'></td>
+                  <td id='top' valign='middle' align='center' width='250px'>The Gaming<br>Saloon Network</td>
+                  <td id='top' valign='middle' align='center'>Staff HQ</td>
+                  <td valign='middle' align='right'>
+                    <table>
+                      <tr>
+                        <td align='center'><p id='uNameStatic'></p></td>
+                      </tr>
+                    </table>
+                  </td>
+                  <td valign='middle' align='center' width='86px' id='userPic'></td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+          <tr id='content'>
+              <!--Intentionally Blank scripts/index.js fills this in-->
+          </tr>
+        </table>
+        <table>
+          <tr id='buttons' style='width: 90vh; overflow:auto; position: fixed; bottom: 10; left: 10;'>
+            <!--Intentionally Blank scripts/index.js fills this in-->
+          </tr>
+        </table>
+        <div style='position:fixed; bottom: 10; right:15'>
+            <div align='center' id='buttonRefresh' style='border-style: outset; border-radius: 25% 25% 25% 25%; background-color: lightblue; color: black; width: 100px; height: 50px;' onclick="refresh()">Refresh Page</div>
+            <!--<div align='center' id='buttonEdit' style='border-style: outset; border-radius: 25% 25% 25% 25%; background-color: lightblue; color: black; width: 100px; height: 50px;' onclick="showWin('edit')">Edit Page</div>-->
+        </div>
+
+
+
+        <!--Modal for login-->
+        <div id="myModal" class="modal">
+          <div class="modal-content">
+            <span class="close">&times;</span>
+            <table align='center'>
+              <tr>
+                <td align='right' valign='top' style='font-size:18px; color: white'>
+                  Username:<br>
+                  Password:<br>
+                </td>
+                <td valign='top' align='left'>
+                  <input type="text" id='uName'><br>
+                  <input type="password" id='pWord'><br>
+                  <button onclick='fLogin()' id='ud8Schedule'>Login</button>
+                  <div id='loginError'></div>
+              </tr>
+            </table>
+          </div>
+        </div>
+    </body>
+</html>

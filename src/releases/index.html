@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <script src='releaseScripts.js'></script>
+
+    <title>Rampant Release Tracker</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Raleway:600|Sancreek&display=swap" rel="stylesheet">
+    <link href="style.css" rel='stylesheet'>
+  </head>
+  <body onload='loadReleases()'>
+    <!--Start Body-->
+    <table width='100%' id='bodyContent' border='1px'>
+      <tr>
+        <!--Main Body-->
+        <td align='center' id='staffBody' valign='top'>
+          <table width='100%'>
+            <tr>
+              <td align='center'>
+                <h2>Rampant Release Tracker</h2>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <div style='width: calc(100% - 30px); height: calc(100% - 145px); overflow-y:auto; position:fixed'>
+                  <table id='releases' width='100%'></table>
+                </div>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+    <table style='width: calc(100% - 18px); position: fixed; bottom: 5px; padding:5px' class='controls'>
+      <tr>
+        <td>
+          Date (MM/DD/YYYY): <input id='startMonth' size='1'> - <input id='startDate' size='1'> - <input id='startYear' size='3'> <button onclick='addDay()'>+1 Day</button> <!--<button onclick='remDay()'>-1 Day<button>--><button onclick='goToday()'>Today</button>
+        </td>
+        <td>
+          Show PC: <input type='checkbox' id='pc' value='true'>
+        </td>
+        <!--<td>
+          Offset (Change by 100 @ a time): <input id='offset' size='5'> <button onclick='add100()'>Add 100 Offset</button> <button onclick='rem100()'>Remove 100 Offset</button>
+        </td>-->
+        <td id='results' width='150px'>
+          Results:
+        </td>
+        <td>
+          <button onclick='getReleases()'>Get Releases</button>
+          <button onclick='clearReleases()'>Clear Releases</button>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>
