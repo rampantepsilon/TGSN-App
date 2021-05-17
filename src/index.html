@@ -61,8 +61,6 @@
             <!--<div align='center' id='buttonEdit' style='border-style: outset; border-radius: 25% 25% 25% 25%; background-color: lightblue; color: black; width: 100px; height: 50px;' onclick="showWin('edit')">Edit Page</div>-->
         </div>
 
-
-
         <!--Modal for login-->
         <div id="myModal" class="modal">
           <div class="modal-content">
@@ -77,9 +75,33 @@
                   <input type="text" id='uName'><br>
                   <input type="password" id='pWord'><br>
                   <button onclick='fLogin()' id='ud8Schedule'>Login</button>
-                  <div id='loginError'></div>
+                </td>
               </tr>
             </table>
+            <div id='loginError'></div>
+          </div>
+        </div>
+
+        <!--Modal for Password Change-->
+        <div id="passModal" class="modal">
+          <div class="modal-content">
+            <span class="close">&times;</span>
+            <table align='center'>
+              <tr>
+                <td align='right' valign='top' style='font-size:18px; color: white'>
+                  Old Password:<br>
+                  New Password:<br>
+                  Confirm Password:<br>
+                </td>
+                <td valign='top' align='left'>
+                  <input type="password" id='oldPass'><br>
+                  <input type="password" id='newPass'><br>
+                  <input type="password" id='confirmPass'><br>
+                  <button onclick='upd8Pass()'>Login</button>
+                </td>
+              </tr>
+            </table>
+            <div id='passError'></div>
           </div>
         </div>
     </body>

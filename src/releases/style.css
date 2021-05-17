@@ -6,7 +6,7 @@
     height: calc(100% - 40px);
     background-color: rgba(0,0,0,0.75);
   }
-  a {
+  a, #loginError, #passError {
     color: white;
   }
   .controls{
