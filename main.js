@@ -7,11 +7,11 @@ const fs = require('fs');
 
 //Information
 function title(){
-    var title = 'TGSN Staff HQ v0.0.2-alpha';
+    var title = 'TGSN Staff HQ v0.0.3-alpha';
     return title;
 }
 function buildNum(){
-    var build = '21.05.2';
+    var build = '21.05.3';
     return build;
 }
 const currentVer = app.getVersion(); //Version Variable
