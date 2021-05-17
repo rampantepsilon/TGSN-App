@@ -7,11 +7,11 @@ const fs = require('fs');
 
 //Information
 function title(){
-    var title = 'TGSN Staff HQ v0.0.1-alpha';
+    var title = 'TGSN Staff HQ v0.0.2-alpha';
     return title;
 }
 function buildNum(){
-    var build = '21.05';
+    var build = '21.05.2';
     return build;
 }
 const currentVer = app.getVersion(); //Version Variable
@@ -19,9 +19,14 @@ const changelogOptions = {
     type: 'info',
     buttons: ['Close'],
     title: 'Changelog',
-    message: 'Changes in TGSN Staff HQ v0.0.1-alpha',
-    detail: `- Initial Build of redesign
-    - Added Message Board, Releases, and Twitch Dashboard
+    message: 'Changes in TGSN Staff HQ v0.0.2-alpha',
+    detail: `
+  - Password Editor
+  - Message Board Editor (Network Admins Only)
+  - Added proper logos to the app
+  - Added TGSN Site, Standalone Chat, and Discord
+  - Moved Refresh Page to the left because of spacing issues
+  - Changed Refresh Page to a refresh icon to remove clutter
 
   Next Update
   - Add Show Notes (TGS, TGSR, TVS)
@@ -165,6 +170,7 @@ function createWindow(){
         width: 1600,
         height: 900,
         title: title(),
+        icon: __dirname + 'logo.ico',
         webPreferences: {
             nativeWindowOpen: true,
             webviewTag: true
