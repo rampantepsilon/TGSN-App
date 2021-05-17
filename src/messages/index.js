@@ -28,26 +28,32 @@ function update(num){
       messages.update({
         1: newMessage
       })
+      break;
     case 2:
       messages.update({
         2: newMessage
       })
+      break;
     case 3:
       messages.update({
         3: newMessage
       })
+      break;
     case 4:
       messages.update({
         4: newMessage
       })
+      break;
     case 5:
       messages.update({
         5: newMessage
       })
+      break;
     case 6:
       messages.update({
         6: newMessage
       })
+      break;
     default:
       break;
   }
