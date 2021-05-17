@@ -21,12 +21,8 @@ const changelogOptions = {
     title: 'Changelog',
     message: 'Changes in TGSN Staff HQ v0.0.2-alpha',
     detail: `
-  - Password Editor
-  - Message Board Editor (Network Admins Only)
-  - Added proper logos to the app
-  - Added TGSN Site, Standalone Chat, and Discord
-  - Moved Refresh Page to the left because of spacing issues
-  - Changed Refresh Page to a refresh icon to remove clutter
+  - Fixed issue where Network Admins wouldn't see the Refresh Button
+  - Fixed issue where the app would force close when trying to open some links
 
   Next Update
   - Add Show Notes (TGS, TGSR, TVS)
@@ -201,7 +197,7 @@ function createWindow(){
         label: 'Open TGSN Staff HQ',
         click: function () {
             mainWindow.show();
-        }
+          }
         },{
         type: 'separator'
         },{
@@ -209,7 +205,7 @@ function createWindow(){
         click: function () {
             mainWindow.destroy();
             app.quit();
-        }
+          }
         }
     ];
     const trayMenu = Menu.buildFromTemplate(trayOptions);
@@ -222,13 +218,6 @@ function createWindow(){
         tray.popUpContextMenu();
         })
     }
-
-    /*mainWindow.webContents.on('new-window', function(event, url){
-      event.preventDefault();
-      shell.openExternal(url);
-    })*/
-
-    homeWindow = mainWindow;
 }
 
 // This method will be called when Electron has finished
@@ -256,7 +245,7 @@ app.on('activate', () => {
 app.commandLine.appendSwitch('disable-features', 'CrossOriginOpenerPolicy')
 
 // Listen for web contents being created
-/*app.on('web-contents-created', (e, contents) => {
+app.on('web-contents-created', (e, contents) => {
 
     // Check for a webview
     if (contents.getType() == 'webview') {
@@ -278,4 +267,3 @@ app.commandLine.appendSwitch('disable-features', 'CrossOriginOpenerPolicy')
       })
     }
   })
-*/

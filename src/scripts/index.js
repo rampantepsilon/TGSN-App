@@ -65,7 +65,7 @@ function init(){
     //Add Saved Links
     for (j = 1; j < (webview.length + 1); j++){
         var cell = content.insertCell(j - 1);
-        cell.innerHTML = `<webview style='width:100%; height:100%' useragent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36" allowpopups src='` + webview[j - 1][0] + `'></webview>`;
+        cell.innerHTML = `<webview style='width:100%; height:100%' useragent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36" allowpopups enableremotemodule='true' src='` + webview[j - 1][0] + `'></webview>`;
         cell.style.width = '100%';
         cell.setAttribute('id', j);
     }
@@ -104,7 +104,7 @@ function adminInit(){
     var buttons = document.getElementById('buttons');
     var uName = document.getElementById('uNameStatic');
     content.innerHTML = '';
-    buttons.innerHTML = '<td align='center' id='buttonRefresh' style='border-style: outset; border-radius: 25% 25% 25% 25%; background-color: lightblue; color: black; width: 50px; height: 50px;' onclick="refresh()"><img src='./images/refresh.png' width='40px' height='40px'></td>';
+    buttons.innerHTML = `<td align='center' id='buttonRefresh' style='border-style: outset; border-radius: 25% 25% 25% 25%; background-color: lightblue; color: black; width: 50px; height: 50px;' onclick="refresh()"><img src='./images/refresh.png' width='40px' height='40px'></td>`;
 
     //Add Saved Links
     for (j = 1; j < (adminView.length + 1); j++){

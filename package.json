@@ -4,7 +4,7 @@
   "description": "",
   "main": "main.js",
   "scripts": {
-    "start":"electron .",
+    "start": "electron .",
     "package-mac": "electron-packager ./ --overwrite --platform=darwin --arch=x64 --icon=logo.jpg --out=build --asar",
     "package-win64": "electron-packager ./ tgsnstaffhq --overwrite --platform=win32 --arch=x64 --icon=logo.ico --out=build --version-string.CompanyName=RampantEpsilon --version-string.ProductName=\"TGSN Staff HQ\" --asar",
     "package-win32": "electron-packager ./ tgsnstaffhq --overwrite --platform=win32 --arch=ia32 --icon=logo.ico --out=build --version-string.CompanyName=RampantEpsilon --version-string.ProductName=\"TGSN Staff HQ\" --asar",
@@ -13,6 +13,6 @@
   "author": "Tom \"RampantEpsilon\" Ware",
   "license": "ISC",
   "devDependencies": {
-    "electron": "^12.0.7"
+    "electron": "^11.1.1"
   }
 }
