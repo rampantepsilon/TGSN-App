@@ -22,6 +22,7 @@ const changelogOptions = {
     message: 'Changes in TGSN Staff HQ v0.0.2-alpha',
     detail: `
   - Fixed issue where Network Admins wouldn't see the Refresh Button
+  - Fixed issue where Refresh button wouldn't reappear after logging out
   - Fixed issue where the app would force close when trying to open some links
   - Stability updates
 
