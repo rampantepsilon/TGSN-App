@@ -24,6 +24,8 @@ const changelogOptions = {
   - Fixed issue where Network Admins wouldn't see the Refresh Button
   - Fixed issue where Refresh button wouldn't reappear after logging out
   - Fixed issue where the app would force close when trying to open some links
+  - Added Schedule Editor (Should be fully functioning)
+  - Added framework for the Show Resources Editor
   - Stability updates
 
   Next Update

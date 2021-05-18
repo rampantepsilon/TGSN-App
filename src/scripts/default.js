@@ -9,6 +9,9 @@ var webview = [
     "./schedule/index.html",
     "Schedule"
   ],[
+    './shows/index.html',
+    'Show Resources'
+  ],[
     "https://dashboard.twitch.tv/u/thegamingsaloonnetwork/stream-manager",
     "Twitch Dashboard"
   ],[
@@ -32,6 +35,9 @@ var adminView = [
   ],[
     "./schedule/admin.html",
     "Schedule"
+  ],[
+    './shows/index.html',
+    'Show Resources'
   ],[
     "https://dashboard.twitch.tv/u/thegamingsaloonnetwork/stream-manager",
     "Twitch Dashboard"
