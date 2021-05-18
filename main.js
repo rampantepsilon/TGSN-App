@@ -23,6 +23,7 @@ const changelogOptions = {
     detail: `
   - Fixed issue where Network Admins wouldn't see the Refresh Button
   - Fixed issue where the app would force close when trying to open some links
+  - Stability updates
 
   Next Update
   - Add Show Notes (TGS, TGSR, TVS)

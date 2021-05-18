@@ -61,6 +61,8 @@ function init(){
     var content = document.getElementById('content');
     var buttons = document.getElementById('buttons');
     var uName = document.getElementById('uNameStatic');
+    content.innerHTML = '';
+    buttons.innerHTML = `<td align='center' id='buttonRefresh' style='border-style: outset; border-radius: 25% 25% 25% 25%; background-color: lightblue; color: black; width: 50px; height: 50px;' onclick="refresh()"><img src='./images/refresh.png' width='40px' height='40px'></td>`;
 
     //Add Saved Links
     for (j = 1; j < (webview.length + 1); j++){
