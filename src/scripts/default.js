@@ -6,6 +6,9 @@ var webview = [
     "./releases/index.html",
     "Releases"
   ],[
+    "./schedule/index.html",
+    "Schedule"
+  ],[
     "https://dashboard.twitch.tv/u/thegamingsaloonnetwork/stream-manager",
     "Twitch Dashboard"
   ],[
@@ -26,6 +29,9 @@ var adminView = [
   ],[
     "./releases/index.html",
     "Releases"
+  ],[
+    "./schedule/admin.html",
+    "Schedule"
   ],[
     "https://dashboard.twitch.tv/u/thegamingsaloonnetwork/stream-manager",
     "Twitch Dashboard"
