@@ -181,7 +181,7 @@ function loadSchedule(){
       $("#ud8Schedule").click();
     }
   });
-  
+
   setTimeout(`highlightToday();`,1700);
 }
 //Highlight Today
@@ -382,3 +382,50 @@ function updateSchedule(){
 
   document.getElementById('myModal').style.display = 'none';
 }
+//for highlightToday()
+var launch = 0;
+function clock() {
+    var hours = document.getElementById("hours");
+    var minutes = document.getElementById("minutes");
+    var seconds = document.getElementById("seconds");
+    var phase = document.getElementById("phase");
+
+    if (launch == 0){
+      var d = new Date();
+      var month = (d.getMonth() + 1);
+      var date = d.getDate();
+      var year = d.getFullYear();
+      var fullDate = month + '/' + date + '/' + year;
+      document.getElementById('date').innerHTML = fullDate;
+      launch = 1;
+    }
+
+    var h = new Date().getHours();
+    var m = new Date().getMinutes();
+    var s = new Date().getSeconds();
+    var am = "AM";
+
+    if (h > 12) {
+        h = h - 12;
+        var am = "PM";
+    }
+    if (h == 0){
+      highlightToday();
+      var d = new Date();
+      var month = (d.getMonth() + 1);
+      var date = d.getDate();
+      var year = d.getFullYear();
+      var fullDate = month + '/' + date + '/' + year;
+      document.getElementById('date').innerHTML = fullDate;
+    }
+
+    h = h < 10 ? "0" + h : h;
+    m = m < 10 ? "0" + m : m;
+    s = s < 10 ? "0" + s : s;
+
+    hours.innerHTML = h;
+    minutes.innerHTML = m;
+    seconds.innerHTML = s;
+    phase.innerHTML = am;
+}
+var interval = setInterval(clock, 1000);

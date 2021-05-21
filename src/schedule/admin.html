@@ -26,7 +26,7 @@
           body{
             background-color: rgba(255,255,255,0.5)
           }
-          td, h1{
+          td, h1, #clock{
             font-family: Sancreek;
           }
           #board{
@@ -136,6 +136,15 @@
           </td>
         </tr>
       </table>
+      <div id="clock" style='position: fixed; bottom:0; left: 0;'>
+        <div id="time">
+          <div>
+            <span id='date'></span>
+            <span id="hours">00</span>:<span id="minutes">00</span>:<span id="seconds">00</span>
+            <span id="phase">AM</span>
+          </div>
+        </div>
+      </div>
     </body>
     <!--Modal for Schedule-->
     <div id="myModal" class="modal">
