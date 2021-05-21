@@ -94,7 +94,7 @@ function init(){
       document.getElementById('uNameStatic').innerHTML = sUser + `<br><button onclick='changePass()'>Change Password</button><button onclick='logout()'>Logout</button>`;
       document.getElementById('userPic').innerHTML = `<img src='` + sLogo + `' width='60px' height='60px' style='border-radius: 50% 50% 50% 50%;'>`
       document.getElementById('positionTag').innerHTML = sPosition + ` HQ`;
-      if (sPosition == 'Network Admin'){
+      if (sPosition == 'Network Admin' || sPosition == 'TGSN Coordinator'){
         adminInit();
       }
     } else {
@@ -194,7 +194,7 @@ function fLogin(){
             sessionStorage.setItem('username', userNames[j])
             sessionStorage.setItem('logo', users['logo'][j])
             sessionStorage.setItem('position', users['position'][j])
-            if (users['position'][j] == 'Network Admin'){
+            if (users['position'][j] == 'Network Admin' || sPosition == 'TGSN Coordinator'){
               adminInit();
             }
           }
@@ -290,7 +290,7 @@ function upd8Pass(){
 
 //Refresh Page
 function refresh(){
-  if (sessionStorage.getItem('position') == 'Network Admin'){
+  if (sessionStorage.getItem('position') == 'Network Admin' || sessionStorage.getItem('position') == 'TGSN Coordinator'){
     if (currentPage == (adminView.length + 1)){
         document.getElementById(currentPage).innerHTML = `<webview style='width:100%; height:100%' useragent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36" src='linkEditor.html'></webview>`
     } else {
