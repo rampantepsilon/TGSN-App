@@ -194,36 +194,43 @@ function highlightToday(){
   var hDay = d.getDay();
 
   if (hDay == 0){
+    document.getElementById('saturday').style.backgroundColor = '';
     if (fullDate == document.getElementById('suDate').innerHTML){
       document.getElementById('sunday').style.backgroundColor = 'gold';
     }
   }
   if (hDay == 1){
+    document.getElementById('sunday').style.backgroundColor = '';
     if (fullDate == document.getElementById('mDate').innerText){
       document.getElementById('monday').style.backgroundColor = 'gold';
     }
   }
   if (hDay == 2){
+    document.getElementById('monday').style.backgroundColor = '';
     if (fullDate == document.getElementById('tuDate').innerText){
       document.getElementById('tuesday').style.backgroundColor = 'gold';
     }
   }
   if (hDay == 3){
+    document.getElementById('tuesday').style.backgroundColor = '';
     if (fullDate == document.getElementById('wDate').innerText){
       document.getElementById('wednesday').style.backgroundColor = 'gold';
     }
   }
   if (hDay == 4){
+    document.getElementById('wednesday').style.backgroundColor = '';
     if (fullDate == document.getElementById('thDate').innerText){
       document.getElementById('thursday').style.backgroundColor = 'gold';
     }
   }
   if (hDay == 5){
+    document.getElementById('thursday').style.backgroundColor = '';
     if (fullDate == document.getElementById('fDate').innerText){
       document.getElementById('friday').style.backgroundColor = 'gold';
     }
   }
   if (hDay == 6){
+    document.getElementById('friday').style.backgroundColor = '';
     if (fullDate == document.getElementById('saDate').innerText){
       document.getElementById('saturday').style.backgroundColor = 'gold';
     }
@@ -384,6 +391,7 @@ function updateSchedule(){
 }
 //for highlightToday()
 var launch = 0;
+var initCheck = 0;
 function clock() {
     var hours = document.getElementById("hours");
     var minutes = document.getElementById("minutes");
@@ -410,13 +418,21 @@ function clock() {
         var am = "PM";
     }
     if (h == 0){
-      highlightToday();
-      var d = new Date();
-      var month = (d.getMonth() + 1);
-      var date = d.getDate();
-      var year = d.getFullYear();
-      var fullDate = month + '/' + date + '/' + year;
-      document.getElementById('date').innerHTML = fullDate;
+      if (initCheck == 0){
+        highlightToday();
+        var d = new Date();
+        var month = (d.getMonth() + 1);
+        var date = d.getDate();
+        var year = d.getFullYear();
+        var fullDate = month + '/' + date + '/' + year;
+        document.getElementById('date').innerHTML = fullDate;
+        initCheck = 1;
+      }
+    }
+    if (h == 1){
+      if (initCheck == 1){
+        initCheck = 0;
+      }
     }
 
     h = h < 10 ? "0" + h : h;

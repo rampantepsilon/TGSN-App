@@ -21,12 +21,7 @@ const changelogOptions = {
     title: 'Changelog',
     message: 'Changes in TGSN Staff HQ v0.0.2-alpha',
     detail: `
-  - Fixed issue where Network Admins wouldn't see the Refresh Button
-  - Fixed issue where Refresh button wouldn't reappear after logging out
-  - Fixed issue where the app would force close when trying to open some links
-  - Added Schedule Editor (Should be fully functioning)
-  - Added framework for the Show Resources Editor
-  - Stability updates
+  - Added a clock to the schedules section to allow for the highlight method to change without refreshing the page.
 
   Next Update
   - Add Show Notes (TGS, TGSR, TVS)
