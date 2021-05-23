@@ -40,7 +40,7 @@ var adminView = [
     'Show Resources'
   ],[
     './users.html',
-    'Add/Remove User'
+    'User Management'
   ],[
     "https://dashboard.twitch.tv/u/thegamingsaloonnetwork/stream-manager",
     "Twitch Dashboard"

@@ -31,7 +31,33 @@
         </style>
     </head>
 
-    <body>
-      <h1>COMING SOON</h1>
+    <body onload="init()">
+      <table align='center' width='100%'>
+        <tr>
+          <td align='center' colspan="3">
+            <h2>User Management</h2>
+          </td>
+        </tr>
+        <tr>
+          <td id='userList' valign='top'>Current Users:
+          </td>
+          <td id='updateUser' valign='top' width='20%'><div align='center'>Update User:</div>
+            Username: <input id='uName' disabled><br>
+            Password: <input id='pWord' disabled><br>
+            Avatar (Must be URL): <input id='avatar' disabled><br>
+            Position: <select name='position' id='position' disabled>
+              <option id='0' value='Network Admin' disabled>Network Admin</option>
+              <option id='1' value='TGSN Coordinator'>TGSN Coordinator</option>
+              <option id='2' value='TVS Coordinator'>TVS Coordinator</option>
+              <option id='3' value='TGSN Staff'>TGSN Staff</option>
+              <option id='4' value='TVS Staff'>TVS Staff</option>
+              <option id='5' value='DR Staff'>DR Staff</option>
+            </select><br>
+            <button onclick="updateUser()">Update User</button><button onclick="clrUpdate()">Clear</button>
+          </td>
+          <td id='addremUser' valign='top' width='20%'>Add/Remove User:
+          </td>
+        </tr>
+      </table>
     </body>
 </html>

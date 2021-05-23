@@ -7,11 +7,11 @@ const fs = require('fs');
 
 //Information
 function title(){
-    var title = 'TGSN Staff HQ v0.0.3-alpha';
+    var title = 'TGSN Staff HQ v0.0.4-alpha';
     return title;
 }
 function buildNum(){
-    var build = '21.05.3';
+    var build = '21.05.4';
     return build;
 }
 const currentVer = app.getVersion(); //Version Variable
@@ -19,16 +19,19 @@ const changelogOptions = {
     type: 'info',
     buttons: ['Close'],
     title: 'Changelog',
-    message: 'Changes in TGSN Staff HQ v0.0.2-alpha',
+    message: 'Changes in TGSN Staff HQ v0.0.4-alpha',
     detail: `
   - Added a clock to the schedules section to allow for the highlight method to change without refreshing the page.
+  - Added start of User Management (Coordinator+)
+  - Fixed issue where entire app would refresh if user information was updated
+  - Added a text box asking if you want to close to tray when hitting close
+  - Removed minimize to tray
+  - Added method to change Avatar
 
   Next Update
   - Add Show Notes (TGS, TGSR, TVS)
   - Add Profile Editor/User Add
   - Add Recent Videos Editor
-  - Add Home Page/Discord
-  - Add Schedule Editor
 
   If you have any suggestions for the app, please reach out to me on Twitter @rampantepsilon or Discord (RampantEpsilon#7868).`
   }
@@ -176,10 +179,31 @@ function createWindow(){
 
     Menu.setApplicationMenu(menu);
 
-    mainWindow.on('minimize', function(event){
+    //Disabled Minimize to Tray Changed to Ask on close
+    //Will remove in future update
+    /*mainWindow.on('minimize', function(event){
         event.preventDefault();
         mainWindow.hide();
         event.returnValue = false;
+    })*/
+
+    mainWindow.on('close', function(event){
+      event.preventDefault();
+      dialog.showMessageBox(mainWindow, {
+        type: 'question',
+        buttons: ['Yes', 'No'],
+        defaultID: 1,
+        title: 'Minimize To Tray',
+        message: 'Do you wish to minimize this window to the tray?'
+      })
+        .then(result => {
+          if (result.response === 1){
+            mainWindow.destroy();
+            app.quit();
+          } else {
+            mainWindow.hide();
+          }
+        })
     })
 
     //Initialize Tray

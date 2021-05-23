@@ -42,7 +42,8 @@ function adminShowWin(num){
         for (i = 1; i < (adminView.length + 2); i++){
             $('#' + i).hide();
         }
-        $('#' + num).show()
+        $('#' + num).show();
+        sessionStorage.setItem('location', num);
         for (j = 1; j < (adminView.length + 1); j++){
             if (j != num){
                 document.getElementById('button' + j).style.backgroundColor = 'lightblue';
@@ -174,7 +175,7 @@ function fLogin(){
   const db = firebase.firestore();
   const login = db.collection('users').doc('logins')
 
-  login.onSnapshot(doc => {
+  login.get().then((doc) => {
     const users = doc.data();
     var userNames = users['formatNames'];
 
@@ -185,16 +186,16 @@ function fLogin(){
         document.getElementById('myModal').style.display = 'none';
 
         //Update User Fields
-        for (var j = 0; j < userNames.length; j++){
+        for (var j = 0; j < users.numUsers; j++){
           if (uName == userNames[j].toLowerCase()){
-            document.getElementById('uNameStatic').innerHTML = userNames[j] + `<br><button onclick='changePass()'>Change Password</button><button onclick='logout()'>Logout</button>`;
+            document.getElementById('uNameStatic').innerHTML = userNames[j] + `<br><button onclick='changePass()'>Update Information</button><button onclick='logout()'>Logout</button>`;
             document.getElementById('userPic').innerHTML = `<img src='` + users['logo'][j] + `' width='60px' height='60px' style='border-radius: 50% 50% 50% 50%;'>`;
             document.getElementById('positionTag').innerHTML = users['position'][j] + ` HQ`;
             //Set Storage
             sessionStorage.setItem('username', userNames[j])
             sessionStorage.setItem('logo', users['logo'][j])
             sessionStorage.setItem('position', users['position'][j])
-            if (users['position'][j] == 'Network Admin' || sPosition == 'TGSN Coordinator'){
+            if (users['position'][j] == 'Network Admin' || users['position'][j] == 'TGSN Coordinator' || users['position'][j] == 'TVS Coordinator'){
               adminInit();
             }
           }
@@ -217,11 +218,9 @@ function logout(){
   uName.innerHTML = `Not Signed In<br><button onclick='login()'>Login</button>`;
   document.getElementById('positionTag').innerHTML = `Staff HQ`;
   document.getElementById('userPic').innerHTML = '';
-  if (sPosition == 'Network Admin'){
-    document.getElementById('content').innerHTML = '';
-    document.getElementById('buttons').innerHTML = '';
-    init();
-  }
+  document.getElementById('content').innerHTML = '';
+  document.getElementById('buttons').innerHTML = '';
+  init();
 }
 function changePass(){
   var modal = document.getElementById('passModal');
@@ -230,6 +229,7 @@ function changePass(){
   var oldPass = document.getElementById('oldPass');
   var newPass = document.getElementById('newPass');
   var confirmPass = document.getElementById('confirmPass');
+  var newAvatar = document.getElementById('newAvatar');
   oldPass.onkeyup = function(){
     if (event.keyCode === 13){
       upd8Pass();
@@ -243,6 +243,11 @@ function changePass(){
   confirmPass.onkeyup = function(){
     if (event.keyCode === 13){
       upd8Pass();
+    }
+  }
+  newAvatar.onkeyup = function(){
+    if (event.keyCode === 13){
+      upd8Avatar();
     }
   }
 
@@ -284,6 +289,33 @@ function upd8Pass(){
       }
     } else {
       document.getElementById('passError').innerHTML = "New Password must be 6 characters or more.";
+    }
+  })
+}
+function upd8Avatar(){
+  var newAvatar = document.getElementById('newAvatar').value;
+  var user = sessionStorage.getItem('username').toLowerCase();
+  const app = firebase.app();
+  const db = firebase.firestore();
+  const login = db.collection('users').doc('logins')
+
+  login.onSnapshot(doc => {
+    const users = doc.data();
+
+    if (newAvatar){
+      for (var i = 0; i < users.numUsers; i++){
+        if (user == users.formatNames[i].toLowerCase()){
+          var index = "logo." + i;
+          document.getElementById('passError').innerHTML = "Avatar Updated. Refresh (F5) for changes to take place.";
+          setTimeout(function(){
+            login.update({
+              [index]: newAvatar
+            });
+            sessionStorage.setItem('logo', newAvatar);
+            document.getElementById('passModal').style.display = 'none';
+          }, 1000)
+        }
+      }
     }
   })
 }
