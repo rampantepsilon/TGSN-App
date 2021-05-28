@@ -149,3 +149,38 @@ function clrUpdate(){
   avatar.disabled = true;
   position.disabled = true;
 }
+
+function addUser(){
+  //Variables
+  var user = document.getElementById('uNameA').value;
+  var password = 'TGSN' + user;
+  var position = 'TGSN Staff';
+  var avatar = 'https://tgsnetwork.org/images/tgsn.jpg';
+
+  //Firebase variables
+  const app = firebase.app();
+  const db = firebase.firestore();
+  const login = db.collection('users').doc('logins');
+
+  login.get().then((doc) => {
+    const users = doc.data();
+    //Get Num of Users and +1
+    localStorage.setItem('numUsers', (parseInt(users.numUsers) + 1));
+
+  })
+
+  //Set other vars
+  var numUsers = localStorage.getItem('numUsers')
+  var lowerUser = user.toLowerCase();
+  var logo = 'logo.' + (parseInt(numUsers)-1);
+  var posit = 'position.' + (parseInt(numUsers)-1);
+  var format = 'formatNames.' + (parseInt(numUsers)-1);
+  console.log(logo, posit, format, lowerUser)
+  login.update({
+    [lowerUser]: password,
+    [format]: user,
+    [logo]: avatar,
+    [posit]: position,
+    numUsers: numUsers
+  })
+}

@@ -21,7 +21,9 @@ const changelogOptions = {
     title: 'Changelog',
     message: 'Changes in TGSN Staff HQ v0.0.5-alpha',
     detail: `
-  - 
+  - Added Ability to add users
+  - Modified it so that Network Admins can't have their information changed.
+  - Stability changes and backend changes
 
   Next Update
   - Add Show Notes (TGS, TGSR, TVS)
