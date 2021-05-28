@@ -81,32 +81,56 @@ function updateUser(){
   var position = document.getElementById('position').value;
 
   if (pWord){
-    alert("This will change the user's password. Please notify them of the change.");
-    login.update({
-      [uName]: pWord
-    })
+    if (uName == 'RampantEpsilon' || uName == 'peacemaker2448'){
+      if (sessionStorage.getItem('username') == 'RampantEpsilon' || sessionStorage.getItem('username') == 'peacemaker2448'){
+        //Intentionally Blank
+      } else {
+        alert("You are not allowed to edit this user.")
+      }
+    } else {
+      alert("This will change the user's password. Please notify them of the change.");
+      login.update({
+        [uName]: pWord
+      })
+    }
   }
   if (avatar){
-    var index;
-    for (var i = 0; i < logins.length; i++){
-      if (uName == logins[i]){
-        index = "logo." + i;
+    if (uName == 'RampantEpsilon' || uName == 'peacemaker2448'){
+      if (sessionStorage.getItem('username') == 'RampantEpsilon' || sessionStorage.getItem('username') == 'peacemaker2448'){
+        //Intentionally Blank
+      } else {
+        alert("You are not allowed to edit this user.")
       }
+    } else {
+      var index;
+      for (var i = 0; i < logins.length; i++){
+        if (uName == logins[i]){
+          index = "logo." + i;
+        }
+      }
+      login.update({
+        [index]: avatar
+      })
     }
-    login.update({
-      [index]: avatar
-    })
   }
   if (position){
-    var index;
-    for (var i = 0; i < logins.length; i++){
-      if (uName == logins[i]){
-        index = "position." + i;
+    if (uName == 'RampantEpsilon' || uName == 'peacemaker2448'){
+      if (sessionStorage.getItem('username') == 'RampantEpsilon' || sessionStorage.getItem('username') == 'peacemaker2448'){
+        //Intentionally Blank
+      } else {
+        alert("You are not allowed to edit this user.")
       }
+    } else {
+      var index;
+      for (var i = 0; i < logins.length; i++){
+        if (uName == logins[i]){
+          index = "position." + i;
+        }
+      }
+      login.update({
+        [index]: position
+      })
     }
-    login.update({
-      [index]: position
-    })
   }
   clrUpdate();
 }
