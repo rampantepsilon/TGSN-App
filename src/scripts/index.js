@@ -90,12 +90,24 @@ function init(){
     //Login Functions
     var sUser = sessionStorage.getItem('username');
     var sLogo = sessionStorage.getItem('logo');
+    const app = firebase.app();
+    const db = firebase.firestore();
+    const login = db.collection('users').doc('logins')
+    login.get().then((doc) => {
+      const users = doc.data();
+      var userNames = users['formatNames'];
+      for (var j = 0; j < users.numUsers; j++){
+        if (sUser.toLowerCase() == userNames[j].toLowerCase()){
+          sessionStorage.setItem('position', users['position'][j]);
+        }
+      }
+    });
     var sPosition = sessionStorage.getItem('position');
     if (sUser){
       document.getElementById('uNameStatic').innerHTML = sUser + `<br><button onclick='changePass()'>Change Password</button><button onclick='logout()'>Logout</button>`;
       document.getElementById('userPic').innerHTML = `<img src='` + sLogo + `' width='60px' height='60px' style='border-radius: 50% 50% 50% 50%;'>`
       document.getElementById('positionTag').innerHTML = sPosition + ` HQ`;
-      if (sPosition == 'Network Admin' || sPosition == 'TGSN Coordinator'){
+      if (sPosition == 'Network Admin' || sPosition == 'TGSN Coordinator' || sPosition == 'TVS Coordinator'){
         adminInit();
       }
     } else {
@@ -109,38 +121,47 @@ function adminInit(){
     content.innerHTML = '';
     buttons.innerHTML = `<td align='center' id='buttonRefresh' style='border-style: outset; border-radius: 25% 25% 25% 25%; background-color: lightblue; color: black; width: 50px; height: 50px;' onclick="refresh()"><img src='./images/refresh.png' width='40px' height='40px'></td>`;
 
-    //Add Saved Links
-    for (j = 1; j < (adminView.length + 1); j++){
-        var cell = content.insertCell(j - 1);
-        cell.innerHTML = `<webview style='width:100%; height:100%' useragent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36" allowpopups src='` + adminView[j - 1][0] + `'></webview>`;
-        cell.style.width = '100%';
-        cell.setAttribute('id', j);
-    }
-
-    for (k = 1; k < (adminView.length + 1); k++){
-        if (k == 1){
-            buttons.innerHTML += `<td align='center' id='button` + k + `' style='border-style: outset; border-radius: 25% 25% 25% 25%; background-color: blue; color: white; width: 90px; height: 50px;' onclick="adminShowWin('` + k + `')">` + adminView[k - 1][1] + `</td>`
-        } else {
-            buttons.innerHTML += `<td align='center' id='button` + k + `' style='border-style: outset; border-radius: 25% 25% 25% 25%; background-color: lightblue; width: 90px; height: 50px;' onclick="adminShowWin('` + k + `')">` + adminView[k - 1][1] + `</td>`
-        }
-    }
-
-    for (i = 1; i < (adminView.length + 1); i++){
-        if (i != 1){
-            $('#' + i).hide();
-        }
-    }
-
     //Login Functions
     var sUser = sessionStorage.getItem('username');
     var sLogo = sessionStorage.getItem('logo');
     var sPosition = sessionStorage.getItem('position');
+
     if (sUser){
       document.getElementById('uNameStatic').innerHTML = sUser + `<br><button onclick='changePass()'>Change Password</button><button onclick='logout()'>Logout</button>`;
       document.getElementById('userPic').innerHTML = `<img src='` + sLogo + `' width='60px' height='60px' style='border-radius: 50% 50% 50% 50%;'>`
       document.getElementById('positionTag').innerHTML = sPosition + ` HQ`;
     } else {
       uName.innerHTML = `Not Signed In<br><button onclick='login()'>Login</button>`
+    }
+
+    //Set correct view for links
+    var view;
+    if (sPosition == 'Network Admin'){
+      view = adminView;
+    } else if (sPosition == 'TGSN Coordinator' || sPosition == 'TVS Coordinator'){
+      view = coordView
+    }
+
+    //Add Saved Links
+    for (j = 1; j < (view.length + 1); j++){
+        var cell = content.insertCell(j - 1);
+        cell.innerHTML = `<webview style='width:100%; height:100%' useragent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36" allowpopups src='` + view[j - 1][0] + `'></webview>`;
+        cell.style.width = '100%';
+        cell.setAttribute('id', j);
+    }
+
+    for (k = 1; k < (view.length + 1); k++){
+        if (k == 1){
+            buttons.innerHTML += `<td align='center' id='button` + k + `' style='border-style: outset; border-radius: 25% 25% 25% 25%; background-color: blue; color: white; width: 90px; height: 50px;' onclick="adminShowWin('` + k + `')">` + view[k - 1][1] + `</td>`
+        } else {
+            buttons.innerHTML += `<td align='center' id='button` + k + `' style='border-style: outset; border-radius: 25% 25% 25% 25%; background-color: lightblue; width: 90px; height: 50px;' onclick="adminShowWin('` + k + `')">` + view[k - 1][1] + `</td>`
+        }
+    }
+
+    for (i = 1; i < (view.length + 1); i++){
+        if (i != 1){
+            $('#' + i).hide();
+        }
     }
 }
 
@@ -322,11 +343,30 @@ function upd8Avatar(){
 
 //Refresh Page
 function refresh(){
-  if (sessionStorage.getItem('position') == 'Network Admin' || sessionStorage.getItem('position') == 'TGSN Coordinator'){
+  const app = firebase.app();
+  const db = firebase.firestore();
+  const login = db.collection('users').doc('logins')
+  var sUser = sessionStorage.getItem('username')
+  login.get().then((doc) => {
+    const users = doc.data();
+    var userNames = users['formatNames'];
+    for (var j = 0; j < users.numUsers; j++){
+      if (sUser.toLowerCase() == userNames[j].toLowerCase()){
+        sessionStorage.setItem('position', users['position'][j]);
+      }
+    }
+  });
+  if (sessionStorage.getItem('position') == 'Network Admin'){
     if (currentPage == (adminView.length + 1)){
         document.getElementById(currentPage).innerHTML = `<webview style='width:100%; height:100%' useragent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36" src='linkEditor.html'></webview>`
     } else {
         document.getElementById(currentPage).innerHTML = `<webview style='width:100%; height:100%' useragent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36" allowpopups src='` + adminView[parseInt(currentPage - 1)][0] + `'></webview>`;
+    }
+  } else if (sessionStorage.getItem('position') == 'TVS Coordinator' || sessionStorage.getItem('position') == 'TGSN Coordinator'){
+    if (currentPage == (coordView.length + 1)){
+        document.getElementById(currentPage).innerHTML = `<webview style='width:100%; height:100%' useragent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36" src='linkEditor.html'></webview>`
+    } else {
+        document.getElementById(currentPage).innerHTML = `<webview style='width:100%; height:100%' useragent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36" allowpopups src='` + coordView[parseInt(currentPage - 1)][0] + `'></webview>`;
     }
   } else {
     if (currentPage == (webview.length + 1)){

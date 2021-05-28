@@ -1,0 +1,62 @@
+<html>
+    <head>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src='./users.js'></script>
+        <link href="https://fonts.googleapis.com/css?family=Raleway:600|Sancreek&display=swap" rel="stylesheet">
+        <!-- The core Firebase JS SDK is always required and must be listed first -->
+        <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-app.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-firestore.js"></script>
+
+        <script>
+          // Your web app's Firebase configuration
+          var firebaseConfig = {
+            apiKey: "AIzaSyBAF1jevSp8_E5Okk9z6sMi-t4eRS4N9DE",
+            authDomain: "tgsn-site-v7.firebaseapp.com",
+            databaseURL: "https://tgsn-site-v7.firebaseio.com",
+            projectId: "tgsn-site-v7",
+            storageBucket: "tgsn-site-v7.appspot.com",
+            messagingSenderId: "565689666494",
+            appId: "1:565689666494:web:fc488b17f5018f569547ef"
+          };
+          // Initialize Firebase
+          firebase.initializeApp(firebaseConfig);
+        </script>
+        <style>
+          body{
+            font-family: Sancreek;
+            text-align: center;
+            background-color: rgba(255,255,255,0.75);
+          }
+        </style>
+    </head>
+
+    <body onload="init()">
+      <table align='center' width='100%'>
+        <tr>
+          <td align='center' colspan="3">
+            <h2>User Management</h2>
+          </td>
+        </tr>
+        <tr>
+          <td id='userList' valign='top'>Current Users:
+          </td>
+          <td id='updateUser' valign='top' width='20%'><div align='center'>Update User:</div>
+            Username: <input id='uName' disabled><br>
+            Password: <input id='pWord' disabled><br>
+            Avatar (Must be URL): <input id='avatar' disabled><br>
+            Position: <select name='position' id='position' disabled>
+              <option id='0' value='Network Admin' disabled>Network Admin</option>
+              <option id='1' value='TGSN Coordinator'>TGSN Coordinator</option>
+              <option id='2' value='TVS Coordinator'>TVS Coordinator</option>
+              <option id='3' value='TGSN Staff'>TGSN Staff</option>
+              <option id='4' value='TVS Staff'>TVS Staff</option>
+              <option id='5' value='DR Staff'>DR Staff</option>
+            </select><br>
+            <button onclick="updateUser()">Update User</button><button onclick="clrUpdate()">Clear</button>
+          </td>
+          <td id='addremUser' valign='top' width='20%'>Add/Remove User:
+          </td>
+        </tr>
+      </table>
+    </body>
+</html>

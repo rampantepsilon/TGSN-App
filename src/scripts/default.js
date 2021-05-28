@@ -39,7 +39,37 @@ var adminView = [
     './shows/index.html',
     'Show Resources'
   ],[
-    './users.html',
+    './users/index.html',
+    'User Management'
+  ],[
+    "https://dashboard.twitch.tv/u/thegamingsaloonnetwork/stream-manager",
+    "Twitch Dashboard"
+  ],[
+    'https://tgsnetwork.org',
+    'TGSN Site'
+  ],[
+    'https://tgsnetwork.org/chat',
+    'Standalone Chat'
+  ],[
+    'https://discord.com/channels/@me',
+    'Discord'
+  ]
+]
+var coordView = [
+  [
+    "./messages/admin.html",
+    'Message Board'
+  ],[
+    "./releases/index.html",
+    "Releases"
+  ],[
+    "./schedule/admin.html",
+    "Schedule"
+  ],[
+    './shows/index.html',
+    'Show Resources'
+  ],[
+    './users/coord.html',
     'User Management'
   ],[
     "https://dashboard.twitch.tv/u/thegamingsaloonnetwork/stream-manager",

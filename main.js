@@ -7,11 +7,11 @@ const fs = require('fs');
 
 //Information
 function title(){
-    var title = 'TGSN Staff HQ v0.0.4-alpha';
+    var title = 'TGSN Staff HQ v0.0.5-alpha';
     return title;
 }
 function buildNum(){
-    var build = '21.05.4';
+    var build = '21.05.5';
     return build;
 }
 const currentVer = app.getVersion(); //Version Variable
@@ -19,14 +19,9 @@ const changelogOptions = {
     type: 'info',
     buttons: ['Close'],
     title: 'Changelog',
-    message: 'Changes in TGSN Staff HQ v0.0.4-alpha',
+    message: 'Changes in TGSN Staff HQ v0.0.5-alpha',
     detail: `
-  - Added a clock to the schedules section to allow for the highlight method to change without refreshing the page.
-  - Added start of User Management (Coordinator+)
-  - Fixed issue where entire app would refresh if user information was updated
-  - Added a text box asking if you want to close to tray when hitting close
-  - Removed minimize to tray
-  - Added method to change Avatar
+  - 
 
   Next Update
   - Add Show Notes (TGS, TGSR, TVS)
