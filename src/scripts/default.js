@@ -36,7 +36,7 @@ var adminView = [
     "./schedule/admin.html",
     "Schedule"
   ],[
-    './shows/index.html',
+    './shows/admin.html',
     'Show Resources'
   ],[
     './users/index.html',
@@ -66,7 +66,7 @@ var coordView = [
     "./schedule/admin.html",
     "Schedule"
   ],[
-    './shows/index.html',
+    './shows/admin.html',
     'Show Resources'
   ],[
     './users/coord.html',

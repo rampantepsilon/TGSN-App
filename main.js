@@ -24,6 +24,7 @@ const changelogOptions = {
   - Added Ability to add users
   - Modified it so that Network Admins can't have their information changed.
   - Stability changes and backend changes
+  - Added Framework for Show Resources (TGS [Complete], TGSR & TVS [Pending Rework])
 
   Next Update
   - Add Show Notes (TGS, TGSR, TVS)
@@ -175,14 +176,6 @@ function createWindow(){
     mainWindow.loadFile('src/index.html');
 
     Menu.setApplicationMenu(menu);
-
-    //Disabled Minimize to Tray Changed to Ask on close
-    //Will remove in future update
-    /*mainWindow.on('minimize', function(event){
-        event.preventDefault();
-        mainWindow.hide();
-        event.returnValue = false;
-    })*/
 
     mainWindow.on('close', function(event){
       event.preventDefault();
