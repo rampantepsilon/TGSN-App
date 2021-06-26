@@ -1,14 +1,15 @@
 //Variables
 let currentPage = 1;
 var defaultScript;
+let chatShown = 1;
 
 //Redirect Function
 function showWin(num){
     if (num == 'edit'){
         for (i = 1; i < (webview.length + 1); i++){
             $('#' + i).hide();
-            document.getElementById('button'+i).style.backgroundColor = 'lightblue';
-            document.getElementById('button'+i).style.color = 'black';
+            document.getElementById('button'+i).style.backgroundColor = 'orange';
+            document.getElementById('button'+i).style.color = '#333';
         }
         $('#' + (webview.length+1)).show()
         currentPage = webview.length + 1;
@@ -19,22 +20,26 @@ function showWin(num){
         $('#' + num).show()
         for (j = 1; j < (webview.length + 1); j++){
             if (j != num){
-                document.getElementById('button' + j).style.backgroundColor = 'lightblue';
-                document.getElementById('button' + j).style.color = 'black';
+                document.getElementById('button' + j).style.backgroundColor = '#333';
+                document.getElementById('button' + j).style.color = 'orange';
             } else {
-                document.getElementById('button' + num).style.backgroundColor = 'blue';
-                document.getElementById('button' + num).style.color = 'white';
+                document.getElementById('button' + num).style.backgroundColor = 'orange';
+                document.getElementById('button' + num).style.color = '#333';
             }
         }
         currentPage = num;
+    }
+
+    if (currentPage == "4"){
+      refresh();
     }
 }
 function adminShowWin(num){
     if (num == 'edit'){
         for (i = 1; i < (adminView.length + 1); i++){
             $('#' + i).hide();
-            document.getElementById('button'+i).style.backgroundColor = 'lightblue';
-            document.getElementById('button'+i).style.color = 'black';
+            document.getElementById('button'+i).style.backgroundColor = 'orange';
+            document.getElementById('button'+i).style.color = '#333';
         }
         $('#' + (adminView.length+1)).show()
         currentPage = adminView.length + 1;
@@ -46,15 +51,29 @@ function adminShowWin(num){
         sessionStorage.setItem('location', num);
         for (j = 1; j < (adminView.length + 1); j++){
             if (j != num){
-                document.getElementById('button' + j).style.backgroundColor = 'lightblue';
-                document.getElementById('button' + j).style.color = 'black';
+                document.getElementById('button' + j).style.backgroundColor = '#333';
+                document.getElementById('button' + j).style.color = 'orange';
             } else {
-                document.getElementById('button' + num).style.backgroundColor = 'blue';
-                document.getElementById('button' + num).style.color = 'white';
+                document.getElementById('button' + num).style.backgroundColor = 'orange';
+                document.getElementById('button' + num).style.color = '#333';
             }
         }
         currentPage = num;
     }
+
+    if (currentPage == "4"){
+      refresh();
+    }
+}
+
+function showChat(){
+  if (chatShown == 1){
+    $('#chat').hide();
+    chatShown = 2;
+  } else {
+    $('#chat').show();
+    chatShown = 1;
+  }
 }
 
 //Hide All Windows Except the main on load
@@ -63,28 +82,39 @@ function init(){
     var buttons = document.getElementById('buttons');
     var uName = document.getElementById('uNameStatic');
     content.innerHTML = '';
-    buttons.innerHTML = `<td align='center' id='buttonRefresh' style='border-style: outset; border-radius: 25% 25% 25% 25%; background-color: lightblue; color: black; width: 50px; height: 50px;' onclick="refresh()"><img src='./images/refresh.png' width='40px' height='40px'></td>`;
+    buttons.innerHTML = `<td align='center' id='buttonRefresh' style='border-style: outset; border-radius: 25% 25% 25% 25%; background-color: orange; color: #333; width: 50px; height: 50px;' onclick="refresh()"><img src='./images/refresh.png' width='40px' height='40px'></td>`;
 
     //Add Saved Links
     for (j = 1; j < (webview.length + 1); j++){
         var cell = content.insertCell(j - 1);
-        cell.innerHTML = `<webview style='width:100%; height:100%' useragent="Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:86.0) Gecko/20100101 Firefox/86.0" src='` + webview[j - 1][0] + `'></webview>`;
-        cell.style.width = '100%';
+        cell.innerHTML = `<webview style='height:100%' useragent="Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:86.0) Gecko/20100101 Firefox/86.0" src='` + webview[j - 1][0] + `'></webview>`;
+        cell.style.width = '80%';
         cell.setAttribute('id', j);
     }
 
     for (k = 1; k < (webview.length + 1); k++){
         if (k == 1){
-            buttons.innerHTML += `<td align='center' id='button` + k + `' style='border-style: outset; border-radius: 25% 25% 25% 25%; background-color: blue; color: white; width: 90px; height: 50px;' onclick="showWin('` + k + `')">` + webview[k - 1][1] + `</td>`
+            buttons.innerHTML += `<td align='center' id='button` + k + `' style='border-style: outset; border-radius: 25% 25% 25% 25%; background-color: orange; color: #333; width: 90px; height: 50px;' onclick="showWin('` + k + `')">` + webview[k - 1][1] + `</td>`
         } else {
-            buttons.innerHTML += `<td align='center' id='button` + k + `' style='border-style: outset; border-radius: 25% 25% 25% 25%; background-color: lightblue; width: 90px; height: 50px;' onclick="showWin('` + k + `')">` + webview[k - 1][1] + `</td>`
+            buttons.innerHTML += `<td align='center' id='button` + k + `' style='border-style: outset; border-radius: 25% 25% 25% 25%; background-color: #333; color: orange; width: 90px; height: 50px;' onclick="showWin('` + k + `')">` + webview[k - 1][1] + `</td>`
         }
     }
+
+    var cell = content.insertCell(j - 1);
+    cell.innerHTML = `<webview style='height:100%' useragent="Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:86.0) Gecko/20100101 Firefox/86.0" src='chat/index.html'></webview>`;
+    cell.style.width = '20%';
+    cell.setAttribute('id', 'chat');
+
+    buttons.innerHTML += `<td align='center' style='font-size: 40px; line-height: 10px'> | </td>`;
+    buttons.innerHTML += `<td align='center' id='buttonChat' style='border-style: outset; border-radius: 25% 25% 25% 25%; background-color: #333; color: orange; width: 90px; height: 50px;' onclick="showChat()">Show/Hide Chat</td>`
 
     for (i = 1; i < (webview.length + 1); i++){
         if (i != 1){
             $('#' + i).hide();
         }
+    }
+    if (chatShown == 1){
+      $('#chat').show();
     }
 
     //Login Functions
@@ -119,7 +149,7 @@ function adminInit(){
     var buttons = document.getElementById('buttons');
     var uName = document.getElementById('uNameStatic');
     content.innerHTML = '';
-    buttons.innerHTML = `<td align='center' id='buttonRefresh' style='border-style: outset; border-radius: 25% 25% 25% 25%; background-color: lightblue; color: black; width: 50px; height: 50px;' onclick="refresh()"><img src='./images/refresh.png' width='40px' height='40px'></td>`;
+    buttons.innerHTML = `<td align='center' id='buttonRefresh' style='border-style: outset; border-radius: 25% 25% 25% 25%; background-color: orange; color: #333; width: 50px; height: 50px;' onclick="refresh()"><img src='./images/refresh.png' width='40px' height='40px'></td>`;
 
     //Login Functions
     var sUser = sessionStorage.getItem('username');
@@ -145,23 +175,37 @@ function adminInit(){
     //Add Saved Links
     for (j = 1; j < (view.length + 1); j++){
         var cell = content.insertCell(j - 1);
-        cell.innerHTML = `<webview style='width:100%; height:100%' useragent="Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:86.0) Gecko/20100101 Firefox/86.0" src='` + view[j - 1][0] + `'></webview>`;
-        cell.style.width = '100%';
+        cell.innerHTML = `<webview style='height:100%' useragent="Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:86.0) Gecko/20100101 Firefox/86.0" src='` + view[j - 1][0] + `'></webview>`;
+        cell.style.width = '80%';
         cell.setAttribute('id', j);
     }
 
     for (k = 1; k < (view.length + 1); k++){
         if (k == 1){
-            buttons.innerHTML += `<td align='center' id='button` + k + `' style='border-style: outset; border-radius: 25% 25% 25% 25%; background-color: blue; color: white; width: 90px; height: 50px;' onclick="adminShowWin('` + k + `')">` + view[k - 1][1] + `</td>`
+            buttons.innerHTML += `<td align='center' id='button` + k + `' style='border-style: outset; border-radius: 25% 25% 25% 25%; background-color: orange; color: #333; width: 90px; height: 50px;' onclick="adminShowWin('` + k + `')">` + view[k - 1][1] + `</td>`
         } else {
-            buttons.innerHTML += `<td align='center' id='button` + k + `' style='border-style: outset; border-radius: 25% 25% 25% 25%; background-color: lightblue; width: 90px; height: 50px;' onclick="adminShowWin('` + k + `')">` + view[k - 1][1] + `</td>`
+          if (k == 8){
+            buttons.innerHTML += `<td align='center' style='font-size: 40px;'> | </td>`
+          }
+          buttons.innerHTML += `<td align='center' id='button` + k + `' style='border-style: outset; border-radius: 25% 25% 25% 25%; background-color: #333; color: orange; width: 90px; height: 50px;' onclick="adminShowWin('` + k + `')">` + view[k - 1][1] + `</td>`
         }
     }
+
+    var cell = content.insertCell(j - 1);
+    cell.innerHTML = `<webview style='height:100%' useragent="Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:86.0) Gecko/20100101 Firefox/86.0" src='./chat/index.html'></webview>`;
+    cell.style.width = '20%';
+    cell.setAttribute('id', 'chat');
+
+    buttons.innerHTML += `<td align='center' style='font-size: 40px;'> | </td>`;
+    buttons.innerHTML += `<td align='center' id='buttonChat' style='border-style: outset; border-radius: 25% 25% 25% 25%; background-color: #333; color: orange; width: 90px; height: 50px;' onclick="showChat()">Show/Hide Chat</td>`
 
     for (i = 1; i < (view.length + 1); i++){
         if (i != 1){
             $('#' + i).hide();
         }
+    }
+    if (chatShown == 1){
+      $('#chat').show();
     }
 }
 
@@ -218,6 +262,7 @@ function fLogin(){
             sessionStorage.setItem('position', users['position'][j])
             if (users['position'][j] == 'Network Admin' || users['position'][j] == 'TGSN Coordinator' || users['position'][j] == 'TVS Coordinator'){
               adminInit();
+              adminShowWin(currentPage);
             }
           }
         }
@@ -361,22 +406,10 @@ function refresh(){
     }
   });
   if (sessionStorage.getItem('position') == 'Network Admin'){
-    if (currentPage == (adminView.length + 1)){
-        document.getElementById(currentPage).innerHTML = `<webview style='width:100%; height:100%' useragent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36" src='linkEditor.html'></webview>`
-    } else {
-        document.getElementById(currentPage).innerHTML = `<webview style='width:100%; height:100%' useragent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36" allowpopups src='` + adminView[parseInt(currentPage - 1)][0] + `'></webview>`;
-    }
+    document.getElementById(currentPage).innerHTML = `<webview style='width:100%; height:100%' useragent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36" allowpopups src='` + adminView[parseInt(currentPage - 1)][0] + `'></webview>`;
   } else if (sessionStorage.getItem('position') == 'TVS Coordinator' || sessionStorage.getItem('position') == 'TGSN Coordinator'){
-    if (currentPage == (coordView.length + 1)){
-        document.getElementById(currentPage).innerHTML = `<webview style='width:100%; height:100%' useragent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36" src='linkEditor.html'></webview>`
-    } else {
-        document.getElementById(currentPage).innerHTML = `<webview style='width:100%; height:100%' useragent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36" allowpopups src='` + coordView[parseInt(currentPage - 1)][0] + `'></webview>`;
-    }
+    document.getElementById(currentPage).innerHTML = `<webview style='width:100%; height:100%' useragent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36" allowpopups src='` + coordView[parseInt(currentPage - 1)][0] + `'></webview>`;
   } else {
-    if (currentPage == (webview.length + 1)){
-        document.getElementById(currentPage).innerHTML = `<webview style='width:100%; height:100%' useragent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36" src='linkEditor.html'></webview>`
-    } else {
-        document.getElementById(currentPage).innerHTML = `<webview style='width:100%; height:100%' useragent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36" allowpopups src='` + webview[parseInt(currentPage - 1)][0] + `'></webview>`;
-    }
+    document.getElementById(currentPage).innerHTML = `<webview style='width:100%; height:100%' useragent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36" allowpopups src='` + webview[parseInt(currentPage - 1)][0] + `'></webview>`;
   }
 }

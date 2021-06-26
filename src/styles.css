@@ -24,17 +24,17 @@ html, body, #main {
 
 /* Track */
 ::-webkit-scrollbar-track {
-  background: lightblue;
+  background: #333;
 }
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: blue;
+  background: orange;
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-  background: darkblue;
+  background: darkorange;
 }
 
 /* The Modal (background) */

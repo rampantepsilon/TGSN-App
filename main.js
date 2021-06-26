@@ -23,6 +23,9 @@ const changelogOptions = {
     detail: `
   - Added Profile Update functionality
   - Changed methods for handling passwords to improve security
+  - Fixed issue where TGS Articles wouldn't load when initially going to Show Resources
+  - Moved Standalone Chat from a separate listing to a toggleable side panel (Saving status will be in a later update)
+  - Reordered Admin Buttons
   - Stability changes and backend changes
 
   Next Update

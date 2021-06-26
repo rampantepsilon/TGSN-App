@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+    <style>
+      html, body{
+        background-color: rgba(0,0,0,0);
+        font-family: 'Sancreek', cursive;
+      }
+      #test{
+        position: absolute;
+        bottom: 0px;
+        width: 96%;
+      }
+      .uname{
+        position: relative;
+				font-size: 18px;
+        top:20px;
+        text-transform: uppercase;
+        color: orange;
+      }
+      .msg{
+        position: relative;
+				font-size: 12px;
+        bottom: 20px;
+        background-color: black;
+        color: white;
+        padding: 25px 50px 25px 75px;
+        border-right-style: solid;
+        border-width: 10px;
+        border-color: orange;
+				border: 3px solid orange;
+        z-index: -1;
+      }
+      .img{
+        position: relative;
+        top: 40px;
+        padding-left: 15px;
+      }
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Sancreek&display=swap" rel="stylesheet">
+  </head>
+	<body>
+        <!--[IF IE]><!-->
+        <script src="https://cdn.polyfill.io/v2/polyfill.min.js"></script>
+        <!--<![endif]-->
+        <script src="tmi.js"></script>
+        <script src="example.js"></script>
+        <div id='test'></div>
+	</body>
+</html>

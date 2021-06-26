@@ -12,17 +12,14 @@ var webview = [
     './shows/index.html',
     'Show Resources'
   ],[
-    "https://dashboard.twitch.tv/u/thegamingsaloonnetwork/stream-manager",
-    "Twitch Dashboard"
-  ],[
     'https://tgsnetwork.org',
     'TGSN Site'
   ],[
-    'https://tgsnetwork.org/chat',
-    'Standalone Chat'
-  ],[
     'https://discord.com/channels/@me',
     'Discord'
+  ],[
+    "https://dashboard.twitch.tv/u/thegamingsaloonnetwork/stream-manager",
+    "Twitch Dashboard"
   ]
 ]
 var adminView = [
@@ -39,20 +36,17 @@ var adminView = [
     './shows/admin.html',
     'Show Resources'
   ],[
-    './users/index.html',
-    'User Management'
+    'https://tgsnetwork.org',
+    'TGSN Site'
+  ],[
+    'https://discord.com/channels/@me',
+    'Discord'
   ],[
     "https://dashboard.twitch.tv/u/thegamingsaloonnetwork/stream-manager",
     "Twitch Dashboard"
   ],[
-    'https://tgsnetwork.org',
-    'TGSN Site'
-  ],[
-    'https://tgsnetwork.org/chat',
-    'Standalone Chat'
-  ],[
-    'https://discord.com/channels/@me',
-    'Discord'
+    './users/index.html',
+    'User Management'
   ]
 ]
 var coordView = [
@@ -69,19 +63,16 @@ var coordView = [
     './shows/admin.html',
     'Show Resources'
   ],[
-    './users/coord.html',
-    'User Management'
+    'https://tgsnetwork.org',
+    'TGSN Site'
+  ],[
+    'https://discord.com/channels/@me',
+    'Discord'
   ],[
     "https://dashboard.twitch.tv/u/thegamingsaloonnetwork/stream-manager",
     "Twitch Dashboard"
   ],[
-    'https://tgsnetwork.org',
-    'TGSN Site'
-  ],[
-    'https://tgsnetwork.org/chat',
-    'Standalone Chat'
-  ],[
-    'https://discord.com/channels/@me',
-    'Discord'
+    './users/coord.html',
+    'User Management'
   ]
 ]

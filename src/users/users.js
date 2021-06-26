@@ -76,32 +76,51 @@ function updateUser(){
 
   //Set up fields
   var uName = document.getElementById('uName').value;
-  var pWord = document.getElementById('pWord').value;
+  var pWord = calcMD5(document.getElementById('pWord').value);
   var avatar = document.getElementById('avatar').value;
   var position = document.getElementById('position').value;
 
-  if (pWord){
-    if (uName == 'RampantEpsilon' || uName == 'peacemaker2448'){
-      if (sessionStorage.getItem('username') == 'RampantEpsilon' || sessionStorage.getItem('username') == 'peacemaker2448'){
-        //Intentionally Blank
-      } else {
-        alert("You are not allowed to edit this user.")
+  if (uName == 'rampantepsilon' || uName == 'peacemaker2448'){
+    if (sessionStorage.getItem('username') == 'RampantEpsilon' || sessionStorage.getItem('username') == 'peacemaker2448'){
+      if (pWord){
+        alert("This will change the user's password. Please notify them of the change.");
+        login.update({
+          [uName]: pWord
+        })
+      }
+      if (avatar){
+        var index;
+        for (var i = 0; i < logins.length; i++){
+          if (uName == logins[i]){
+            index = "logo." + i;
+          }
+        }
+        login.update({
+          [index]: avatar
+        })
+      }
+      if (position){
+        var index;
+        for (var i = 0; i < logins.length; i++){
+          if (uName == logins[i]){
+            index = "position." + i;
+          }
+        }
+        login.update({
+          [index]: position
+        })
       }
     } else {
+      alert("You are not allowed to edit this user.")
+    }
+  } else {
+    if (pWord){
       alert("This will change the user's password. Please notify them of the change.");
       login.update({
         [uName]: pWord
       })
     }
-  }
-  if (avatar){
-    if (uName == 'RampantEpsilon' || uName == 'peacemaker2448'){
-      if (sessionStorage.getItem('username') == 'RampantEpsilon' || sessionStorage.getItem('username') == 'peacemaker2448'){
-        //Intentionally Blank
-      } else {
-        alert("You are not allowed to edit this user.")
-      }
-    } else {
+    if (avatar){
       var index;
       for (var i = 0; i < logins.length; i++){
         if (uName == logins[i]){
@@ -112,25 +131,17 @@ function updateUser(){
         [index]: avatar
       })
     }
-  }
-  if (position){
-    if (uName == 'RampantEpsilon' || uName == 'peacemaker2448'){
-      if (sessionStorage.getItem('username') == 'RampantEpsilon' || sessionStorage.getItem('username') == 'peacemaker2448'){
-        //Intentionally Blank
-      } else {
-        alert("You are not allowed to edit this user.")
+    if (position){
+    var index;
+    for (var i = 0; i < logins.length; i++){
+      if (uName == logins[i]){
+        index = "position." + i;
       }
-    } else {
-      var index;
-      for (var i = 0; i < logins.length; i++){
-        if (uName == logins[i]){
-          index = "position." + i;
-        }
-      }
-      login.update({
-        [index]: position
-      })
     }
+    login.update({
+      [index]: position
+    })
+  }
   }
   clrUpdate();
 }
@@ -143,6 +154,7 @@ function clrUpdate(){
   var position = document.getElementById('position');
 
   uName.value = '';
+  pWord.value = '';
   avatar.value = '';
   position.selectedIndex = "-1";
   pWord.disabled = true;
