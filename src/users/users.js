@@ -68,7 +68,7 @@ function update(username, position2, logo){
   position.disabled = false;
 }
 
-function updateUser(){
+function updateUser(level){
   //Firebase variables
   const app = firebase.app();
   const db = firebase.firestore();
@@ -81,7 +81,7 @@ function updateUser(){
   var position = document.getElementById('position').value;
 
   if (uName == 'rampantepsilon' || uName == 'peacemaker2448'){
-    if (sessionStorage.getItem('username') == 'RampantEpsilon' || sessionStorage.getItem('username') == 'peacemaker2448'){
+    if (level == 'admin'){
       if (pWord){
         alert("This will change the user's password. Please notify them of the change.");
         login.update({
