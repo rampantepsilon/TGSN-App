@@ -7,11 +7,11 @@ const fs = require('fs');
 
 //Information
 function title(){
-    var title = 'TGSN Staff HQ v0.0.5-alpha';
+    var title = 'TGSN Staff HQ v0.0.6-alpha';
     return title;
 }
 function buildNum(){
-    var build = '21.05.5';
+    var build = '21.06.1';
     return build;
 }
 const currentVer = app.getVersion(); //Version Variable
@@ -19,16 +19,14 @@ const changelogOptions = {
     type: 'info',
     buttons: ['Close'],
     title: 'Changelog',
-    message: 'Changes in TGSN Staff HQ v0.0.5-alpha',
+    message: 'Changes in TGSN Staff HQ v0.0.6-alpha',
     detail: `
-  - Added Ability to add users
-  - Modified it so that Network Admins can't have their information changed.
+  - Added Profile Update functionality
+  - Changed methods for handling passwords to improve security
   - Stability changes and backend changes
-  - Added Framework for Show Resources (TGS [Complete], TGSR & TVS [Pending Rework])
 
   Next Update
   - Add Show Notes (TGS, TGSR, TVS)
-  - Add Profile Editor/User Add
   - Add Recent Videos Editor
 
   If you have any suggestions for the app, please reach out to me on Twitter @rampantepsilon or Discord (RampantEpsilon#7868).`
