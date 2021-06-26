@@ -782,6 +782,7 @@ client.prototype.handleMessage = function handleMessage(message) {
 					if (msgSplit[0] === "-") {
 						console.log("[" + channel + "] Exited host mode.");
 						this.emits(["unhost", "_promiseUnhost"], [[channel, viewers], [null]]);
+						this.log.info("<div class='uname'>" + channel.slice(1) + "</div><img src='./tgsn.jpg' width='40px' height='40px' class='img'><div class='msg'>" + channel + " has gone offline. Exiting host mode.</div>");
 					}
 					// Now hosting..
 					else {
