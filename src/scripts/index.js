@@ -191,7 +191,7 @@ function login(){
 }
 function fLogin(){
   var uName = document.getElementById('uName').value.toLowerCase();
-  var pWord = document.getElementById('pWord').value;
+  var pWord = calcMD5(document.getElementById('pWord').value);
   const app = firebase.app();
   const db = firebase.firestore();
   const login = db.collection('users').doc('logins')
@@ -279,9 +279,9 @@ function changePass(){
   oldPass.focus();
 }
 function upd8Pass(){
-  var oldPass = document.getElementById('oldPass').value;
-  var newPass = document.getElementById('newPass').value;
-  var confirmPass = document.getElementById('confirmPass').value;
+  var oldPass = calcMD5(document.getElementById('oldPass').value);
+  var newPass = calcMD5(document.getElementById('newPass').value);
+  var confirmPass = calcMD5(document.getElementById('confirmPass').value);
   var user = sessionStorage.getItem('username').toLowerCase();
   const app = firebase.app();
   const db = firebase.firestore();
@@ -311,6 +311,10 @@ function upd8Pass(){
     } else {
       document.getElementById('passError').innerHTML = "New Password must be 6 characters or more.";
     }
+
+    document.getElementById('oldPass').value = '';
+    document.getElementById('newPass').value = '';
+    document.getElementById('confirmPass').value = '';
   })
 }
 function upd8Avatar(){
