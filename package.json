@@ -1,6 +1,6 @@
 {
   "name": "tgsn-staff-app",
-  "version": "0.0.6-alpha",
+  "version": "0.1.0-beta",
   "description": "",
   "main": "main.js",
   "scripts": {

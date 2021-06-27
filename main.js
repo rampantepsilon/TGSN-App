@@ -7,7 +7,7 @@ const fs = require('fs');
 
 //Information
 function title(){
-    var title = 'TGSN Staff HQ v0.0.6-alpha';
+    var title = 'TGSN Staff HQ v0.1.0-beta';
     return title;
 }
 function buildNum(){
@@ -19,13 +19,9 @@ const changelogOptions = {
     type: 'info',
     buttons: ['Close'],
     title: 'Changelog',
-    message: 'Changes in TGSN Staff HQ v0.0.6-alpha',
+    message: 'Changes in TGSN Staff HQ v0.1.0-beta',
     detail: `
-  - Added Profile Update functionality
-  - Changed methods for handling passwords to improve security
-  - Fixed issue where TGS Articles wouldn't load when initially going to Show Resources
-  - Moved Standalone Chat from a separate listing to a toggleable side panel (Saving status will be in a later update)
-  - Reordered Admin Buttons
+  -
   - Stability changes and backend changes
 
   Next Update
