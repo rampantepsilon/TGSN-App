@@ -87,7 +87,7 @@ function init(){
     //Add Saved Links
     for (j = 1; j < (webview.length + 1); j++){
         var cell = content.insertCell(j - 1);
-        cell.innerHTML = `<webview style='height:100%' useragent="Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:86.0) Gecko/20100101 Firefox/86.0" src='` + webview[j - 1][0] + `'></webview>`;
+        cell.innerHTML = `<webview style='height:100%' webpreferences='webviewTag' useragent="Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:86.0) Gecko/20100101 Firefox/86.0" src='` + webview[j - 1][0] + `'></webview>`;
         cell.style.width = '80%';
         cell.setAttribute('id', j);
     }
@@ -184,7 +184,7 @@ function adminInit(){
         if (k == 1){
             buttons.innerHTML += `<td align='center' id='button` + k + `' style='border-style: outset; border-radius: 25% 25% 25% 25%; background-color: orange; color: #333; width: 90px; height: 50px;' onclick="adminShowWin('` + k + `')">` + view[k - 1][1] + `</td>`
         } else {
-          if (k == 8){
+          if (k == 9){
             buttons.innerHTML += `<td align='center' style='font-size: 40px;'> | </td>`
           }
           buttons.innerHTML += `<td align='center' id='button` + k + `' style='border-style: outset; border-radius: 25% 25% 25% 25%; background-color: #333; color: orange; width: 90px; height: 50px;' onclick="adminShowWin('` + k + `')">` + view[k - 1][1] + `</td>`

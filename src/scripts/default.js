@@ -20,6 +20,9 @@ var webview = [
   ],[
     "https://dashboard.twitch.tv/u/thegamingsaloonnetwork/stream-manager",
     "Twitch Dashboard"
+  ],[
+    './staffChat/index.html',
+    'Staff Chat (Beta)'
   ]
 ]
 var adminView = [
@@ -47,6 +50,9 @@ var adminView = [
   ],[
     './users/index.html',
     'User Management'
+  ],[
+    './staffChat/index.html',
+    'Staff Chat (Beta)'
   ]
 ]
 var coordView = [
@@ -74,5 +80,8 @@ var coordView = [
   ],[
     './users/coord.html',
     'User Management'
+  ],[
+    './staffChat/index.html',
+    'Staff Chat (Beta)'
   ]
 ]
