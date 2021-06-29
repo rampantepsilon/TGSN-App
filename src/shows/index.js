@@ -1,3 +1,6 @@
+var playerWidth = window.innerWidth-50;
+var playerHeight = window.innerHeight-140;
+
 function showTGSArticlesUser(){
   //Initialize Values
   const app = firebase.app();
@@ -43,9 +46,6 @@ function showTGSArticlesUser(){
           <button onclick='clearTGSArticles()'>Clear Link Field</button>
         </td>
       </tr>`]
-
-    var playerWidth = window.innerWidth-50;
-    var playerHeight = window.innerHeight-140;
     $('#articlesWin').css('width', playerWidth +'px');
     $('#articlesWin').css('height', playerHeight +'px');
   })
@@ -130,69 +130,40 @@ function clearTGSArticles(){
   document.getElementById('tgsArticleLink').value = "";
 }
 
-function showTGSR(){
+function showTGSRUser(){
   const db = firebase.firestore();
   const tgsrVideos = db.collection('tgsr').doc('videos');
   var total;
 
   //Framework
-  document.getElementById('showBody').innerHTML = [`
-    <h2 align='center'>This page will be reworked in a future update.<br>
-    Current TGSR Series is Transformers: Beast Wars on TubiTV.<br></h2>
-    <div align='center'><a href='https://tubitv.com/series/539/beast-wars' target='_blank'>Click Here to watch</a></div>`]
+  document.getElementById('showBody').innerHTML = [`<div align='center'><h3>Video Source</h3><a href='https://tubitv.com/series/539/beast-wars' target='_blank'>Click Here to watch</a></div>`]
 
   tgsrVideos.onSnapshot(doc => {
     const data = doc.data();
-    if (data.v1 != 'n/a'){
-      $('#video1').show();
-      document.getElementById('video1').innerHTML = [`Video 1<br>
-        <iframe is="x-frame-bypass" src='` + data.v1 + `' width='567px' height='318px' id='tgsrVid1' allowfullscreen style='overflow-y:hidden;'></iframe>`];
-    }
-    if (data.v1 == 'n/a'){
-      $('#video1').hide();
-    }
-    if (data.v2 != 'n/a'){
-      $('#video2').show();
-      document.getElementById('video2').innerHTML = [`Video 2<br>
-        <iframe is="x-frame-bypass" src='` + data.v2 + `' width='567px' height='318px' id='tgsrVid2' allowfullscreen style='overflow-y:hidden;'></iframe>`];
-    }
-    if (data.v2 == 'n/a'){
-      $('#video2').hide();
-    }
-    if (data.v3 != 'n/a'){
-      $('#video3').show();
-      document.getElementById('video3').innerHTML = [`Video 3<br>
-        <iframe is="x-frame-bypass" src='` + data.v3 + `' width='567px' height='318px' id='tgsrVid3' allowfullscreen style='overflow-y:hidden;'></iframe>`];
-    }
-    if (data.v3 == 'n/a'){
-      $('#video3').hide();
-    }
-    if (data.v4 != 'n/a'){
-      $('#video4').show();
-      document.getElementById('video4').innerHTML = [`Video 4<br>
-        <iframe is="x-frame-bypass" src='` + data.v4 + `' width='567px' height='318px' id='tgsrVid4' allowfullscreen style='overflow-y:hidden;'></iframe>`];
-    }
-    if (data.v4 == 'n/a'){
-      $('#video4').hide();
-    }
-    if (data.v5 != 'n/a'){
-      $('#video5').show();
-      document.getElementById('video5').innerHTML = [`Video 5<br>
-        <iframe is="x-frame-bypass" src='` + data.v5 + `' width='567px' height='318px' id='tgsrVid5' allowfullscreen style='overflow-y:hidden;'></iframe>`];
-    }
-    if (data.v5 == 'n/a'){
-      $('#video5').hide();
-    }
+
+    document.getElementById('showBody').innerHTML = [`
+      <table width='100%'>
+        <tr>
+          <td align='center' valign='top' colspan='3'>
+            <h3><u>TGSR Resources</u></h3>
+          </td>
+        </tr>
+        <tr>
+          <td colspan='3' align='center'>
+            <div align='center'>Videos -> <a href='` + data.source + `' target='_blank'>Click Here to watch</a></div>
+            <iframe src='` + data.notes + `' id='notesWin'></iframe>
+          </td>
+        </tr>
+      </table>`]
+
+    $('#notesWin').css('width', playerWidth +'px');
+    $('#notesWin').css('height', (playerHeight-25) +'px');
   })
 
   document.getElementById('editModal').innerHTML = [`
-    <div id='body'>Video 1: <input type='text' id='v1'><br>
-    Video 2: <input type='text' id='v2'><br>
-    Video 3: <input type='text' id='v3'><br>
-    Video 4: <input type='text' id='v4'><br>
-    Video 5: <input type='text' id='v5'><br>
-    <button onclick='changeVideos()'>Change Videos</button><br>
-    Tip: Use "n/a" to signify no video.</div>`];
+    <div id='body'>Videos: <input type='text' id='v1'><br>
+    Notes: <input type='text' id='v2'>
+    <button onclick='changeVideos()'>Change Videos</button></div>`];
 
   $('#v1').keyup(function(event){
     if (event.keyCode === 13){
@@ -204,17 +175,49 @@ function showTGSR(){
       changeVideos();
     }
   })
-  $('#v3').keyup(function(event){
+}
+function showTGSR(){
+  const db = firebase.firestore();
+  const tgsrVideos = db.collection('tgsr').doc('videos');
+  var total;
+
+  //Framework
+  document.getElementById('showBody').innerHTML = [`<div align='center'><h3>Video Source</h3><a href='https://tubitv.com/series/539/beast-wars' target='_blank'>Click Here to watch</a></div>`]
+
+  tgsrVideos.onSnapshot(doc => {
+    const data = doc.data();
+
+    document.getElementById('showBody').innerHTML = [`
+      <table width='100%'>
+        <tr>
+          <td align='center' valign='top' colspan='3'>
+            <h3><u>TGSR Resources</u></h3>
+            <div onclick='editMode()'>Click Here to Edit</div>
+          </td>
+        </tr>
+        <tr>
+          <td colspan='3' align='center'>
+            <div align='center'>Videos -> <a href='` + data.source + `' target='_blank'>Click Here to watch</a></div>
+            <iframe src='` + data.notes + `' id='notesWin'></iframe>
+          </td>
+        </tr>
+      </table>`]
+
+    $('#notesWin').css('width', playerWidth +'px');
+    $('#notesWin').css('height', (playerHeight-45) +'px');
+  })
+
+  document.getElementById('editModal').innerHTML = [`
+    <div id='body'>Videos: <input type='text' id='v1'><br>
+    Notes: <input type='text' id='v2'>
+    <button onclick='changeVideos()'>Change Videos</button></div>`];
+
+  $('#v1').keyup(function(event){
     if (event.keyCode === 13){
       changeVideos();
     }
   })
-  $('#v4').keyup(function(event){
-    if (event.keyCode === 13){
-      changeVideos();
-    }
-  })
-  $('#v5').keyup(function(event){
+  $('#v2').keyup(function(event){
     if (event.keyCode === 13){
       changeVideos();
     }
@@ -224,27 +227,15 @@ function showTGSR(){
 function changeVideos(){
   var video1 = document.getElementById('v1').value;
   var video2 = document.getElementById('v2').value;
-  var video3 = document.getElementById('v3').value;
-  var video4 = document.getElementById('v4').value;
-  var video5 = document.getElementById('v5').value;
 
   const db = firebase.firestore();
   const tgsrVideos = db.collection('tgsr').doc('videos');
 
   if (video1 != ""){
-    tgsrVideos.update({ v1: video1});
+    tgsrVideos.update({ source: video1});
   }
   if (video2 != ""){
-    tgsrVideos.update({ v2: video2});
-  }
-  if (video3 != ""){
-    tgsrVideos.update({ v3: video3});
-  }
-  if (video4 != ""){
-    tgsrVideos.update({ v4: video4});
-  }
-  if (video5 != ""){
-    tgsrVideos.update({ v5: video5});
+    tgsrVideos.update({ notes: video2});
   }
 }
 //Resize for TGSR
