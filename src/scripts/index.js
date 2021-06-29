@@ -1,23 +1,28 @@
 //Variables
-let currentPage = 1;
+let currentPage = 99;
 var defaultScript;
 let chatShown = 1;
+var username;
+
+var playerHeight = window.innerHeight-60;
 
 //Redirect Function
 function showWin(num){
-    if (num == 'edit'){
+    if (num == '99'){
         for (i = 1; i < (webview.length + 1); i++){
             $('#' + i).hide();
-            document.getElementById('button'+i).style.backgroundColor = 'orange';
-            document.getElementById('button'+i).style.color = '#333';
+            document.getElementById('button'+i).style.backgroundColor = '#333';
+            document.getElementById('button'+i).style.color = 'orange';
         }
-        $('#' + (webview.length+1)).show()
-        currentPage = webview.length + 1;
+        $('#chatmain').show();
+        document.getElementById('chatbutton').style.backgroundColor = 'orange';
+        document.getElementById('chatbutton').style.color = '#333';
+        currentPage = 99;
     } else {
         for (i = 1; i < (webview.length + 2); i++){
             $('#' + i).hide();
         }
-        $('#' + num).show()
+        $('#' + num).show();
         for (j = 1; j < (webview.length + 1); j++){
             if (j != num){
                 document.getElementById('button' + j).style.backgroundColor = '#333';
@@ -27,6 +32,9 @@ function showWin(num){
                 document.getElementById('button' + num).style.color = '#333';
             }
         }
+        $('#chatmain').hide();
+        document.getElementById('chatbutton').style.backgroundColor = '#333';
+        document.getElementById('chatbutton').style.color = 'orange';
         currentPage = num;
     }
 
@@ -35,14 +43,16 @@ function showWin(num){
     }
 }
 function adminShowWin(num){
-    if (num == 'edit'){
-        for (i = 1; i < (adminView.length + 1); i++){
+    if (num == '99'){
+        for (i = 1; i < (webview.length + 1); i++){
             $('#' + i).hide();
-            document.getElementById('button'+i).style.backgroundColor = 'orange';
-            document.getElementById('button'+i).style.color = '#333';
+            document.getElementById('button'+i).style.backgroundColor = '#333';
+            document.getElementById('button'+i).style.color = 'orange';
         }
-        $('#' + (adminView.length+1)).show()
-        currentPage = adminView.length + 1;
+        $('#chatmain').show()
+        document.getElementById('chatbutton').style.backgroundColor = 'orange';
+        document.getElementById('chatbutton').style.color = '#333';
+        currentPage = 99;
     } else {
         for (i = 1; i < (adminView.length + 2); i++){
             $('#' + i).hide();
@@ -58,6 +68,9 @@ function adminShowWin(num){
                 document.getElementById('button' + num).style.color = '#333';
             }
         }
+        $('#chatmain').hide();
+        document.getElementById('chatbutton').style.backgroundColor = '#333';
+        document.getElementById('chatbutton').style.color = 'orange';
         currentPage = num;
     }
 
@@ -66,6 +79,7 @@ function adminShowWin(num){
     }
 }
 
+//Twitch Chat
 function showChat(){
   if (chatShown == 1){
     $('#chat').hide();
@@ -81,26 +95,27 @@ function init(){
     var content = document.getElementById('content');
     var buttons = document.getElementById('buttons');
     var uName = document.getElementById('uNameStatic');
-    content.innerHTML = '';
-    buttons.innerHTML = `<td align='center' id='buttonRefresh' style='border-style: outset; border-radius: 25% 25% 25% 25%; background-color: orange; color: #333; width: 50px; height: 50px;' onclick="refresh()"><img src='./images/refresh.png' width='40px' height='40px'></td>`;
+    buttons.innerHTML = [`
+      <td align='center' id='buttonRefresh' style='border-style: outset; border-radius: 25% 25% 25% 25%; background-color: orange; color: #333; width: 50px; height: 50px;' onclick="refresh()">
+        <img src='./images/refresh.png' width='40px' height='40px'>
+      </td>
+      <td align='center' id='chatbutton' style='border-style: outset; border-radius: 25% 25% 25% 25%; background-color: orange; color: #333; width: 90px; height: 50px;' onclick="showWin('99')">
+        Staff Chat (Beta)
+      </td>`];
 
     //Add Saved Links
     for (j = 1; j < (webview.length + 1); j++){
-        var cell = content.insertCell(j - 1);
+        var cell = content.insertCell(j);
         cell.innerHTML = `<webview style='height:100%' webpreferences='webviewTag' useragent="Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:86.0) Gecko/20100101 Firefox/86.0" src='` + webview[j - 1][0] + `'></webview>`;
         cell.style.width = '80%';
         cell.setAttribute('id', j);
     }
 
     for (k = 1; k < (webview.length + 1); k++){
-        if (k == 1){
-            buttons.innerHTML += `<td align='center' id='button` + k + `' style='border-style: outset; border-radius: 25% 25% 25% 25%; background-color: orange; color: #333; width: 90px; height: 50px;' onclick="showWin('` + k + `')">` + webview[k - 1][1] + `</td>`
-        } else {
-            buttons.innerHTML += `<td align='center' id='button` + k + `' style='border-style: outset; border-radius: 25% 25% 25% 25%; background-color: #333; color: orange; width: 90px; height: 50px;' onclick="showWin('` + k + `')">` + webview[k - 1][1] + `</td>`
-        }
+      buttons.innerHTML += `<td align='center' id='button` + k + `' style='border-style: outset; border-radius: 25% 25% 25% 25%; background-color: #333; color: orange; width: 90px; height: 50px;' onclick="showWin('` + k + `')">` + webview[k - 1][1] + `</td>`
     }
 
-    var cell = content.insertCell(j - 1);
+    var cell = content.insertCell(j);
     cell.innerHTML = `<webview style='height:100%' useragent="Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:86.0) Gecko/20100101 Firefox/86.0" src='chat/index.html'></webview>`;
     cell.style.width = '20%';
     cell.setAttribute('id', 'chat');
@@ -109,9 +124,7 @@ function init(){
     buttons.innerHTML += `<td align='center' id='buttonChat' style='border-style: outset; border-radius: 25% 25% 25% 25%; background-color: #333; color: orange; width: 90px; height: 50px;' onclick="showChat()">Show/Hide Chat</td>`
 
     for (i = 1; i < (webview.length + 1); i++){
-        if (i != 1){
-            $('#' + i).hide();
-        }
+      $('#' + i).hide();
     }
     if (chatShown == 1){
       $('#chat').show();
@@ -143,13 +156,40 @@ function init(){
     } else {
       uName.innerHTML = `Not Signed In<br><button onclick='login()'>Login</button>`
     }
+
+    //Staff Chat Resources
+    document.getElementById('send-message').addEventListener('submit', postChat);
+
+    username = sessionStorage.getItem('username');
+    if (username != null){
+      document.getElementById('messages').style.height = 'calc(100% - 60px)';
+    } else {
+      $("#send-message").hide();
+    }
+
+    listener();
 }
 function adminInit(){
     var content = document.getElementById('content');
     var buttons = document.getElementById('buttons');
     var uName = document.getElementById('uNameStatic');
-    content.innerHTML = '';
-    buttons.innerHTML = `<td align='center' id='buttonRefresh' style='border-style: outset; border-radius: 25% 25% 25% 25%; background-color: orange; color: #333; width: 50px; height: 50px;' onclick="refresh()"><img src='./images/refresh.png' width='40px' height='40px'></td>`;
+    content.innerHTML = [`
+      <td valign='top' height='100%' id="chatmain">
+        <div>
+          <form id="send-message">
+            What do you want to say?<br><input id="chat-txt" type="text" />
+            <button id="chat-btn" type="submit">Submit</button>
+          </form>
+        </div>
+        <div width='100%' id="messages" style='height: calc(100% - 60px); overflow-y: scroll;'></div>
+      </td>`];
+    buttons.innerHTML = [`
+      <td align='center' id='buttonRefresh' style='border-style: outset; border-radius: 25% 25% 25% 25%; background-color: orange; color: #333; width: 50px; height: 50px;' onclick="refresh()">
+        <img src='./images/refresh.png' width='40px' height='40px'>
+      </td>
+      <td align='center' id='chatbutton' style='border-style: outset; border-radius: 25% 25% 25% 25%; background-color: orange; color: #333; width: 90px; height: 50px;' onclick="showWin('99')">
+        Staff Chat (Beta)
+      </td>`];
 
     //Login Functions
     var sUser = sessionStorage.getItem('username');
@@ -174,24 +214,20 @@ function adminInit(){
 
     //Add Saved Links
     for (j = 1; j < (view.length + 1); j++){
-        var cell = content.insertCell(j - 1);
+        var cell = content.insertCell(j);
         cell.innerHTML = `<webview style='height:100%' useragent="Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:86.0) Gecko/20100101 Firefox/86.0" src='` + view[j - 1][0] + `'></webview>`;
         cell.style.width = '80%';
         cell.setAttribute('id', j);
     }
 
     for (k = 1; k < (view.length + 1); k++){
-        if (k == 1){
-            buttons.innerHTML += `<td align='center' id='button` + k + `' style='border-style: outset; border-radius: 25% 25% 25% 25%; background-color: orange; color: #333; width: 90px; height: 50px;' onclick="adminShowWin('` + k + `')">` + view[k - 1][1] + `</td>`
-        } else {
-          if (k == 9){
-            buttons.innerHTML += `<td align='center' style='font-size: 40px;'> | </td>`
-          }
-          buttons.innerHTML += `<td align='center' id='button` + k + `' style='border-style: outset; border-radius: 25% 25% 25% 25%; background-color: #333; color: orange; width: 90px; height: 50px;' onclick="adminShowWin('` + k + `')">` + view[k - 1][1] + `</td>`
+        if (k == 8){
+          buttons.innerHTML += `<td align='center' style='font-size: 40px;'> | </td>`
         }
+        buttons.innerHTML += `<td align='center' id='button` + k + `' style='border-style: outset; border-radius: 25% 25% 25% 25%; background-color: #333; color: orange; width: 90px; height: 50px;' onclick="adminShowWin('` + k + `')">` + view[k - 1][1] + `</td>`
     }
 
-    var cell = content.insertCell(j - 1);
+    var cell = content.insertCell(j);
     cell.innerHTML = `<webview style='height:100%' useragent="Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:86.0) Gecko/20100101 Firefox/86.0" src='./chat/index.html'></webview>`;
     cell.style.width = '20%';
     cell.setAttribute('id', 'chat');
@@ -200,16 +236,16 @@ function adminInit(){
     buttons.innerHTML += `<td align='center' id='buttonChat' style='border-style: outset; border-radius: 25% 25% 25% 25%; background-color: #333; color: orange; width: 90px; height: 50px;' onclick="showChat()">Show/Hide Chat</td>`
 
     for (i = 1; i < (view.length + 1); i++){
-        if (i != 1){
-            $('#' + i).hide();
-        }
+      $('#' + i).hide();
     }
     if (chatShown == 1){
       $('#chat').show();
     }
+
+    listener();
 }
 
-//Login (WIP)
+//Login
 function login(){
   var modal = document.getElementById('myModal');
   var span = document.getElementsByClassName('close')[0];
@@ -249,6 +285,8 @@ function fLogin(){
         document.getElementById('loginError').innerHTML = 'Login Successful';
         setTimeout(function(){document.getElementById('loginError').innerHTML = ''; document.getElementById('uName').value = ''; document.getElementById('pWord').value = '';}, 1000)
         document.getElementById('myModal').style.display = 'none';
+        document.getElementById('messages').style.height = 'calc(100% - 60px)'
+        $("#send-message").show();
 
         //Update User Fields
         for (var j = 0; j < users.numUsers; j++){
@@ -263,8 +301,12 @@ function fLogin(){
             if (users['position'][j] == 'Network Admin' || users['position'][j] == 'TGSN Coordinator' || users['position'][j] == 'TVS Coordinator'){
               adminInit();
               adminShowWin(currentPage);
+              replys();
             }
           }
+        }
+        for (var i = 1; i < id; i ++){
+          $('#replyField' + i).show();
         }
       } else {
         document.getElementById('loginError').innerHTML = 'Incorrect Password'
@@ -284,9 +326,63 @@ function logout(){
   uName.innerHTML = `Not Signed In<br><button onclick='login()'>Login</button>`;
   document.getElementById('positionTag').innerHTML = `Staff HQ`;
   document.getElementById('userPic').innerHTML = '';
-  document.getElementById('content').innerHTML = '';
+  document.getElementById('content').innerHTML = [`
+    <td valign='top' height='100%' id="chatmain">
+      <div>
+        <form id="send-message">
+          What do you want to say?<br><input id="chat-txt" type="text" />
+          <button id="chat-btn" type="submit">Submit</button>
+        </form>
+      </div>
+      <div width='100%' id="messages" style='height: 100%; overflow-y: scroll;'></div>
+    </td>`];
   document.getElementById('buttons').innerHTML = '';
   init();
+  db.collection('chat').doc('main').onSnapshot(doc => {
+    const data = doc.data();
+
+    document.getElementById('messages').innerHTML = "";
+
+    for (var i = 1; i < id; i ++){
+      if (data[i] == null){
+
+      } else {
+        const msg = [`
+          <div id ='` + i + `' class='chat' style='border-style: outset; padding: 5px;'>
+            <table width='100%'>
+              <tr>
+                <td width='20px'>
+                  <img src='` + data[i][3] + `' width='30px' height='30px' style='border-radius: 50%' />
+                </td>
+                <td>` + data[i][0] + `</td>
+                <td align='right'>
+                  <font size= '2px' color='#222'>` + data[i][1] + `</font>
+                </td>
+              </tr>
+              <tr>
+                <td colspan='3'>`
+                  + data[i][2] + `
+                </td>
+              </tr>
+              <tr>
+                <td colspan='3' id='replyField` + i + `'>
+                  <span style="border: outset;" onclick='replyDialog(` + i + `)' id='replyButton` + i + `'>Reply</span>
+                </td>
+              </tr>
+              <tr>
+                <td colspan='3'>
+                  <div id='` + i + `reply'></div>
+                </td>
+              </tr>
+            </table>
+          </div>`];;
+        document.getElementById("messages").innerHTML = msg + document.getElementById("messages").innerHTML;
+        $("#replyField" + i).hide();
+      }
+    }
+
+    replys();
+  })
 }
 function changePass(){
   var modal = document.getElementById('passModal');
@@ -413,3 +509,219 @@ function refresh(){
     document.getElementById(currentPage).innerHTML = `<webview style='width:100%; height:100%' useragent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36" allowpopups src='` + webview[parseInt(currentPage - 1)][0] + `'></webview>`;
   }
 }
+
+/*Chat Module Start*/
+const db = firebase.firestore();
+var id;
+
+//Set id
+db.collection('chat').doc('data').onSnapshot((doc) => {
+  id = doc.data().id;
+})
+
+function postChat(e){
+  e.preventDefault();
+  const date = new Date().toLocaleString();
+  const chatTxt = document.getElementById('chat-txt');
+  const message = chatTxt.value;
+  const icon = sessionStorage.getItem('logo');
+  chatTxt.value = '';
+
+  db.collection('chat').doc('main').update({
+    [id]: [username, date, message, icon]
+  })
+  var replycount = 'replyCount.'+id;
+  id = parseInt(id)+1;
+  db.collection('chat').doc('data').update({
+    id: id,
+    [replycount]: 1
+  })
+}
+
+//Listen for updates
+function listener(){
+  db.collection('chat').doc('main').onSnapshot(doc => {
+  const data = doc.data();
+
+  document.getElementById('messages').innerHTML = "";
+
+  for (var i = 1; i < id; i ++){
+    if (data[i] == null){
+
+    } else {
+      const msg = [`
+        <div id ='` + i + `' class='chat' style='border-style: outset; padding: 5px; overflow-y: scroll;'>
+          <table width='100%'>
+            <tr>
+              <td width='20px'>
+                <img src='` + data[i][3] + `' width='30px' height='30px' style='border-radius: 50%' />
+              </td>
+              <td>` + data[i][0] + `</td>
+              <td align='right'>
+                <font size= '2px' color='#222'>` + data[i][1] + `</font>
+              </td>
+            </tr>
+            <tr>
+              <td colspan='3'>`
+                + data[i][2] + `
+              </td>
+            </tr>
+            <tr>
+              <td colspan='3' id='replyField` + i + `'>
+                <span style="border: outset;" onclick='replyDialog(` + i + `)' id='replyButton` + i + `'>Reply</span>
+              </td>
+            </tr>
+            <tr>
+              <td colspan='3'>
+                <div id='` + i + `reply'></div>
+              </td>
+            </tr>
+          </table>
+        </div>`];
+      document.getElementById("messages").innerHTML = msg + document.getElementById("messages").innerHTML;
+    }
+  }
+
+  replys();
+  username = sessionStorage.getItem('username');
+  if (username == null){
+      for (var j = 1; j < id; j ++){
+      $('#replyField' + j).hide();
+    }
+  }
+})
+}
+
+function replyDialog(num){
+  var replyField = document.getElementById('replyField' + num);
+  $("#replyButton" + num).hide();
+  replyField.innerHTML += [`
+    <span id='replyForm` + num + `'>
+      <input type='text' id='replyMSG'>
+      <button onclick='sendReply(` + num + `)'>Reply</button>
+    </span>
+  `]
+}
+
+function sendReply(num){
+  var replyCount;
+
+  //Get Reply count
+  db.collection('chat').doc('data').get().then((doc) => {
+    const data = doc.data();
+    replyCount = parseInt(data.replyCount[num]);
+
+    const date = new Date().toLocaleString();
+    const chatTxt = document.getElementById('replyMSG');
+    const message = chatTxt.value;
+    const icon = sessionStorage.getItem('logo');
+    chatTxt.value = '';
+
+    var replyPosition = num + "." + replyCount;
+
+    db.collection('chat').doc('reply').update({
+      [replyPosition]: [username, date, message, icon]
+    })
+    var pass = 'replyCount.' + num;
+    var newCount = replyCount + 1;
+    db.collection('chat').doc('data').update({
+      [pass]: newCount,
+    })
+    document.getElementById('replyField' + num).innerHTML = `<span style="border: outset;" onclick='replyDialog(` + num + `)' id='replyButton` + num + `'>Reply</span>`;
+  })
+}
+
+function replys(){
+  db.collection('chat').doc('reply').onSnapshot(doc => {
+    const data = doc.data();
+
+    for (var i = 1; i < id; i++){
+      if (document.getElementById(i + 'reply') != null){
+        if (data[i]){
+          var len = 0;
+          for (var count in data[i]){
+            len++;
+          }
+          if (len > 2){
+            document.getElementById(i + 'reply').innerHTML = '';
+            document.getElementById(i + 'reply').innerHTML += `<br><span onclick='forceReplies("` + i + `")'>Show more comments</span>`;
+            for (var j = (len-1); j < len+1; j++){
+              const msg = `<table width='100%' style='border-style: inset; padding: 5px;'>
+                <tr>
+                  <td width='20px'>
+                    <img src='` + data[i][j][3] + `' width='30px' height='30px' style='border-radius: 50%' />
+                  </td>
+                  <td>` + data[i][j][0] + `</td>
+                  <td align='right'>
+                    <font size= '2px' color='#222'>` + data[i][j][1] + `</font>
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan='3'>`
+                    + data[i][j][2] +
+                  `</td>
+                </tr>
+              </table>`;
+              document.getElementById(i + 'reply').innerHTML += msg;
+            }
+          } else {
+            document.getElementById(i + 'reply').innerHTML = '';
+            for (var j = 1; j < len+1; j++){
+              const msg = `<table width='100%' style='border-style: inset; padding: 5px;'>
+                <tr>
+                  <td width='20px'>
+                    <img src='` + data[i][j][3] + `' width='30px' height='30px' style='border-radius: 50%' />
+                  </td>
+                  <td>` + data[i][j][0] + `</td>
+                  <td align='right'>
+                    <font size= '2px' color='#222'>` + data[i][j][1] + `</font>
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan='3'>`
+                    + data[i][j][2] +
+                  `</td>
+                </tr>
+              </table>`;
+              document.getElementById(i + 'reply').innerHTML += msg;
+            }
+          }
+        }
+      }
+    }
+  })
+}
+
+function forceReplies(i){
+  db.collection('chat').doc('reply').onSnapshot(doc => {
+    const data = doc.data();
+
+    document.getElementById(i + 'reply').innerHTML = '<br>'
+
+    var len = 0;
+    for (var count in data[i]){
+      len++;
+    }
+
+    for (var j = 1; j < len+1; j++){
+      const msg = `<table width='100%' style='border-style: inset; padding: 5px;'>
+        <tr>
+          <td width='20px'>
+            <img src='` + data[i][j][3] + `' width='30px' height='30px' style='border-radius: 50%' />
+          </td>
+          <td>` + data[i][j][0] + `</td>
+          <td align='right'>
+            <font size= '2px' color='#222'>` + data[i][j][1] + `</font>
+          </td>
+        </tr>
+        <tr>
+          <td colspan='3'>`
+            + data[i][j][2] +
+          `</td>
+        </tr>
+      </table>`;
+      document.getElementById(i + 'reply').innerHTML += msg;
+    }
+  })
+}
+/*Chat Module End*/
