@@ -1,6 +1,24 @@
 <html>
     <head>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <!-- The core Firebase JS SDK is always required and must be listed first -->
+        <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-app.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-firestore.js"></script>
+
+        <script>
+          // Your web app's Firebase configuration
+          var firebaseConfig = {
+            apiKey: "AIzaSyBAF1jevSp8_E5Okk9z6sMi-t4eRS4N9DE",
+            authDomain: "tgsn-site-v7.firebaseapp.com",
+            databaseURL: "https://tgsn-site-v7.firebaseio.com",
+            projectId: "tgsn-site-v7",
+            storageBucket: "tgsn-site-v7.appspot.com",
+            messagingSenderId: "565689666494",
+            appId: "1:565689666494:web:fc488b17f5018f569547ef"
+          };
+          // Initialize Firebase
+          firebase.initializeApp(firebaseConfig);
+        </script>
         <script src='./scripts/index.js'></script>
         <script id='buttonScript' src='./scripts/default.js'></script>
         <script src='./scripts/md5.js'></script>
@@ -8,24 +26,7 @@
         <link href='./styles.css' rel='stylesheet'>
     </head>
 
-    <body onload='init()'><!-- The core Firebase JS SDK is always required and must be listed first -->
-      <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-app.js"></script>
-      <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-firestore.js"></script>
-
-      <script>
-        // Your web app's Firebase configuration
-        var firebaseConfig = {
-          apiKey: "AIzaSyBAF1jevSp8_E5Okk9z6sMi-t4eRS4N9DE",
-          authDomain: "tgsn-site-v7.firebaseapp.com",
-          databaseURL: "https://tgsn-site-v7.firebaseio.com",
-          projectId: "tgsn-site-v7",
-          storageBucket: "tgsn-site-v7.appspot.com",
-          messagingSenderId: "565689666494",
-          appId: "1:565689666494:web:fc488b17f5018f569547ef"
-        };
-        // Initialize Firebase
-        firebase.initializeApp(firebaseConfig);
-      </script>
+    <body onload='init()'>
         <table id='main' style='width: 100%;'>
           <tr>
             <td height='20px' colspan='2'>
@@ -48,6 +49,15 @@
             </td>
           </tr>
           <tr id='content'>
+            <td valign='top' height='100%' id="chatmain">
+              <div>
+                <form id="send-message">
+                  What do you want to say?<br><input id="chat-txt" type="text" />
+                  <button id="chat-btn" type="submit">Submit</button>
+                </form>
+              </div>
+              <div width='100%' id="messages" style='height: 100%; overflow-y: scroll;'></div>
+            </td>
               <!--Intentionally Blank scripts/index.js fills this in-->
           </tr>
         </table>
