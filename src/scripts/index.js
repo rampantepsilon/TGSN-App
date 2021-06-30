@@ -158,7 +158,12 @@ function init(){
     }
 
     //Staff Chat Resources
-    document.getElementById('send-message').addEventListener('submit', postChat);
+    //document.getElementById('send-message').addEventListener('submit', postChat);
+    document.getElementById('chat-txt').onkeyup = function(){
+      if (event.keyCode === 13){
+        postChat();
+      }
+    }
 
     username = sessionStorage.getItem('username');
     if (username != null){
@@ -176,10 +181,8 @@ function adminInit(){
     content.innerHTML = [`
       <td valign='top' height='100%' id="chatmain">
         <div>
-          <form id="send-message">
-            What do you want to say?<br><input id="chat-txt" type="text" />
-            <button id="chat-btn" type="submit">Submit</button>
-          </form>
+          What do you want to say?<br><input id="chat-txt" type="text" />
+          <button id="chat-btn" type="submit" onclick='postChat()'>Submit</button>
         </div>
         <div width='100%' id="messages" style='height: calc(100% - 60px); overflow-y: scroll;'></div>
       </td>`];
@@ -329,10 +332,8 @@ function logout(){
   document.getElementById('content').innerHTML = [`
     <td valign='top' height='100%' id="chatmain">
       <div>
-        <form id="send-message">
-          What do you want to say?<br><input id="chat-txt" type="text" />
-          <button id="chat-btn" type="submit">Submit</button>
-        </form>
+        What do you want to say?<br><input id="chat-txt" type="text" />
+        <button id="chat-btn" type="submit" onclick='postChat()'>Submit</button>
       </div>
       <div width='100%' id="messages" style='height: 100%; overflow-y: scroll;'></div>
     </td>`];
@@ -519,8 +520,8 @@ db.collection('chat').doc('data').onSnapshot((doc) => {
   id = doc.data().id;
 })
 
-function postChat(e){
-  e.preventDefault();
+function postChat(){
+  //e.preventDefault();
   const date = new Date().toLocaleString();
   const chatTxt = document.getElementById('chat-txt');
   const message = chatTxt.value;
@@ -541,11 +542,11 @@ function postChat(e){
 //Listen for updates
 function listener(){
   db.collection('chat').doc('main').onSnapshot(doc => {
-  const data = doc.data();
+    const data = doc.data();
 
-  document.getElementById('messages').innerHTML = "";
+    document.getElementById('messages').innerHTML = "";
 
-  for (var i = 1; i < id; i ++){
+    for (var i = 1; i < id; i ++){
     if (data[i] == null){
 
     } else {
@@ -582,14 +583,19 @@ function listener(){
     }
   }
 
-  replys();
-  username = sessionStorage.getItem('username');
-  if (username == null){
-      for (var j = 1; j < id; j ++){
-      $('#replyField' + j).hide();
+    replys();
+    username = sessionStorage.getItem('username');
+    if (username == null){
+        for (var j = 1; j < id; j ++){
+        $('#replyField' + j).hide();
+      }
     }
-  }
-})
+    document.getElementById('chat-txt').onkeyup = function(){
+      if (event.keyCode === 13){
+        postChat();
+      }
+    }
+  })
 }
 
 function replyDialog(num){
@@ -597,10 +603,15 @@ function replyDialog(num){
   $("#replyButton" + num).hide();
   replyField.innerHTML += [`
     <span id='replyForm` + num + `'>
-      <input type='text' id='replyMSG'>
+      <input type='text' id='replyMSG` + num + `'>
       <button onclick='sendReply(` + num + `)'>Reply</button>
     </span>
   `]
+  document.getElementById('replyMSG' + num).onkeyup = function(){
+    if (event.keyCode === 13){
+      sendReply(num);
+    }
+  }
 }
 
 function sendReply(num){
@@ -612,7 +623,7 @@ function sendReply(num){
     replyCount = parseInt(data.replyCount[num]);
 
     const date = new Date().toLocaleString();
-    const chatTxt = document.getElementById('replyMSG');
+    const chatTxt = document.getElementById('replyMSG' + num);
     const message = chatTxt.value;
     const icon = sessionStorage.getItem('logo');
     chatTxt.value = '';
