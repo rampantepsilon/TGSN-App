@@ -131,7 +131,12 @@ function init(){
     }
 
     //Login Functions
-    var sUser = sessionStorage.getItem('username');
+    var sUser;
+    if (sessionStorage.getItem('username')){
+      sUser = sessionStorage.getItem('username')
+    } else {
+      sUser = '';
+    }
     var sLogo = sessionStorage.getItem('logo');
     const app = firebase.app();
     const db = firebase.firestore();
@@ -165,13 +170,13 @@ function init(){
       }
     }
 
-    username = sessionStorage.getItem('username');
-    if (username != null){
-      document.getElementById('messages').style.height = 'calc(100% - 60px)';
+    if (sUser != ''){
+      document.getElementById('messages').style.height = 'calc(100% - 45px)';
     } else {
       $("#send-message").hide();
     }
 
+    console.log(sUser)
     listener();
 }
 function adminInit(){
@@ -180,11 +185,11 @@ function adminInit(){
     var uName = document.getElementById('uNameStatic');
     content.innerHTML = [`
       <td valign='top' height='100%' id="chatmain">
-        <div>
-          What do you want to say?<br><input id="chat-txt" type="text" />
+        <div id='send-message' align='center'>
+          <textarea id="chat-txt" class="textarea" placeholder="What do you want to say?"></textarea>
           <button id="chat-btn" type="submit" onclick='postChat()'>Submit</button>
         </div>
-        <div width='100%' id="messages" style='height: calc(100% - 60px); overflow-y: scroll;'></div>
+        <div width='100%' id="messages" style='height: calc(100% - 45px); overflow-y: scroll;'></div>
       </td>`];
     buttons.innerHTML = [`
       <td align='center' id='buttonRefresh' style='border-style: outset; border-radius: 25% 25% 25% 25%; background-color: orange; color: #333; width: 50px; height: 50px;' onclick="refresh()">
@@ -331,8 +336,8 @@ function logout(){
   document.getElementById('userPic').innerHTML = '';
   document.getElementById('content').innerHTML = [`
     <td valign='top' height='100%' id="chatmain">
-      <div>
-        What do you want to say?<br><input id="chat-txt" type="text" />
+      <div id='send-message' align='center'>
+        <textarea id="chat-txt" class="textarea" placeholder="What do you want to say?"></textarea>
         <button id="chat-btn" type="submit" onclick='postChat()'>Submit</button>
       </div>
       <div width='100%' id="messages" style='height: 100%; overflow-y: scroll;'></div>
@@ -526,10 +531,11 @@ function postChat(){
   const chatTxt = document.getElementById('chat-txt');
   const message = chatTxt.value;
   const icon = sessionStorage.getItem('logo');
+  const important = 'disabled'
   chatTxt.value = '';
 
   db.collection('chat').doc('main').update({
-    [id]: [username, date, message, icon]
+    [id]: [username, date, message, icon, important]
   })
   var replycount = 'replyCount.'+id;
   id = parseInt(id)+1;
@@ -557,19 +563,19 @@ function listener(){
               <td width='20px'>
                 <img src='` + data[i][3] + `' width='30px' height='30px' style='border-radius: 50%' />
               </td>
-              <td>` + data[i][0] + `</td>
+              <td><font size='4em'>` + data[i][0] + `</font></td>
               <td align='right'>
                 <font size= '2px' color='#222'>` + data[i][1] + `</font>
               </td>
             </tr>
             <tr>
-              <td colspan='3'>`
+              <td colspan='3' style="padding: 10px">`
                 + data[i][2] + `
               </td>
             </tr>
             <tr>
               <td colspan='3' id='replyField` + i + `'>
-                <span style="border: outset;" onclick='replyDialog(` + i + `)' id='replyButton` + i + `'>Reply</span>
+                <div style="border: outset; width: 100px;" align='center' onclick='replyDialog(` + i + `)' id='replyButton` + i + `'>Reply</div>
               </td>
             </tr>
             <tr>
@@ -603,7 +609,7 @@ function replyDialog(num){
   $("#replyButton" + num).hide();
   replyField.innerHTML += [`
     <span id='replyForm` + num + `'>
-      <input type='text' id='replyMSG` + num + `'>
+      <textarea id='replyMSG` + num + `' class="textarea" placeholder="What do you want to say?"></textarea>
       <button onclick='sendReply(` + num + `)'>Reply</button>
     </span>
   `]
