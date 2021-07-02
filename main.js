@@ -21,7 +21,10 @@ const changelogOptions = {
     title: 'Changelog',
     message: 'Changes in TGSN Staff HQ v0.1.0-beta',
     detail: `
-  -
+  - Updated Show Resources for TGSR Resources (Now will host a main link to videos & current notes)
+  - Added ability to update TGSR Resources (Coordinators+)
+  - Added Staff Chat (BETA)
+  - Updated Message Board to be a running message board. (Future updates will change this to allow replies.)
   - Stability changes and backend changes
 
   Next Update
