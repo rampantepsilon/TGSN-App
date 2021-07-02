@@ -2,7 +2,6 @@
     <head>
         <title>TGSN Staff HQ v0.0.1-alpha</title>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-        <script src='index.js'></script>
         <link href="https://fonts.googleapis.com/css?family=Raleway:600|Sancreek&display=swap" rel="stylesheet">
         <!-- The core Firebase JS SDK is always required and must be listed first -->
         <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-app.js"></script>
@@ -22,6 +21,7 @@
           // Initialize Firebase
           firebase.initializeApp(firebaseConfig);
         </script>
+        <script src='index.js'></script>
         <style>
           td{
             font-family: Sancreek;
@@ -34,37 +34,23 @@
         </style>
     </head>
 
-    <body onload='messages()'>
+    <body onload="listener()">
       <table width='100%'>
         <tr>
           <td style='border: 1px solid;' id='board'>
             <h2><u>Message Board</u></h2>
-            <table border='1px'>
+            <h3>Welcome to The Gaming Saloon Network Staff HQ! This location will hold important information regarding TGSN Staff!</h3>
+            <table width='100%'>
               <tr>
-                <td width='50%' id='message1'></td>
-                <td width='50%' id='message2'></td>
-              </tr>
-              <tr>
-                <td width='50%' id='message3'></td>
-                <td width='50%' id='message4'></td>
-              </tr>
-              <tr>
-                <td width='50%' id='message5'></td>
-                <td width='50%' id='message6'></td>
+                <td valign='top' height='100%'>
+                  <div id='send-message' align='center'>
+                    <textarea id="chat-txt" class="textarea" placeholder="Insert Message Here" style="width:100%;"></textarea>
+                    <button id="chat-btn" type="submit" onclick='postChat()'>Submit</button>
+                  </div>
+                  <div width='100%' id="messages"></div>
+                </td>
               </tr>
             </table>
-          </td>
-        </tr>
-        <tr id='admin'>
-          <td>
-            <textarea rows='5' cols='100' id='newMessage'></textarea>
-            <br>
-            <button onclick='update(1)'>Update Notification 1</button>
-            <button onclick='update(2)'>Update Notification 2</button>
-            <button onclick='update(3)'>Update Notification 3</button>
-            <button onclick='update(4)'>Update Notification 4</button>
-            <button onclick='update(5)'>Update Notification 5</button>
-            <button onclick='update(6)'>Update Notification 6</button>
           </td>
         </tr>
       </table>
