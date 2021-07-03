@@ -4,14 +4,24 @@ const path = require('path');
 const fs = require('fs');
 //const Store = require('./store');
 //const axios = require('axios');
+var firstVisit = 'true';
+
+//Firestore
+const admin = require('firebase-admin');
+const serviceAccount = require('./src/serviceAccountKey.json');
+
+admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount)
+});
+const db = admin.firestore();
 
 //Information
 function title(){
-    var title = 'TGSN Staff HQ v0.1.0-beta';
+    var title = 'TGSN Staff HQ v0.1.1-beta';
     return title;
 }
 function buildNum(){
-    var build = '21.06.1';
+    var build = '21.07.1';
     return build;
 }
 const currentVer = app.getVersion(); //Version Variable
@@ -19,12 +29,9 @@ const changelogOptions = {
     type: 'info',
     buttons: ['Close'],
     title: 'Changelog',
-    message: 'Changes in TGSN Staff HQ v0.1.0-beta',
+    message: 'Changes in TGSN Staff HQ v0.1.1-beta',
     detail: `
-  - Updated Show Resources for TGSR Resources (Now will host a main link to videos & current notes)
-  - Added ability to update TGSR Resources (Coordinators+)
-  - Added Staff Chat (BETA)
-  - Updated Message Board to be a running message board. (Future updates will change this to allow replies.)
+  - Added Notifications for the Message Board to alert when new messages are made.
   - Stability changes and backend changes
 
   Next Update
@@ -231,6 +238,35 @@ function createWindow(){
         tray.popUpContextMenu();
         })
     }
+
+    const mBoard = db.collection('app').doc('main');
+
+    const mbNotif = mBoard.onSnapshot(docSnapshot => {
+      const data = docSnapshot.data();
+      const idDB = db.collection('app').doc('data');
+      var id;
+      const idDoc = idDB.onSnapshot(docSnap => {
+        const idData = docSnap.data();
+        console.log(idData);
+        id = parseInt(idData.id) - 1;
+        console.log(id);
+        if (firstVisit != 'true'){
+          notif(data[id][1])
+        }
+      });
+    })
+
+    firstVisit = 'false'
+}
+
+function notif(message){
+  let message2 = message.replace(/<br>/g, '\n').substr(0, 70);
+  const notif = new Notification({
+    title: "New Message",
+    body: message2 + '...\n\nRead More on the Message Board',
+    icon: __dirname + "/logo.jpg"
+  })
+  notif.show();
 }
 
 // This method will be called when Electron has finished
