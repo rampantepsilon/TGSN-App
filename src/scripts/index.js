@@ -179,6 +179,8 @@ function init(){
       $("#send-message").hide();
     }
     listener();
+    notificationListener();
+    sessionStorage.setItem('showNotifs','yes');
 }
 function adminInit(){
     var content = document.getElementById('content');
@@ -252,6 +254,7 @@ function adminInit(){
     }
 
     listener();
+    sessionStorage.setItem('showNotifs','yes');
 }
 
 //Login
@@ -496,6 +499,26 @@ function postChat(){
   db.collection('chat').doc('data').update({
     id: id,
     [replycount]: 1
+  })
+}
+
+function notificationListener(){
+  db.collection('app').doc('main').onSnapshot(doc => {
+    const data = doc.data();
+    var notifID;
+    db.collection('app').doc('data').get().then((doc) => {
+      notifID = doc.data().id;
+
+      var message = data[notifID - 1][1].replace(/<br>/g, '\n').substr(0,70);
+      if (sessionStorage.getItem('showNotifs') == 'yes')
+      new Notification(
+        'New Message',
+        {
+          body: message + '...\n\nRead More on the Message Board',
+          icon: './logo.jpg'
+        }
+      )
+    })
   })
 }
 

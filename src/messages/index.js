@@ -1,64 +1,3 @@
-/*function messages(){
-  const app = firebase.app();
-  const db = firebase.firestore();
-  const messages = db.collection('app').doc('messages')
-
-  messages.onSnapshot(doc => {
-    const mainG = doc.data();
-    var mainData = mainG['main'];
-
-    for (var j = 1; j < 7; j++){
-      var mess = 'message' + j;
-      document.getElementById(mess).innerHTML = "";
-      if (mainG[j]){
-        document.getElementById(mess).innerHTML = mainG[j];
-      }
-    }
-  })
-}
-
-function update(num){
-  const app = firebase.app();
-  const db = firebase.firestore();
-  const messages = db.collection('app').doc('messages');
-  var newMessage = document.getElementById('newMessage').value;
-
-  switch(num){
-    case 1:
-      messages.update({
-        1: newMessage
-      })
-      break;
-    case 2:
-      messages.update({
-        2: newMessage
-      })
-      break;
-    case 3:
-      messages.update({
-        3: newMessage
-      })
-      break;
-    case 4:
-      messages.update({
-        4: newMessage
-      })
-      break;
-    case 5:
-      messages.update({
-        5: newMessage
-      })
-      break;
-    case 6:
-      messages.update({
-        6: newMessage
-      })
-      break;
-    default:
-      break;
-  }
-}*/
-
 /*Chat Module Start*/
 const app = firebase.app();
 const db = firebase.firestore();
@@ -83,6 +22,13 @@ function postChat(){
   db.collection('app').doc('data').update({
     id: id
   })
+  /*var request = new XMLHttpRequest();
+  request.open("POST", "https://discord.com/api/webhooks/861068143241068575/7gOKq067ePWHSW6n2vZjzAud33HAb2mhYbHCxleoJ-B7kDlCNR50s87b16qTfFNb2bOL");
+  request.setRequestHeader('Content-type', 'application/json');
+  var params = {
+      content: message.replace(/<br>/g, '\n')
+  }
+  request.send(JSON.stringify(params));*/
 }
 
 //Listen for updates

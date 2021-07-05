@@ -238,35 +238,6 @@ function createWindow(){
         tray.popUpContextMenu();
         })
     }
-
-    const mBoard = db.collection('app').doc('main');
-
-    const mbNotif = mBoard.onSnapshot(docSnapshot => {
-      const data = docSnapshot.data();
-      const idDB = db.collection('app').doc('data');
-      var id;
-      const idDoc = idDB.onSnapshot(docSnap => {
-        const idData = docSnap.data();
-        console.log(idData);
-        id = parseInt(idData.id) - 1;
-        console.log(id);
-        if (firstVisit != 'true'){
-          notif(data[id][1])
-        }
-      });
-    })
-
-    firstVisit = 'false'
-}
-
-function notif(message){
-  let message2 = message.replace(/<br>/g, '\n').substr(0, 70);
-  const notif = new Notification({
-    title: "New Message",
-    body: message2 + '...\n\nRead More on the Message Board',
-    icon: __dirname + "/logo.jpg"
-  })
-  notif.show();
 }
 
 // This method will be called when Electron has finished
