@@ -51,6 +51,47 @@
           ::-webkit-scrollbar-thumb:hover {
             background: darkorange;
           }
+          /* The Modal (background) */
+          .modal {
+            display: none; /* Hidden by default */
+            position: absolute;; /* Stay in place */
+            z-index: 1; /* Sit on top */
+            padding-top: 100px; /* Location of the box */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 89%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgb(0,0,0); /* Fallback color */
+            background-color: rgba(255,255,255,0.4); /* Black w/ opacity */
+            text-align: center;
+          }
+
+          /* Modal Content */
+          .modal-content {
+            background-color: #000000;
+            color: #fff;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            text-align: center;
+          }
+
+          /* The Close Button */
+          .close {
+            color: #aaaaaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+          }
+
+          .close:hover,
+          .close:focus {
+            color: #fff;
+            text-decoration: none;
+            cursor: pointer;
+          }
         </style>
     </head>
 
@@ -66,6 +107,7 @@
                   <div id='send-message' align='center'>
                     <textarea id="chat-txt" class="textarea" placeholder="Insert Message Here" style="width:100%;"></textarea>
                     <button id="chat-btn" type="submit" onclick='postChat()'>Submit</button>
+                    <button id='help' onclick='showHelp()'>Help</button>
                   </div>
                   <div width='100%' id="messages"></div>
                 </td>
@@ -74,5 +116,21 @@
           </td>
         </tr>
       </table>
+
+      <!--Modal for login-->
+      <div id="myModal" class="modal">
+        <div class="modal-content">
+          <span class="close">&times;</span>
+          <div align='left'>
+            <h3 align='center'>Formatting Help</h3>
+            <ul>
+              <li>
+                [url] & [/url]<br>
+                Use this to wrap links. (ex. [url='https://tgsnetwork.org']https://tgsnetwork.org[/url])<br>
+                NOTE: Using this in any other way will cause it to not work either on the Message Board or in Discord.
+              </li>
+          </div>
+        </div>
+      </div>
     </body>
 </html>

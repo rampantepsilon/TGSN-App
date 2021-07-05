@@ -17,11 +17,11 @@ const db = admin.firestore();
 
 //Information
 function title(){
-    var title = 'TGSN Staff HQ v0.1.1-beta';
+    var title = 'TGSN Staff HQ v0.1.2-beta';
     return title;
 }
 function buildNum(){
-    var build = '21.07.1';
+    var build = '21.07.2';
     return build;
 }
 const currentVer = app.getVersion(); //Version Variable
@@ -29,11 +29,11 @@ const changelogOptions = {
     type: 'info',
     buttons: ['Close'],
     title: 'Changelog',
-    message: 'Changes in TGSN Staff HQ v0.1.1-beta',
+    message: 'Changes in TGSN Staff HQ v0.1.2-beta',
     detail: `
-  - Changed Release Tracker to show current day's releases.
-  - Added Notifications for the Message Board to alert when new messages are made.
-  - Added Discord Support
+  - HOTFIX: Corrected issue where Discord webhook could be obtained for misuse.
+  - Corrected issue with links on the Message Board
+  - Added Help button for Message Board users with posting abilities.
   - Stability changes and backend changes
 
   Next Update

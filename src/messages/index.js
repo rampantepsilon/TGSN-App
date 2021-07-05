@@ -14,9 +14,11 @@ function postChat(){
   const chatTxt = document.getElementById('chat-txt');
   const message = chatTxt.value;
   chatTxt.value = '';
+  var msgFB = message.replace(/\[url/g, '<a href').replace(/>/g, ']').replace(/\[\/url\]/g, '</a>');
+  var msgDiscord = message.replace(/\[.*?\]/g, "");
 
   db.collection('app').doc('main').update({
-    [id]: [date, message]
+    [id]: [date, msgFB]
   })
   id = parseInt(id + 1);
   db.collection('app').doc('data').update({
@@ -26,7 +28,7 @@ function postChat(){
   request.open("POST", discordlink)
   request.setRequestHeader('Content-type', 'application/json');
   var params = {
-      content: message.replace(/<br>/g, '\n')
+      content: msgDiscord
   }
   request.send(JSON.stringify(params));
 }
@@ -57,3 +59,13 @@ function listener(){
   })
 }
 /*Chat Module End*/
+
+function showHelp(){
+  var modal = document.getElementById('myModal');
+  var span = document.getElementsByClassName('close')[0];
+
+  modal.style.display = 'block';
+  span.onclick = function(){
+    modal.style.display = 'none';
+  }
+}
