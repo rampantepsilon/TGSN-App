@@ -22,13 +22,13 @@ function postChat(){
   db.collection('app').doc('data').update({
     id: id
   })
-  /*var request = new XMLHttpRequest();
+  var request = new XMLHttpRequest();
   request.open("POST", "https://discord.com/api/webhooks/861068143241068575/7gOKq067ePWHSW6n2vZjzAud33HAb2mhYbHCxleoJ-B7kDlCNR50s87b16qTfFNb2bOL");
   request.setRequestHeader('Content-type', 'application/json');
   var params = {
       content: message.replace(/<br>/g, '\n')
   }
-  request.send(JSON.stringify(params));*/
+  request.send(JSON.stringify(params));
 }
 
 //Listen for updates
