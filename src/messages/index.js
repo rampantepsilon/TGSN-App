@@ -23,7 +23,7 @@ function postChat(){
     id: id
   })
   var request = new XMLHttpRequest();
-  request.open("POST", "https://discord.com/api/webhooks/861068143241068575/7gOKq067ePWHSW6n2vZjzAud33HAb2mhYbHCxleoJ-B7kDlCNR50s87b16qTfFNb2bOL");
+  request.open("POST", discordlink)
   request.setRequestHeader('Content-type', 'application/json');
   var params = {
       content: message.replace(/<br>/g, '\n')
