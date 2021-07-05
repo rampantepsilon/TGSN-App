@@ -18,9 +18,10 @@ function loadReleases(){
   document.getElementById('startDate').value = d.getDate();
   document.getElementById('startYear').value = d.getFullYear();
   //document.getElementById('endDate').value = startDate;
-  document.getElementById('offset').value = 0;
+  //document.getElementById('offset').value = 0;
   document.getElementById('results').innerHTML = 'Results: ' + 0;
   //endDate = data.endDate;
+  getReleases();
 }
 //Clear Releases
 function clearReleases(){
