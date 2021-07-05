@@ -33,6 +33,7 @@ const changelogOptions = {
     detail: `
   - Changed Release Tracker to show current day's releases.
   - Added Notifications for the Message Board to alert when new messages are made.
+  - Added Discord Support
   - Stability changes and backend changes
 
   Next Update
