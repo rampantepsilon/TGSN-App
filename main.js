@@ -31,6 +31,7 @@ const changelogOptions = {
     title: 'Changelog',
     message: 'Changes in TGSN Staff HQ v0.1.1-beta',
     detail: `
+  - Changed Release Tracker to show current day's releases.
   - Added Notifications for the Message Board to alert when new messages are made.
   - Stability changes and backend changes
 
