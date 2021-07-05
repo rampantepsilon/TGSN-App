@@ -263,6 +263,11 @@ app.on('activate', () => {
   }
 })
 
+if (process.platform === 'win32')
+  {
+      app.setAppUserModelId("TGSN Staff HQ")
+  }
+
 app.commandLine.appendSwitch('disable-features', 'CrossOriginOpenerPolicy')
 
 // Listen for web contents being created
