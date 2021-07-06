@@ -14,10 +14,10 @@ function postChat(){
   const chatTxt = document.getElementById('chat-txt');
   const message = chatTxt.value;
   chatTxt.value = '';
-  var msgFB = message.replace(/\[url/g, '<a href').replace(/>/g, ']').replace(/\[\/url\]/g, '</a>');
-  var msgDiscord = message.replace(/\[.*?\]/g, "");
+  var msgFB = message.replace(/\[url/g, '<a href').replace(/]/g, '>').replace(/\[\/url/g, '</a');
+  var msgDiscord = message.replace(/\[.*?\]/g, "").replace(/<br>/g, '/n');
 
-  db.collection('app').doc('main').update({
+  /*db.collection('app').doc('main').update({
     [id]: [date, msgFB]
   })
   id = parseInt(id + 1);
@@ -30,7 +30,7 @@ function postChat(){
   var params = {
       content: msgDiscord
   }
-  request.send(JSON.stringify(params));
+  request.send(JSON.stringify(params));*/
 }
 
 //Listen for updates
