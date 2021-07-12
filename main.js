@@ -17,11 +17,11 @@ const db = admin.firestore();
 
 //Information
 function title(){
-    var title = 'TGSN Staff HQ v0.1.2-beta';
+    var title = 'TGSN Staff HQ v0.1.3-beta';
     return title;
 }
 function buildNum(){
-    var build = '21.07.2';
+    var build = '21.07.3';
     return build;
 }
 const currentVer = app.getVersion(); //Version Variable
@@ -29,11 +29,10 @@ const changelogOptions = {
     type: 'info',
     buttons: ['Close'],
     title: 'Changelog',
-    message: 'Changes in TGSN Staff HQ v0.1.2-beta',
+    message: 'Changes in TGSN Staff HQ v0.1.3-beta',
     detail: `
-  - HOTFIX: Corrected issue where Discord webhook could be obtained for misuse.
-  - Corrected issue with links on the Message Board
-  - Added Help button for Message Board users with posting abilities.
+  - Completely corrected issue with links on the Message Board
+  - Added image support
   - Stability changes and backend changes
 
   Next Update
