@@ -222,7 +222,7 @@ function adminInit(){
     }
 
     for (k = 1; k < (view.length + 1); k++){
-        if (k == 8){
+        if (k == (view.length)){
           buttons.innerHTML += `<td align='center' style='font-size: 40px;'> | </td>`
         }
         buttons.innerHTML += `<td align='center' id='button` + k + `' style='border-style: outset; border-radius: 25% 25% 25% 25%; background-color: #333; color: orange; width: 90px; height: 50px;' onclick="adminShowWin('` + k + `')">` + view[k - 1][1] + `</td>`

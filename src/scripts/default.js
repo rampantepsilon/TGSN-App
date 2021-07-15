@@ -20,6 +20,9 @@ var webview = [
   ],[
     "https://dashboard.twitch.tv/u/thegamingsaloonnetwork/stream-manager",
     "Twitch Dashboard"
+  ],[
+    "https://obs.ninja/?room=thegamingsaloonnetwork&hash=e588",
+    "OBS Ninja"
   ]
 ]
 var adminView = [
@@ -44,6 +47,9 @@ var adminView = [
   ],[
     "https://dashboard.twitch.tv/u/thegamingsaloonnetwork/stream-manager",
     "Twitch Dashboard"
+  ],[
+    "https://obs.ninja/?room=thegamingsaloonnetwork&hash=e588",
+    "OBS Ninja"
   ],[
     './users/index.html',
     'User Management'
@@ -71,6 +77,9 @@ var coordView = [
   ],[
     "https://dashboard.twitch.tv/u/thegamingsaloonnetwork/stream-manager",
     "Twitch Dashboard"
+  ],[
+    "https://obs.ninja/?room=thegamingsaloonnetwork&hash=e588",
+    "OBS Ninja"
   ],[
     './users/coord.html',
     'User Management'

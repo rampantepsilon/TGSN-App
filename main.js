@@ -33,6 +33,7 @@ const changelogOptions = {
     detail: `
   - Completely corrected issue with links on the Message Board
   - Added image support
+  - Added OBS Ninja to links (Fully works within app)
   - Stability changes and backend changes
 
   Next Update
