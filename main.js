@@ -4,16 +4,6 @@ const path = require('path');
 const fs = require('fs');
 //const Store = require('./store');
 //const axios = require('axios');
-var firstVisit = 'true';
-
-//Firestore
-const admin = require('firebase-admin');
-const serviceAccount = require('./src/serviceAccountKey.json');
-
-admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount)
-});
-const db = admin.firestore();
 
 //Information
 function title(){
@@ -34,6 +24,8 @@ const changelogOptions = {
   - Completely corrected issue with links on the Message Board
   - Added image support
   - Added OBS Ninja to links (Fully works within app)
+  - Added ability to remember minimize to tray for current session
+  - Changed App Menu for future updates
   - Stability changes and backend changes
 
   Next Update
@@ -49,9 +41,39 @@ let mainWindow; //MainWindow tracker
 var homeWindow; //Var to know the state of MainWindow
 var notifications; //Notification Toggle
 var launchCheck = 'true';
+var min2Tray = 'false';
 
 //App Menu
 let menuTemplate = [
+    {
+        label: 'App',
+        submenu: [
+          {
+            label: 'Minimize On Close',
+            type: 'checkbox',
+            id: 'min2TrayMenu',
+            click: function (item) {
+              if (item.checked == true){
+                min2Tray = 'true'
+                console.log(min2Tray)
+              } else {
+                min2Tray = 'false'
+                console.log(min2Tray)
+              }
+            }
+          },{
+              type: 'separator'
+          },{
+            label: 'Minimize',
+            role: 'minimize',
+            accelerator: 'CommandOrControl+M'
+          },{
+            label: 'Close',
+            role: 'close',
+            accelerator: 'CommandOrControl+W'
+          }
+        ]
+    },
     {
         label: 'Edit',
         submenu: [
@@ -128,19 +150,6 @@ let menuTemplate = [
         }
         ]
     },{
-        label: 'Window',
-        submenu: [
-        {
-            label: 'Minimize',
-            role: 'minimize',
-            accelerator: 'CommandOrControl+M'
-        },{
-            label: 'Close',
-            role: 'close',
-            accelerator: 'CommandOrControl+W'
-        }
-        ]
-    },{
         label: 'About',
         role: 'about',
         submenu: [
@@ -163,7 +172,7 @@ let menuTemplate = [
     }
 ]
 
-const menu = Menu.buildFromTemplate(menuTemplate); //Add Template to Menu
+var menu = Menu.buildFromTemplate(menuTemplate); //Add Template to Menu
 
 //Function for Changelog
 function changeLog(){
@@ -188,21 +197,29 @@ function createWindow(){
 
     mainWindow.on('close', function(event){
       event.preventDefault();
-      dialog.showMessageBox(mainWindow, {
-        type: 'question',
-        buttons: ['Yes', 'No'],
-        defaultID: 1,
-        title: 'Minimize To Tray',
-        message: 'Do you wish to minimize this window to the tray?'
-      })
-        .then(result => {
-          if (result.response === 1){
-            mainWindow.destroy();
-            app.quit();
-          } else {
-            mainWindow.hide();
-          }
+      if (min2Tray == 'false'){
+        dialog.showMessageBox(mainWindow, {
+          type: 'question',
+          buttons: ['Yes', 'No'],
+          defaultID: 1,
+          title: 'Minimize To Tray',
+          //checkboxLabel: 'Remember This Session',
+          message: 'Do you wish to minimize this window to the tray?'
         })
+          .then(result => {
+            if (result.response === 1){
+              mainWindow.destroy();
+              app.quit();
+            } else {
+              mainWindow.hide();
+              /*if (result.checkboxChecked == true){
+                checkMin2Tray();
+              }*/
+            }
+          })
+      } else {
+        mainWindow.hide();
+      }
     })
 
     //Initialize Tray
