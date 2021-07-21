@@ -2,7 +2,7 @@ const { app, BrowserView, BrowserWindow, Menu, Tray, Notification, globalShortcu
 const https = require('https');
 const path = require('path');
 const fs = require('fs');
-//const Store = require('./store');
+const Store = require('./store.js');
 //const axios = require('axios');
 
 var devBuild = 'true'; //Change Before Building
@@ -27,6 +27,7 @@ const changelogOptions = {
   - Removed the need to know HTML to do line breaks in the Message Board (Now just hit enter to make a new line.)
   - Updated layout for Message Board to fix graphical bugs
   - Removed View on Menubar and moved those items to App
+  - Added ability to remember prefence on Minimizing to Tray
   - Stability changes and backend changes
 
   Next Update
@@ -42,7 +43,17 @@ let mainWindow; //MainWindow tracker
 var homeWindow; //Var to know the state of MainWindow
 var notifications; //Notification Toggle
 var launchCheck = 'true';
-var min2Tray = 'false';
+
+//Storage
+const store = new Store({
+  configName: 'user-prefences',
+  defaults: {
+    min2Tray: 'false'
+  }
+})
+
+//Determine Menu
+var min2Tray = store.get('min2Tray');
 
 //App Menu
 let menuTemplate = [
@@ -55,10 +66,120 @@ let menuTemplate = [
             id: 'min2TrayMenu',
             click: function (item) {
               if (item.checked == true){
-                min2Tray = 'true'
+                min2Tray = 'true';
+                store.set('min2Tray', 'true');
                 console.log(min2Tray)
               } else {
-                min2Tray = 'false'
+                min2Tray = 'false';
+                store.set('min2Tray', 'false')
+                console.log(min2Tray)
+              }
+            }
+          },{
+              type: 'separator'
+          },{
+              label: 'Reload',
+              role: 'reload',
+              accelerator: 'F5'
+          },{
+              label: 'Clear Cache & Reload',
+              role: 'forceReload',
+              accelerator: 'CommandOrControl+F5'
+          },{
+              type: 'separator'
+          },{
+              label: 'Toggle Full Screen',
+              role: 'togglefullscreen',
+              accelerator: 'CommandOrControl+F11'
+          },{
+              type: 'separator'
+          },{
+            label: 'Minimize',
+            role: 'minimize',
+            accelerator: 'CommandOrControl+M'
+          },{
+            label: 'Close',
+            role: 'close',
+            accelerator: 'CommandOrControl+W'
+          }
+        ]
+    },
+    {
+        label: 'Edit',
+        submenu: [
+        {
+            label: 'Undo',
+            role: 'undo',
+            accelerator: 'CommandOrControl+Z'
+        },{
+            label: 'Redo',
+            role: 'redo',
+            accelerator: 'CommandOrControl+Y'
+        },{
+            type: 'separator'
+        },{
+            label: 'Cut',
+            role: 'cut',
+            accelerator: 'CommandOrControl+X'
+        },{
+            label: 'Copy',
+            role: 'copy',
+            accelerator: 'CommandOrControl+C'
+        },{
+            label: 'Paste',
+            role: 'paste',
+            accelerator: 'CommandOrControl+V'
+        },{
+            label: 'Delete',
+            role: 'delete'
+        },{
+            type: 'separator'
+        },{
+            label: 'Select All',
+            role: 'selectAll',
+            accelerator: 'CommandOrControl+A'
+        }
+        ]
+    },{
+        label: 'About',
+        role: 'about',
+        submenu: [
+        {
+            label: title(),
+            enabled: false,
+        },{
+            label: "Version " + currentVer,
+            enabled: false,
+        },{
+            label: "Build: " + buildNum(),
+            enabled: false,
+        },{
+            label: "Changelog",
+            click(){
+            changeLog()
+            }
+        }
+        ]
+    }
+]
+
+let menuCTemplate = [
+    {
+        label: 'App',
+        submenu: [
+          {
+            label: 'Minimize On Close',
+            type: 'checkbox',
+            id: 'min2TrayMenu',
+            checked: true,
+            click: function (item) {
+              if (item.checked == true){
+                min2Tray = 'true';
+                store.set('min2Tray', 'true');
+                console.log(min2Tray)
+              } else {
+                min2Tray = 'false';
+                store.set('min2Tray', 'false')
                 console.log(min2Tray)
               }
             }
@@ -160,10 +281,12 @@ let devTemplate = [
             id: 'min2TrayMenu',
             click: function (item) {
               if (item.checked == true){
-                min2Tray = 'true'
+                min2Tray = 'true';
+                store.set('min2Tray', 'true');
                 console.log(min2Tray)
               } else {
-                min2Tray = 'false'
+                min2Tray = 'false';
+                store.set('min2Tray', 'false')
                 console.log(min2Tray)
               }
             }
@@ -259,10 +382,131 @@ let devTemplate = [
     }
 ]
 
+let devCTemplate = [
+    {
+        label: 'App',
+        submenu: [
+          {
+            label: 'Minimize On Close',
+            type: 'checkbox',
+            id: 'min2TrayMenu',
+            checked: true,
+            click: function (item) {
+              if (item.checked == true){
+                min2Tray = 'true';
+                store.set('min2Tray', 'true');
+                console.log(min2Tray)
+              } else {
+                min2Tray = 'false';
+                store.set('min2Tray', 'false')
+                console.log(min2Tray)
+              }
+            }
+          },{
+              type: 'separator'
+          },{
+              label: 'Reload',
+              role: 'reload',
+              accelerator: 'F5'
+          },{
+              label: 'Clear Cache & Reload',
+              role: 'forceReload',
+              accelerator: 'CommandOrControl+F5'
+          },{
+              label: 'Toggle Dev Tools',
+              role: 'toggledevtools',
+              accelerator: 'CommandOrControl+Alt+I',
+          },{
+              type: 'separator'
+          },{
+              label: 'Toggle Full Screen',
+              role: 'togglefullscreen',
+              accelerator: 'CommandOrControl+F11'
+          },{
+              type: 'separator'
+          },{
+            label: 'Minimize',
+            role: 'minimize',
+            accelerator: 'CommandOrControl+M'
+          },{
+            label: 'Close',
+            role: 'close',
+            accelerator: 'CommandOrControl+W'
+          }
+        ]
+    },
+    {
+        label: 'Edit',
+        submenu: [
+        {
+            label: 'Undo',
+            role: 'undo',
+            accelerator: 'CommandOrControl+Z'
+        },{
+            label: 'Redo',
+            role: 'redo',
+            accelerator: 'CommandOrControl+Y'
+        },{
+            type: 'separator'
+        },{
+            label: 'Cut',
+            role: 'cut',
+            accelerator: 'CommandOrControl+X'
+        },{
+            label: 'Copy',
+            role: 'copy',
+            accelerator: 'CommandOrControl+C'
+        },{
+            label: 'Paste',
+            role: 'paste',
+            accelerator: 'CommandOrControl+V'
+        },{
+            label: 'Delete',
+            role: 'delete'
+        },{
+            type: 'separator'
+        },{
+            label: 'Select All',
+            role: 'selectAll',
+            accelerator: 'CommandOrControl+A'
+        }
+        ]
+    },{
+        label: 'About',
+        role: 'about',
+        submenu: [
+        {
+            label: title(),
+            enabled: false,
+        },{
+            label: "Version " + currentVer,
+            enabled: false,
+        },{
+            label: "Build: " + buildNum(),
+            enabled: false,
+        },{
+            label: "Changelog",
+            click(){
+            changeLog()
+            }
+        }
+        ]
+    }
+]
+
+//Decide which menu to show
 if (devBuild == 'true'){
-  var menu = Menu.buildFromTemplate(devTemplate); //Add Template to Menu
+  if (min2Tray == 'true'){
+    var menu = Menu.buildFromTemplate(devCTemplate); //Add Template to Menu
+  } else {
+    var menu = Menu.buildFromTemplate(devTemplate); //Add Template to Menu
+  }
 } else {
-  var menu = Menu.buildFromTemplate(menuTemplate); //Add Template to Menu
+  if (min2Tray == 'true'){
+    var menu = Menu.buildFromTemplate(menuCTemplate); //Add Template to Menu
+  } else {
+    var menu = Menu.buildFromTemplate(menuTemplate); //Add Template to Menu
+  }
 }
 
 //Function for Changelog
