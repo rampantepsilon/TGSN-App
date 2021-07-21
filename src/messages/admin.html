@@ -30,7 +30,10 @@
           }
           #board{
             background-color: rgba(255,255,255,0.75);
-            border-radius: 20% 20% 0% 0%;
+            border-radius: 50% 50% 0% 0%;
+          }
+          #boardData{
+            background-color: rgba(255,255,255,0.75);
           }
           /* width */
           ::-webkit-scrollbar {
@@ -96,11 +99,15 @@
     </head>
 
     <body onload="listener()">
-      <table width='100%'>
+      <table width='100%' style='border-spacing: 0px;'>
         <tr>
           <td style='border: 1px solid;' id='board'>
             <h2><u>Message Board</u></h2>
             <h3>Welcome to The Gaming Saloon Network Staff HQ! This location will hold important information regarding TGSN Staff!</h3>
+          </td>
+        </tr>
+        <tr>
+          <td style='border: 1px solid;' id='boardData'>
             <table width='100%'>
               <tr>
                 <td valign='top' height='100%'>

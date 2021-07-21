@@ -14,8 +14,10 @@ function postChat(){
   const chatTxt = document.getElementById('chat-txt');
   const message = chatTxt.value;
   chatTxt.value = '';
-  var msgFB = message.replace(/\[url=\(/g, "<a href='").replace(/\)\]/g, "'>").replace(/\[\/url\]/g, '</a>').replace(/\[img\]/g, "<img src='").replace(/\[\/img\]/g, "' />");
-  var msgDiscord = message.replace(/(' width).*?px\[/g,"[").replace(/\[.*?\]/g, "").replace(/<br>/g, '/n');
+  var msgFB = message.replace(/\[url=\'/g, "<a href='").replace(/\'\]/g, "'>").replace(/\[\/url\]/g, '</a>').replace(/\[img\]/g, "<img src='").replace(/\[\/img\]/g, "' />").replace(/\n\r/g, '<br>');
+  var msgDiscord = message.replace(/(' width).*?px\[/g,"[").replace(/\[.*?\]/g, "");
+  alert(msgFB);
+  alert(msgDiscord)
 
   db.collection('app').doc('main').update({
     [id]: [date, msgFB]
