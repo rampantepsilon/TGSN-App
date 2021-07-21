@@ -15,7 +15,7 @@ function postChat(){
   const message = chatTxt.value;
   chatTxt.value = '';
   var msgFB = message.replace(/\[url=\(/g, "<a href='").replace(/\)\]/g, "'>").replace(/\[\/url\]/g, '</a>').replace(/\[img\]/g, "<img src='").replace(/\[\/img\]/g, "' />");
-  var msgDiscord = message.replace(/\[.*?\]/g, "").replace(/<br>/g, '/n');
+  var msgDiscord = message.replace(/(' width).*?px\[/g,"[").replace(/\[.*?\]/g, "").replace(/<br>/g, '/n');
 
   db.collection('app').doc('main').update({
     [id]: [date, msgFB]
