@@ -28,6 +28,7 @@ const changelogOptions = {
   - Updated layout for Message Board to fix graphical bugs
   - Removed View on Menubar and moved those items to App
   - Added ability to remember prefence on Minimizing to Tray
+  - Removed TVS from Show Resources page as this project is currently being rethought
   - Stability changes and backend changes
 
   Next Update

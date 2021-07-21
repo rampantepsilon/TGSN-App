@@ -262,6 +262,11 @@ function showTVSVids(){
   document.getElementById('showBody').innerHTML = [`
     <h2 align='center'>This page will be reworked in a future update.</h2>`]
 }
+function showTVS(){
+  //Framework
+  document.getElementById('showBody').innerHTML = [`
+    <h2 align='center'>This page will be reworked in a future update.</h2>`]
+}
 
 function editMode(){
   var modal = document.getElementById('myModal');
