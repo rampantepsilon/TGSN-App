@@ -5,13 +5,15 @@ const fs = require('fs');
 //const Store = require('./store');
 //const axios = require('axios');
 
+var devBuild = 'true'; //Change Before Building
+
 //Information
 function title(){
-    var title = 'TGSN Staff HQ v0.1.3-beta';
+    var title = 'TGSN Staff HQ v0.1.4-beta';
     return title;
 }
 function buildNum(){
-    var build = '21.07.3';
+    var build = '21.07.4';
     return build;
 }
 const currentVer = app.getVersion(); //Version Variable
@@ -19,13 +21,12 @@ const changelogOptions = {
     type: 'info',
     buttons: ['Close'],
     title: 'Changelog',
-    message: 'Changes in TGSN Staff HQ v0.1.3-beta',
+    message: 'Changes in TGSN Staff HQ v0.1.4-beta',
     detail: `
   - Completely corrected issue with links on the Message Board
-  - Added image support
-  - Added OBS Ninja to links (Fully works within app)
-  - Added ability to remember minimize to tray for current session
-  - Changed App Menu for future updates
+  - Removed the need to know HTML to do line breaks in the Message Board (Now just hit enter to make a new line.)
+  - Updated layout for Message Board to fix graphical bugs
+  - Removed View on Menubar and moved those items to App
   - Stability changes and backend changes
 
   Next Update
@@ -61,6 +62,22 @@ let menuTemplate = [
                 console.log(min2Tray)
               }
             }
+          },{
+              type: 'separator'
+          },{
+              label: 'Reload',
+              role: 'reload',
+              accelerator: 'F5'
+          },{
+              label: 'Clear Cache & Reload',
+              role: 'forceReload',
+              accelerator: 'CommandOrControl+F5'
+          },{
+              type: 'separator'
+          },{
+              label: 'Toggle Full Screen',
+              role: 'togglefullscreen',
+              accelerator: 'CommandOrControl+F11'
           },{
               type: 'separator'
           },{
@@ -111,42 +128,112 @@ let menuTemplate = [
         }
         ]
     },{
-        label: 'View',
+        label: 'About',
+        role: 'about',
         submenu: [
         {
-            label: 'Reload',
-            role: 'reload',
-            accelerator: 'F5'
+            label: title(),
+            enabled: false,
         },{
-            label: 'Clear Cache & Reload',
-            role: 'forceReload',
-            accelerator: 'CommandOrControl+F5'
+            label: "Version " + currentVer,
+            enabled: false,
         },{
-            label: 'Toggle Dev Tools',
-            role: 'toggledevtools',
-            accelerator: 'CommandOrControl+Alt+I',
-            enabled: true,
-            visible: true
+            label: "Build: " + buildNum(),
+            enabled: false,
+        },{
+            label: "Changelog",
+            click(){
+            changeLog()
+            }
+        }
+        ]
+    }
+]
+
+let devTemplate = [
+    {
+        label: 'App',
+        submenu: [
+          {
+            label: 'Minimize On Close',
+            type: 'checkbox',
+            id: 'min2TrayMenu',
+            click: function (item) {
+              if (item.checked == true){
+                min2Tray = 'true'
+                console.log(min2Tray)
+              } else {
+                min2Tray = 'false'
+                console.log(min2Tray)
+              }
+            }
+          },{
+              type: 'separator'
+          },{
+              label: 'Reload',
+              role: 'reload',
+              accelerator: 'F5'
+          },{
+              label: 'Clear Cache & Reload',
+              role: 'forceReload',
+              accelerator: 'CommandOrControl+F5'
+          },{
+              label: 'Toggle Dev Tools',
+              role: 'toggledevtools',
+              accelerator: 'CommandOrControl+Alt+I',
+          },{
+              type: 'separator'
+          },{
+              label: 'Toggle Full Screen',
+              role: 'togglefullscreen',
+              accelerator: 'CommandOrControl+F11'
+          },{
+              type: 'separator'
+          },{
+            label: 'Minimize',
+            role: 'minimize',
+            accelerator: 'CommandOrControl+M'
+          },{
+            label: 'Close',
+            role: 'close',
+            accelerator: 'CommandOrControl+W'
+          }
+        ]
+    },
+    {
+        label: 'Edit',
+        submenu: [
+        {
+            label: 'Undo',
+            role: 'undo',
+            accelerator: 'CommandOrControl+Z'
+        },{
+            label: 'Redo',
+            role: 'redo',
+            accelerator: 'CommandOrControl+Y'
         },{
             type: 'separator'
         },{
-            label: 'Actual Size',
-            role: 'resetZoom',
-            accelerator: 'CommandOrControl+0'
+            label: 'Cut',
+            role: 'cut',
+            accelerator: 'CommandOrControl+X'
         },{
-            label: 'Zoom In',
-            role: 'zoomIn',
-            accelerator: 'CommandOrControl+Plus'
+            label: 'Copy',
+            role: 'copy',
+            accelerator: 'CommandOrControl+C'
         },{
-            label: 'Zoom Out',
-            role: 'zoomOut',
-            accelerator: 'CommandOrControl+-'
+            label: 'Paste',
+            role: 'paste',
+            accelerator: 'CommandOrControl+V'
+        },{
+            label: 'Delete',
+            role: 'delete'
         },{
             type: 'separator'
         },{
-            label: 'Toggle Full Screen',
-            role: 'togglefullscreen',
-            accelerator: 'CommandOrControl+F11'
+            label: 'Select All',
+            role: 'selectAll',
+            accelerator: 'CommandOrControl+A'
         }
         ]
     },{
@@ -172,7 +259,11 @@ let menuTemplate = [
     }
 ]
 
-var menu = Menu.buildFromTemplate(menuTemplate); //Add Template to Menu
+if (devBuild == 'true'){
+  var menu = Menu.buildFromTemplate(devTemplate); //Add Template to Menu
+} else {
+  var menu = Menu.buildFromTemplate(menuTemplate); //Add Template to Menu
+}
 
 //Function for Changelog
 function changeLog(){
