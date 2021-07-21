@@ -9,11 +9,11 @@ var devBuild = 'true'; //Change Before Building
 
 //Information
 function title(){
-    var title = 'TGSN Staff HQ v0.1.4-beta';
+    var title = 'TGSN Staff HQ v0.1.5-beta';
     return title;
 }
 function buildNum(){
-    var build = '21.07.4';
+    var build = '21.07.5';
     return build;
 }
 const currentVer = app.getVersion(); //Version Variable
@@ -21,14 +21,9 @@ const changelogOptions = {
     type: 'info',
     buttons: ['Close'],
     title: 'Changelog',
-    message: 'Changes in TGSN Staff HQ v0.1.4-beta',
+    message: 'Changes in TGSN Staff HQ v0.1.5-beta',
     detail: `
-  - Completely corrected issue with links on the Message Board
-  - Removed the need to know HTML to do line breaks in the Message Board (Now just hit enter to make a new line.)
-  - Updated layout for Message Board to fix graphical bugs
-  - Removed View on Menubar and moved those items to App
-  - Added ability to remember prefence on Minimizing to Tray
-  - Removed TVS from Show Resources page as this project is currently being rethought
+  - Fixed issue from v0.1.4-beta where line breaks wouldn't work properly
   - Stability changes and backend changes
 
   Next Update
