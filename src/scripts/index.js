@@ -1,3 +1,20 @@
+const Store = require('./store.js');
+
+const store = new Store({
+  configName: 'user-prefences',
+  defaults: {
+    min2Tray: 'false',
+    showNotifs: 'true'
+  }
+})
+const storeInfo = new Store({
+  configName: 'user-info',
+  defaults: {
+    loggedIn: 'no',
+    access: 'guest'
+  }
+})
+
 //Variables
 let currentPage = 1;
 var defaultScript;
@@ -180,7 +197,6 @@ function init(){
     }
     listener();
     notificationListener();
-    sessionStorage.setItem('showNotifs','yes');
 }
 function adminInit(){
     var content = document.getElementById('content');
@@ -315,6 +331,8 @@ function fLogin(){
               adminShowWin(currentPage);
               replys();
             }
+            storeInfo.set('loggedIn', 'yes');
+            storeInfo.set('access', users['position'][j])
           }
         }
         for (var i = 1; i < id; i ++){
@@ -340,6 +358,8 @@ function logout(){
   document.getElementById('userPic').innerHTML = '';
   document.getElementById('content').innerHTML = [``];
   document.getElementById('buttons').innerHTML = '';
+  storeInfo.set('loggedIn', 'no');
+  storeInfo.set('access', 'guest')
   init();
 }
 function changePass(){

@@ -2,7 +2,7 @@ const { app, BrowserView, BrowserWindow, Menu, Tray, Notification, globalShortcu
 const https = require('https');
 const path = require('path');
 const fs = require('fs');
-const Store = require('./store.js');
+const Store = require('./src/store.js');
 //const axios = require('axios');
 
 var devBuild = 'true'; //Change Before Building
@@ -21,9 +21,10 @@ const changelogOptions = {
     type: 'info',
     buttons: ['Close'],
     title: 'Changelog',
-    message: 'Changes in TGSN Staff HQ v0.1.5-beta',
+    message: 'Changes in TGSN Staff HQ v0.1.6-beta',
     detail: `
-  - Fixed issue from v0.1.4-beta where line breaks wouldn't work properly
+  - Background work for upcoming navigation changes
+  - Removed TVS Staff and TVS Coordinator positions from User Management
   - Stability changes and backend changes
 
   Next Update
@@ -44,7 +45,15 @@ var launchCheck = 'true';
 const store = new Store({
   configName: 'user-prefences',
   defaults: {
-    min2Tray: 'false'
+    min2Tray: 'false',
+    showNotifs: 'true'
+  }
+})
+const storeInfo = new Store({
+  configName: 'user-info',
+  defaults: {
+    loggedIn: 'no',
+    access: 'guest'
   }
 })
 
@@ -518,7 +527,9 @@ function createWindow(){
         icon: __dirname + 'logo.ico',
         webPreferences: {
             nativeWindowOpen: true,
-            webviewTag: true
+            webviewTag: true,
+            nodeIntegration: true,
+            enableRemoteModule: true
         }
     })
 
@@ -539,6 +550,8 @@ function createWindow(){
         })
           .then(result => {
             if (result.response === 1){
+              storeInfo.set('loggedIn', 'no');
+              storeInfo.set('access', 'guest');
               mainWindow.destroy();
               app.quit();
             } else {
@@ -573,6 +586,8 @@ function createWindow(){
         },{
         label: 'Quit',
         click: function () {
+            storeInfo.set('loggedIn', 'no');
+            storeInfo.set('access', 'guest');
             mainWindow.destroy();
             app.quit();
           }
