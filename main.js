@@ -9,11 +9,11 @@ var devBuild = 'true'; //Change Before Building
 
 //Information
 function title(){
-    var title = 'TGSN Staff HQ v0.1.5-beta';
+    var title = 'TGSN Staff HQ v0.1.6-beta';
     return title;
 }
 function buildNum(){
-    var build = '21.07.5';
+    var build = '21.08.1';
     return build;
 }
 const currentVer = app.getVersion(); //Version Variable
