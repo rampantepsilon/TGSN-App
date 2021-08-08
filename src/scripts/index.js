@@ -105,47 +105,13 @@ function showChat(){
 
 //Hide All Windows Except the main on load
 function init(){
+    //Variables
     var content = document.getElementById('content');
     var buttons = document.getElementById('buttons');
     var uName = document.getElementById('uNameStatic');
-    buttons.innerHTML = [`
-      <td align='center' id='buttonRefresh' style='border-style: outset; border-radius: 25% 25% 25% 25%; background-color: orange; color: #333; width: 50px; height: 50px;' onclick="refresh()">
-        <img src='./images/refresh.png' width='40px' height='40px'>
-      </td>`];
-
-    //Add Saved Links
-    for (j = 1; j < (webview.length + 1); j++){
-        var cell = content.insertCell(j-1);
-        cell.innerHTML = `<webview style='height:100%' webpreferences='webviewTag' useragent="Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:86.0) Gecko/20100101 Firefox/86.0" src='` + webview[j - 1][0] + `'></webview>`;
-        cell.style.width = '80%';
-        cell.setAttribute('id', j);
-    }
-
-    for (k = 1; k < (webview.length + 1); k++){
-      buttons.innerHTML += `<td align='center' id='button` + k + `' style='border-style: outset; border-radius: 25% 25% 25% 25%; background-color: #333; color: orange; width: 90px; height: 50px;' onclick="showWin('` + k + `')">` + webview[k - 1][1] + `</td>`
-    }
-
-    var cell = content.insertCell(j-1);
-    cell.innerHTML = [`
-      <td valign='top' height='100%'>
-        <div id='send-message' align='center'>
-          <textarea id="chat-txt" class="textarea" placeholder="What do you want to say?"></textarea>
-          <button id="chat-btn" type="submit" onclick='postChat()'>Submit</button>
-        </div>
-        <div width='100%' id="messages" style='height: 100%; overflow-y: scroll;'></div>
-      </td>`];
-    cell.style.width = '400px';
-    cell.setAttribute('id', 'chat');
-
-    buttons.innerHTML += `<td align='center' style='font-size: 40px; line-height: 10px'> | </td>`;
-    buttons.innerHTML += `<td align='center' id='buttonChat' style='border-style: outset; border-radius: 25% 25% 25% 25%; background-color: #333; color: orange; width: 90px; height: 50px;' onclick="showChat()">Show/Hide Chat</td>`
-
-    for (i = 2; i < (webview.length + 1); i++){
-      $('#' + i).hide();
-    }
-    if (chatShown == 1){
-      $('#chat').show();
-    }
+    var loggedIn = storeInfo.get('loggedIn');
+    var access = storeInfo.get('access');
+    content.innerHTML = '';
 
     //Login Functions
     var sUser;
@@ -172,18 +138,168 @@ function init(){
       document.getElementById('uNameStatic').innerHTML = sUser + `<br><button onclick='changePass()'>Change Password</button><button onclick='logout()'>Logout</button>`;
       document.getElementById('userPic').innerHTML = `<img src='` + sLogo + `' width='60px' height='60px' style='border-radius: 50% 50% 50% 50%;'>`
       document.getElementById('positionTag').innerHTML = sPosition + ` HQ`;
-      if (sPosition == 'Network Admin' || sPosition == 'TGSN Coordinator' || sPosition == 'TVS Coordinator'){
-        adminInit();
-      }
     } else {
       uName.innerHTML = `Not Signed In<br><button onclick='login()'>Login</button>`
+    }
+
+    //Add Refresh Button
+    buttons.innerHTML = [`
+      <td align='center' id='buttonRefresh' style='border-style: outset; border-radius: 25% 25% 25% 25%; background-color: orange; color: #333; width: 50px; height: 50px;' onclick="refresh()">
+        <img src='./images/refresh.png' width='40px' height='40px'>
+      </td>`];
+
+    if (loggedIn == 'yes'){
+      if (access == 'Network Admin'){
+        //Add Saved Links
+        for (j = 1; j < (adminView.length + 1); j++){
+            var cell = content.insertCell(j-1);
+            cell.innerHTML = `<webview style='height:100%' useragent="Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:86.0) Gecko/20100101 Firefox/86.0" src='` + adminView[j - 1][0] + `'></webview>`;
+            cell.style.width = '80%';
+            cell.setAttribute('id', j);
+        }
+        //Add Buttons
+        for (k = 1; k < (adminView.length + 1); k++){
+            if (k == (adminView.length)){
+              buttons.innerHTML += `<td align='center' style='font-size: 40px;'> | </td>`
+            }
+            buttons.innerHTML += `<td align='center' id='button` + k + `' style='border-style: outset; border-radius: 25% 25% 25% 25%; background-color: #333; color: orange; width: 90px; height: 50px;' onclick="adminShowWin('` + k + `')">` + adminView[k - 1][1] + `</td>`
+        }
+        // Add Chat
+        var cell = content.insertCell(j-1);
+        cell.innerHTML = [`
+          <td valign='top' height='100%'>
+            <div id='send-message' align='center'>
+              <textarea id="chat-txt" class="textarea" placeholder="What do you want to say?"></textarea>
+              <button id="chat-btn" type="submit" onclick='postChat()'>Submit</button>
+            </div>
+            <div width='100%' id="messages" style='height: calc(100% - 45px); overflow-y: scroll;'></div>
+          </td>`];
+        cell.style.width = '400px';
+        cell.setAttribute('id', 'chat');
+        //Add Chat Button
+        buttons.innerHTML += `<td align='center' style='font-size: 40px;'> | </td>`;
+        buttons.innerHTML += `<td align='center' id='buttonChat' style='border-style: outset; border-radius: 25% 25% 25% 25%; background-color: #333; color: orange; width: 90px; height: 50px;' onclick="showChat()">Show/Hide Chat</td>`
+
+        for (i = 2; i < (adminView.length + 1); i++){
+          $('#' + i).hide();
+        }
+        if (chatShown == 1){
+          $('#chat').show();
+        }
+      } else if (access == 'TGSN Coordinator') {
+        //Add Saved Links
+        for (j = 1; j < (coordView.length + 1); j++){
+            var cell = content.insertCell(j-1);
+            cell.innerHTML = `<webview style='height:100%' useragent="Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:86.0) Gecko/20100101 Firefox/86.0" src='` + coordView[j - 1][0] + `'></webview>`;
+            cell.style.width = '80%';
+            cell.setAttribute('id', j);
+        }
+        //Add Buttons
+        for (k = 1; k < (coordView.length + 1); k++){
+            if (k == (coordView.length)){
+              buttons.innerHTML += `<td align='center' style='font-size: 40px;'> | </td>`
+            }
+            buttons.innerHTML += `<td align='center' id='button` + k + `' style='border-style: outset; border-radius: 25% 25% 25% 25%; background-color: #333; color: orange; width: 90px; height: 50px;' onclick="adminShowWin('` + k + `')">` + coordView[k - 1][1] + `</td>`
+        }
+        // Add Chat
+        var cell = content.insertCell(j-1);
+        cell.innerHTML = [`
+          <td valign='top' height='100%'>
+            <div id='send-message' align='center'>
+              <textarea id="chat-txt" class="textarea" placeholder="What do you want to say?"></textarea>
+              <button id="chat-btn" type="submit" onclick='postChat()'>Submit</button>
+            </div>
+            <div width='100%' id="messages" style='height: calc(100% - 45px); overflow-y: scroll;'></div>
+          </td>`];
+        cell.style.width = '400px';
+        cell.setAttribute('id', 'chat');
+        //Add Chat Button
+        buttons.innerHTML += `<td align='center' style='font-size: 40px;'> | </td>`;
+        buttons.innerHTML += `<td align='center' id='buttonChat' style='border-style: outset; border-radius: 25% 25% 25% 25%; background-color: #333; color: orange; width: 90px; height: 50px;' onclick="showChat()">Show/Hide Chat</td>`
+
+        for (i = 2; i < (coordView.length + 1); i++){
+          $('#' + i).hide();
+        }
+        if (chatShown == 1){
+          $('#chat').show();
+        }
+      } else {
+        //Add Saved Links
+        for (j = 1; j < (webview.length + 1); j++){
+            var cell = content.insertCell(j-1);
+            cell.innerHTML = `<webview style='height:100%' webpreferences='webviewTag' useragent="Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:86.0) Gecko/20100101 Firefox/86.0" src='` + webview[j - 1][0] + `'></webview>`;
+            cell.style.width = '80%';
+            cell.setAttribute('id', j);
+        }
+        //Add Buttons
+        for (k = 1; k < (webview.length + 1); k++){
+          buttons.innerHTML += `<td align='center' id='button` + k + `' style='border-style: outset; border-radius: 25% 25% 25% 25%; background-color: #333; color: orange; width: 90px; height: 50px;' onclick="showWin('` + k + `')">` + webview[k - 1][1] + `</td>`
+        }
+        //Add Chat
+        var cell = content.insertCell(j-1);
+        cell.innerHTML = [`
+          <td valign='top' height='100%'>
+            <div id='send-message' align='center'>
+              <textarea id="chat-txt" class="textarea" placeholder="What do you want to say?"></textarea>
+              <button id="chat-btn" type="submit" onclick='postChat()'>Submit</button>
+            </div>
+            <div width='100%' id="messages" style='height: 100%; overflow-y: scroll;'></div>
+          </td>`];
+        cell.style.width = '400px';
+        cell.setAttribute('id', 'chat');
+        //Add Chat Button
+        buttons.innerHTML += `<td align='center' style='font-size: 40px; line-height: 10px'> | </td>`;
+        buttons.innerHTML += `<td align='center' id='buttonChat' style='border-style: outset; border-radius: 25% 25% 25% 25%; background-color: #333; color: orange; width: 90px; height: 50px;' onclick="showChat()">Show/Hide Chat</td>`
+
+        //Hide other webviews
+        for (i = 2; i < (webview.length + 1); i++){
+          $('#' + i).hide();
+        }
+        if (chatShown == 1){
+          $('#chat').show();
+        }
+      }
+    } else {
+      //Add Saved Links
+      for (j = 1; j < (webview.length - 1); j++){
+          var cell = content.insertCell(j-1);
+          cell.innerHTML = `<webview style='height:100%' webpreferences='webviewTag' useragent="Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:86.0) Gecko/20100101 Firefox/86.0" src='` + webview[j - 1][0] + `'></webview>`;
+          cell.style.width = '80%';
+          cell.setAttribute('id', j);
+      }
+      //Add Buttons
+      for (k = 1; k < (webview.length - 1); k++){
+        buttons.innerHTML += `<td align='center' id='button` + k + `' style='border-style: outset; border-radius: 25% 25% 25% 25%; background-color: #333; color: orange; width: 90px; height: 50px;' onclick="showWin('` + k + `')">` + webview[k - 1][1] + `</td>`
+      }
+      //Add Chat
+      var cell = content.insertCell(j-1);
+      cell.innerHTML = [`
+        <td valign='top' height='100%'>
+          <div id='send-message' align='center'>
+            <textarea id="chat-txt" class="textarea" placeholder="What do you want to say?"></textarea>
+            <button id="chat-btn" type="submit" onclick='postChat()'>Submit</button>
+          </div>
+          <div width='100%' id="messages" style='height: 100%; overflow-y: scroll;'></div>
+        </td>`];
+      cell.style.width = '400px';
+      cell.setAttribute('id', 'chat');
+      //Add Chat Button
+      buttons.innerHTML += `<td align='center' style='font-size: 40px; line-height: 10px'> | </td>`;
+      buttons.innerHTML += `<td align='center' id='buttonChat' style='border-style: outset; border-radius: 25% 25% 25% 25%; background-color: #333; color: orange; width: 90px; height: 50px;' onclick="showChat()">Show/Hide Chat</td>`
+
+      //Hide other webviews
+      for (i = 2; i < (webview.length - 1); i++){
+        $('#' + i).hide();
+      }
+      if (chatShown == 1){
+        $('#chat').show();
+      }
     }
 
     document.getElementById('button1').style.backgroundColor = 'orange';
     document.getElementById('button1').style.color = '#333';
 
     //Staff Chat Resources
-    //document.getElementById('send-message').addEventListener('submit', postChat);
     document.getElementById('chat-txt').onkeyup = function(){
       if (event.keyCode === 13){
         postChat();
@@ -196,81 +312,6 @@ function init(){
       $("#send-message").hide();
     }
     listener();
-    notificationListener();
-}
-function adminInit(){
-    var content = document.getElementById('content');
-    var buttons = document.getElementById('buttons');
-    var uName = document.getElementById('uNameStatic');
-    content.innerHTML = '';
-    buttons.innerHTML = [`
-      <td align='center' id='buttonRefresh' style='border-style: outset; border-radius: 25% 25% 25% 25%; background-color: orange; color: #333; width: 50px; height: 50px;' onclick="refresh()">
-        <img src='./images/refresh.png' width='40px' height='40px'>
-      </td>`];
-
-    //Login Functions
-    var sUser = sessionStorage.getItem('username');
-    var sLogo = sessionStorage.getItem('logo');
-    var sPosition = sessionStorage.getItem('position');
-
-    if (sUser){
-      document.getElementById('uNameStatic').innerHTML = sUser + `<br><button onclick='changePass()'>Change Password</button><button onclick='logout()'>Logout</button>`;
-      document.getElementById('userPic').innerHTML = `<img src='` + sLogo + `' width='60px' height='60px' style='border-radius: 50% 50% 50% 50%;'>`
-      document.getElementById('positionTag').innerHTML = sPosition + ` HQ`;
-    } else {
-      uName.innerHTML = `Not Signed In<br><button onclick='login()'>Login</button>`
-    }
-
-    //Set correct view for links
-    var view;
-    if (sPosition == 'Network Admin'){
-      view = adminView;
-    } else if (sPosition == 'TGSN Coordinator' || sPosition == 'TVS Coordinator'){
-      view = coordView
-    }
-
-    //Add Saved Links
-    for (j = 1; j < (view.length + 1); j++){
-        var cell = content.insertCell(j-1);
-        cell.innerHTML = `<webview style='height:100%' useragent="Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:86.0) Gecko/20100101 Firefox/86.0" src='` + view[j - 1][0] + `'></webview>`;
-        cell.style.width = '80%';
-        cell.setAttribute('id', j);
-    }
-
-    for (k = 1; k < (view.length + 1); k++){
-        if (k == (view.length)){
-          buttons.innerHTML += `<td align='center' style='font-size: 40px;'> | </td>`
-        }
-        buttons.innerHTML += `<td align='center' id='button` + k + `' style='border-style: outset; border-radius: 25% 25% 25% 25%; background-color: #333; color: orange; width: 90px; height: 50px;' onclick="adminShowWin('` + k + `')">` + view[k - 1][1] + `</td>`
-    }
-
-    var cell = content.insertCell(j-1);
-    cell.innerHTML = [`
-      <td valign='top' height='100%'>
-        <div id='send-message' align='center'>
-          <textarea id="chat-txt" class="textarea" placeholder="What do you want to say?"></textarea>
-          <button id="chat-btn" type="submit" onclick='postChat()'>Submit</button>
-        </div>
-        <div width='100%' id="messages" style='height: calc(100% - 45px); overflow-y: scroll;'></div>
-      </td>`];
-    cell.style.width = '400px';
-    cell.setAttribute('id', 'chat');
-
-    buttons.innerHTML += `<td align='center' style='font-size: 40px;'> | </td>`;
-    buttons.innerHTML += `<td align='center' id='buttonChat' style='border-style: outset; border-radius: 25% 25% 25% 25%; background-color: #333; color: orange; width: 90px; height: 50px;' onclick="showChat()">Show/Hide Chat</td>`
-
-    document.getElementById('button1').style.backgroundColor = 'orange';
-    document.getElementById('button1').style.color = '#333';
-
-    for (i = 2; i < (view.length + 1); i++){
-      $('#' + i).hide();
-    }
-    if (chatShown == 1){
-      $('#chat').show();
-    }
-
-    listener();
-    sessionStorage.setItem('showNotifs','yes');
 }
 
 //Login
@@ -326,13 +367,10 @@ function fLogin(){
             sessionStorage.setItem('username', userNames[j])
             sessionStorage.setItem('logo', users['logo'][j])
             sessionStorage.setItem('position', users['position'][j])
-            if (users['position'][j] == 'Network Admin' || users['position'][j] == 'TGSN Coordinator' || users['position'][j] == 'TVS Coordinator'){
-              adminInit();
-              adminShowWin(currentPage);
-              replys();
-            }
             storeInfo.set('loggedIn', 'yes');
             storeInfo.set('access', users['position'][j])
+            init();
+            replys();
           }
         }
         for (var i = 1; i < id; i ++){
@@ -530,7 +568,7 @@ function notificationListener(){
       notifID = doc.data().id;
 
       var message = data[notifID - 1][1].replace(/<br>/g, '\n').substr(0,70);
-      if (sessionStorage.getItem('showNotifs') == 'yes')
+      if (sessionStorage.getItem('showNotifs') == 'yes'){}
       new Notification(
         'New Message',
         {
