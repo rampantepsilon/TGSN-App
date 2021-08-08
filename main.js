@@ -26,6 +26,7 @@ const changelogOptions = {
   - Background work for upcoming navigation changes
   - Removed TVS Staff and TVS Coordinator positions from User Management
   - Changed how the link bar handles permissions (This will continue to be modified going forward to accomodate if Staff needs additional pages)
+  - Fixed bug when changing a users position it would blank out the password
   - Stability changes and backend changes
 
   Next Update

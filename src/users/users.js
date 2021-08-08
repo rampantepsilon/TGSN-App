@@ -30,14 +30,10 @@ function init(){
         position = '0';
       } else if (positions[i] == 'TGSN Coordinator'){
         position = '1';
-      } else if (positions[i] == 'TVS Coordinator'){
-        position = '2';
       } else if (positions[i] == 'TGSN Staff'){
-        position = '3';
-      } else if (positions[i] == 'TVS Staff'){
-        position = '4';
+        position = '2';
       } else if (positions[i] == 'DR Staff'){
-        position = '5';
+        position = '3';
       } else {
         position = '3';
       }
@@ -80,9 +76,11 @@ function updateUser(level){
   var avatar = document.getElementById('avatar').value;
   var position = document.getElementById('position').value;
 
+  console.log(pWord);
+
   if (uName == 'rampantepsilon' || uName == 'peacemaker2448'){
     if (level == 'admin'){
-      if (pWord){
+      if (pWord != 'd41d8cd98f00b204e9800998ecf8427e'){
         alert("This will change the user's password. Please notify them of the change.");
         login.update({
           [uName]: pWord
@@ -114,7 +112,7 @@ function updateUser(level){
       alert("You are not allowed to edit this user.")
     }
   } else {
-    if (pWord){
+    if (pWord != 'd41d8cd98f00b204e9800998ecf8427e'){
       alert("This will change the user's password. Please notify them of the change.");
       login.update({
         [uName]: pWord
