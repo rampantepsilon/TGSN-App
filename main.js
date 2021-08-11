@@ -5,7 +5,9 @@ const fs = require('fs');
 const Store = require('./src/store.js');
 //const axios = require('axios');
 
-var devBuild = 'true'; //Change Before Building
+//Change Before Building
+var devBuild = 'false';
+//var devBuild = 'true';
 
 //Information
 function title(){
