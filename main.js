@@ -6,16 +6,16 @@ const Store = require('./src/store.js');
 //const axios = require('axios');
 
 //Change Before Building
-var devBuild = 'false';
-//var devBuild = 'true';
+//var devBuild = 'false';
+var devBuild = 'true';
 
 //Information
 function title(){
-    var title = 'TGSN Staff HQ v0.1.6-beta';
+    var title = 'TGSN Staff HQ v0.1.7-beta';
     return title;
 }
 function buildNum(){
-    var build = '21.08.1';
+    var build = '21.08.2';
     return build;
 }
 const currentVer = app.getVersion(); //Version Variable
@@ -23,16 +23,15 @@ const changelogOptions = {
     type: 'info',
     buttons: ['Close'],
     title: 'Changelog',
-    message: 'Changes in TGSN Staff HQ v0.1.6-beta',
+    message: 'Changes in TGSN Staff HQ v0.1.7-beta',
     detail: `
-  - Background work for upcoming navigation changes
-  - Removed TVS Staff and TVS Coordinator positions from User Management
-  - Changed how the link bar handles permissions (This will continue to be modified going forward to accomodate if Staff needs additional pages)
-  - Fixed bug when changing a users position it would blank out the password
+  - Updated input field for the Message Board
+  - Cleaned up the Message Board help screen
+  - Added logging of activity for research purposes
+  - Updated User Management screen to show last activity of members
   - Stability changes and backend changes
 
   Next Update
-  - Add Show Notes (TGS, TGSR, TVS)
   - Add Recent Videos Editor
 
   If you have any suggestions for the app, please reach out to me on Twitter @rampantepsilon or Discord (RampantEpsilon#7868).`

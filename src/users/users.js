@@ -5,6 +5,7 @@ function init(){
   const app = firebase.app();
   const db = firebase.firestore();
   const login = db.collection('users').doc('logins');
+  const timestamp = db.collection('users').doc('timestamp')
 
   //Other Variables
   var list = document.getElementById('userList');
@@ -16,6 +17,7 @@ function init(){
     var fNames = data.formatNames;
     var positions = data.position;
     var logos = data.logo;
+    var numUsers = data.numUsers;
 
     list.innerHTML = 'Current Users:'
 
@@ -40,8 +42,17 @@ function init(){
       var pass = '"' + logins[i] + '", "' + position + '", "' + logos[i] + '"';
       console.log(pass);
 
-      list.innerHTML += `<div style='height:70px' onclick='update(` + pass + `)'><img src='` + logos[i] + `' width='60px' height='60px' style='position:absolute'><div style='position:relative; left: 65px; top: 0px; width: 300px;'>` + fNames[i] + `<br>` + positions[i] + `</div></div>`;
+      list.innerHTML += `<div style='height:70px' onclick='update(` + pass + `)'><img src='` + logos[i] + `' width='60px' height='60px' style='position:absolute'><div style='position:relative; left: 65px; top: 0px; width: 300px;'>` + fNames[i] + `<br>` + positions[i] + `<br>Last Active: <span id='ts` + fNames[i] + `'>` +  + `</span></div></div>`;
     }
+
+    timestamp.onSnapshot((doc) => {
+      const data = doc.data();
+      for (i = 0; i < numUsers; i++){
+        var id = 'ts'+fNames[i];
+        console.log(fNames[i])
+        document.getElementById(id).innerHTML = data[fNames[i]];
+      }
+    })
   })
 }
 

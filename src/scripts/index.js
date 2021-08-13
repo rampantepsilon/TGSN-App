@@ -25,6 +25,16 @@ var playerHeight = window.innerHeight-60;
 
 //Redirect Function
 function showWin(num){
+  const app = firebase.app();
+  const db = firebase.firestore();
+  const timestamp = db.collection('users').doc('timestamp')
+  if (sessionStorage.getItem('username')){
+    var user = sessionStorage.getItem('username');
+    var tsTime = new Date().toLocaleString();
+    timestamp.update({
+      [user]: tsTime
+    })
+  }
     if (num == '99'){
         for (i = 1; i < (webview.length + 1); i++){
             $('#' + i).hide();
@@ -58,6 +68,16 @@ function showWin(num){
     }
 }
 function adminShowWin(num){
+  const app = firebase.app();
+  const db = firebase.firestore();
+  const timestamp = db.collection('users').doc('timestamp')
+  if (sessionStorage.getItem('username')){
+    var user = sessionStorage.getItem('username');
+    var tsTime = new Date().toLocaleString();
+    timestamp.update({
+      [user]: tsTime
+    })
+  }
     if (num == '99'){
         for (i = 1; i < (webview.length + 1); i++){
             $('#' + i).hide();
@@ -344,6 +364,7 @@ function fLogin(){
   const app = firebase.app();
   const db = firebase.firestore();
   const login = db.collection('users').doc('logins')
+  const timestamp = db.collection('users').doc('timestamp')
 
   login.get().then((doc) => {
     const users = doc.data();
@@ -369,6 +390,11 @@ function fLogin(){
             sessionStorage.setItem('position', users['position'][j])
             storeInfo.set('loggedIn', 'yes');
             storeInfo.set('access', users['position'][j])
+            var tsUName = userNames[j];
+            var tsTime = new Date().toLocaleString();
+            timestamp.update({
+              [tsUName]: tsTime
+            })
             init();
             replys();
           }

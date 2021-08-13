@@ -95,6 +95,21 @@
             text-decoration: none;
             cursor: pointer;
           }
+
+          .button{
+            color: black;
+            background-color: darkorange;
+            cursor: pointer;
+          }
+          .button:hover{
+            background-color: black;
+            color: darkorange;
+            cursor: pointer;
+          }
+          #chat-txt{
+            display:block;
+            resize: none;
+          }
         </style>
     </head>
 
@@ -113,8 +128,10 @@
                 <td valign='top' height='100%'>
                   <div id='send-message' align='center'>
                     <textarea id="chat-txt" class="textarea" placeholder="Insert Message Here" style="width:100%;"></textarea>
-                    <button id="chat-btn" type="submit" onclick='postChat()'>Submit</button>
-                    <button id='help' onclick='showHelp()'>Help</button>
+                  </div>
+                  <div align='center'>
+                    <div style="border: outset; width: 100px; display:inline-block;" align='center' onclick='postChat()' class='button'>Submit</div>
+                    <div style="border: outset; width: 100px; display:inline-block;" align='center' onclick='showHelp()' class='button'>Help</div>
                   </div>
                   <div width='100%' id="messages"></div>
                 </td>
@@ -123,6 +140,20 @@
           </td>
         </tr>
       </table>
+      <script type="text/javascript">
+        textarea = document.querySelector("#chat-txt");
+        textarea.addEventListener('input', autoResize, false);
+
+        function autoResize() {
+            this.style.height = 'auto';
+            console.log(this.scrollHeight);
+            if (this.scrollHeight < "302"){
+              this.style.height = this.scrollHeight + 'px';
+            } else {
+              this.style.height = '302px';
+            }
+        }
+      </script>
 
       <!--Modal for login-->
       <div id="myModal" class="modal">
@@ -132,15 +163,32 @@
             <h3 align='center'>Formatting Help</h3>
             <ul>
               <li>
-                [url] & [/url]<br>
-                Use this to wrap links. (ex. [url='https://tgsnetwork.org']https://tgsnetwork.org[/url])<br>
-                NOTE: Using this in any other way will cause it to not work either on the Message Board or in Discord.
+                [url] & [/url]
+                <ul>
+                  <li>
+                    Use this to wrap links. (ex. [url='https://tgsnetwork.org']https://tgsnetwork.org[/url])<br>
+                    NOTE: Using this in any other way will cause it to not work either on the Message Board or in Discord.
+                  </li>
+                </ul>
               </li>
               <li>
-                [img] & [/img]<br>
-                Use this to wrap images. (ex. [img]https://tgsnetwork.org/images/logo.png[/img])<br>
-                If you want to set a size, use as follows -> [img]https://tgsnetwork.org/images/logo.png' width='60px' height='60px[/img]<br>
-                NOTE: Using this in any other way may cause it to fail on the Message Board or in Discord.
+                [img] & [/img]
+                <ul>
+                  <li>
+                    Use this to wrap images. (ex. [img]https://tgsnetwork.org/images/logo.png[/img])<br>
+                    If you want to set a size, use as follows -> [img]https://tgsnetwork.org/images/logo.png' width='60px' height='60px[/img]<br>
+                    NOTE: Using this in any other way may cause it to fail on the Message Board or in Discord.
+                  </li>
+                </ul>
+              </li>
+              <li>
+                Line Breaks
+                <ul>
+                  <li>
+                    Press Enter to create a line break (Using <br> will break the layout now)
+                  </li>
+                </ul>
+              </li>
           </div>
         </div>
       </div>
