@@ -332,7 +332,7 @@ function init(){
       $("#send-message").hide();
     }
     listener();
-    updateCheck();
+    //updateCheck();
 }
 
 //Login
@@ -806,6 +806,7 @@ function forceReplies(i){
 /*Chat Module End*/
 
 /*Updater*/
+/*const app = require('electron').remote.app;
 function updateCheck(){
   db.collection('app').doc('version').onSnapshot((doc) => {
     const data = doc.data();
@@ -823,5 +824,18 @@ function updateCheck(){
 }
 
 function update(){
+  var child = require('child_process').execFile;
+  var appPath = app.getPath('exe');
+  var exeLoc = appPath.search('tgsnstaffhq.exe')
+  appPath = appPath.substr(0, exeLoc) + 'updater\\tgsnupdater.exe';
 
+  child(appPath, function(err, data){
+    if (err){
+      console.error(err);
+      return;
+    } else {
+      app.exit();
+    }
+  })
 }
+*/
