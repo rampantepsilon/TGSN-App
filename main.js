@@ -3,19 +3,18 @@ const https = require('https');
 const path = require('path');
 const fs = require('fs');
 const Store = require('./src/store.js');
-//const axios = require('axios');
 
 //Change Before Building
-var devBuild = 'false';
-//var devBuild = 'true';
+//var devBuild = 'false';
+var devBuild = 'true';
 
 //Information
 function title(){
-    var title = 'TGSN Staff HQ v0.1.7-beta';
+    var title = 'TGSN Staff HQ v0.1.8-beta';
     return title;
 }
 function buildNum(){
-    var build = '21.08.2';
+    var build = '21.08.3';
     return build;
 }
 const currentVer = app.getVersion(); //Version Variable
@@ -23,12 +22,9 @@ const changelogOptions = {
     type: 'info',
     buttons: ['Close'],
     title: 'Changelog',
-    message: 'Changes in TGSN Staff HQ v0.1.7-beta',
+    message: 'Changes in TGSN Staff HQ v0.1.8-beta',
     detail: `
-  - Updated input field for the Message Board
-  - Cleaned up the Message Board help screen
-  - Added logging of activity for research purposes
-  - Updated User Management screen to show last activity of members
+  -
   - Stability changes and backend changes
 
   Next Update
@@ -148,7 +144,8 @@ let menuTemplate = [
             accelerator: 'CommandOrControl+A'
         }
         ]
-    },{
+    },
+    {
         label: 'About',
         role: 'about',
         submenu: [
@@ -256,7 +253,8 @@ let menuCTemplate = [
             accelerator: 'CommandOrControl+A'
         }
         ]
-    },{
+    },
+    {
         label: 'About',
         role: 'about',
         submenu: [
@@ -367,7 +365,8 @@ let devTemplate = [
             accelerator: 'CommandOrControl+A'
         }
         ]
-    },{
+    },
+    {
         label: 'About',
         role: 'about',
         submenu: [
@@ -479,7 +478,8 @@ let devCTemplate = [
             accelerator: 'CommandOrControl+A'
         }
         ]
-    },{
+    },
+    {
         label: 'About',
         role: 'about',
         submenu: [

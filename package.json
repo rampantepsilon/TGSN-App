@@ -1,11 +1,12 @@
 {
   "name": "tgsn-staff-app",
-  "version": "0.1.6-beta",
+  "version": "0.1.8-beta",
   "description": "",
   "main": "main.js",
   "scripts": {
     "start": "electron .",
     "package-mac": "electron-packager ./ --overwrite --platform=darwin --arch=x64 --icon=logo.jpg --out=build --asar",
+    "package-noasar": "electron-packager ./ tgsnstaffhq --overwrite --platform=win32 --arch=x64 --icon=logo.ico --out=build --version-string.CompanyName=RampantEpsilon --version-string.ProductName=\"TGSN Staff HQ\"",
     "package-win64": "electron-packager ./ tgsnstaffhq --overwrite --platform=win32 --arch=x64 --icon=logo.ico --out=build --version-string.CompanyName=RampantEpsilon --version-string.ProductName=\"TGSN Staff HQ\" --asar",
     "package-win32": "electron-packager ./ tgsnstaffhq --overwrite --platform=win32 --arch=ia32 --icon=logo.ico --out=build --version-string.CompanyName=RampantEpsilon --version-string.ProductName=\"TGSN Staff HQ\" --asar",
     "package-linux": "electron-packager ./ tgsnstaffhq --platform=linux --arch=x64 --overwrite --icon=logo.jpg --out=build --asar"

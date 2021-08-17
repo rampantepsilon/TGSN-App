@@ -332,6 +332,7 @@ function init(){
       $("#send-message").hide();
     }
     listener();
+    updateCheck();
 }
 
 //Login
@@ -803,3 +804,24 @@ function forceReplies(i){
   })
 }
 /*Chat Module End*/
+
+/*Updater*/
+function updateCheck(){
+  db.collection('app').doc('version').onSnapshot((doc) => {
+    const data = doc.data();
+    var recent = data.current
+
+    //Grab app running version
+    var current = require('electron').remote.app.getVersion();
+    console.log(recent, current)
+
+    if (recent > current){
+      var buttons = document.getElementById('buttons');
+      buttons.innerHTML += `<td align='center' style='border-style: outset; border-radius: 25% 25% 25% 25%; background-color: #333; color: orange; width: 90px; height: 50px;' onclick="update()">Update App</td>`;
+    }
+  })
+}
+
+function update(){
+
+}
