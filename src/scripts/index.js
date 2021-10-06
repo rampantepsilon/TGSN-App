@@ -35,36 +35,28 @@ function showWin(num){
       [user]: tsTime
     })
   }
-    if (num == '99'){
-        for (i = 1; i < (webview.length + 1); i++){
-            $('#' + i).hide();
-            document.getElementById('button'+i).style.backgroundColor = '#333';
-            document.getElementById('button'+i).style.color = 'orange';
-        }
-        $('#chatmain').show();
-        document.getElementById('chatbutton').style.backgroundColor = 'orange';
-        document.getElementById('chatbutton').style.color = '#333';
-        currentPage = 99;
-    } else {
-        for (i = 1; i < (webview.length + 2); i++){
-            $('#' + i).hide();
-        }
-        $('#' + num).show();
-        for (j = 1; j < (webview.length + 1); j++){
-            if (j != num){
-                document.getElementById('button' + j).style.backgroundColor = '#333';
-                document.getElementById('button' + j).style.color = 'orange';
-            } else {
-                document.getElementById('button' + num).style.backgroundColor = 'orange';
-                document.getElementById('button' + num).style.color = '#333';
-            }
-        }
-        $('#chatmain').hide();
-        currentPage = num;
+    for (i = 1; i < (webview.length + 2); i++){
+        $('#' + i).hide();
     }
+    $('#' + num).show();
+    for (j = 1; j < (webview.length + 1); j++){
+        if (j != num){
+            document.getElementById('button' + j).style.backgroundColor = '#333';
+            document.getElementById('button' + j).style.color = 'orange';
+        } else {
+            document.getElementById('button' + num).style.backgroundColor = 'orange';
+            document.getElementById('button' + num).style.color = '#333';
+        }
+    }
+    currentPage = num;
 
     if (currentPage == "4"){
       refresh();
+    }
+    if (currentPage == '7'){
+      //$('#chat').show();
+    } else {
+      //$('#chat').hide();
     }
 }
 function adminShowWin(num){
@@ -78,37 +70,30 @@ function adminShowWin(num){
       [user]: tsTime
     })
   }
-    if (num == '99'){
-        for (i = 1; i < (webview.length + 1); i++){
-            $('#' + i).hide();
-            document.getElementById('button'+i).style.backgroundColor = '#333';
-            document.getElementById('button'+i).style.color = 'orange';
-        }
-        $('#chatmain').show()
-        document.getElementById('chatbutton').style.backgroundColor = 'orange';
-        document.getElementById('chatbutton').style.color = '#333';
-        currentPage = 99;
-    } else {
-        for (i = 1; i < (adminView.length + 2); i++){
-            $('#' + i).hide();
-        }
-        $('#' + num).show();
-        sessionStorage.setItem('location', num);
-        for (j = 1; j < (adminView.length + 1); j++){
-            if (j != num){
-                document.getElementById('button' + j).style.backgroundColor = '#333';
-                document.getElementById('button' + j).style.color = 'orange';
-            } else {
-                document.getElementById('button' + num).style.backgroundColor = 'orange';
-                document.getElementById('button' + num).style.color = '#333';
-            }
-        }
-        $('#chatmain').hide();
-        currentPage = num;
+    for (i = 1; i < (adminView.length + 2); i++){
+        $('#' + i).hide();
     }
+    $('#' + num).show();
+    sessionStorage.setItem('location', num);
+    for (j = 1; j < (adminView.length + 1); j++){
+        if (j != num){
+            document.getElementById('button' + j).style.backgroundColor = '#333';
+            document.getElementById('button' + j).style.color = 'orange';
+        } else {
+            document.getElementById('button' + num).style.backgroundColor = 'orange';
+            document.getElementById('button' + num).style.color = '#333';
+        }
+    }
+    $('#chatmain').hide();
+    currentPage = num;
 
     if (currentPage == "4"){
       refresh();
+    }
+    if (currentPage == '7'){
+      //$('#chat').show();
+    } else {
+      //$('#chat').hide();
     }
 }
 
@@ -197,8 +182,8 @@ function init(){
         cell.style.width = '400px';
         cell.setAttribute('id', 'chat');
         //Add Chat Button
-        buttons.innerHTML += `<td align='center' style='font-size: 40px;'> | </td>`;
-        buttons.innerHTML += `<td align='center' id='buttonChat' style='border-style: outset; border-radius: 25% 25% 25% 25%; background-color: #333; color: orange; width: 90px; height: 50px;' onclick="showChat()">Show/Hide Chat</td>`
+        /*buttons.innerHTML += `<td align='center' style='font-size: 40px;'> | </td>`;
+        buttons.innerHTML += `<td align='center' id='buttonChat' style='border-style: outset; border-radius: 25% 25% 25% 25%; background-color: #333; color: orange; width: 90px; height: 50px;' onclick="showChat()">Show/Hide Chat</td>`*/
 
         for (i = 2; i < (adminView.length + 1); i++){
           $('#' + i).hide();
@@ -233,9 +218,6 @@ function init(){
           </td>`];
         cell.style.width = '400px';
         cell.setAttribute('id', 'chat');
-        //Add Chat Button
-        buttons.innerHTML += `<td align='center' style='font-size: 40px;'> | </td>`;
-        buttons.innerHTML += `<td align='center' id='buttonChat' style='border-style: outset; border-radius: 25% 25% 25% 25%; background-color: #333; color: orange; width: 90px; height: 50px;' onclick="showChat()">Show/Hide Chat</td>`
 
         for (i = 2; i < (coordView.length + 1); i++){
           $('#' + i).hide();
@@ -267,9 +249,6 @@ function init(){
           </td>`];
         cell.style.width = '400px';
         cell.setAttribute('id', 'chat');
-        //Add Chat Button
-        buttons.innerHTML += `<td align='center' style='font-size: 40px; line-height: 10px'> | </td>`;
-        buttons.innerHTML += `<td align='center' id='buttonChat' style='border-style: outset; border-radius: 25% 25% 25% 25%; background-color: #333; color: orange; width: 90px; height: 50px;' onclick="showChat()">Show/Hide Chat</td>`
 
         //Hide other webviews
         for (i = 2; i < (webview.length + 1); i++){
@@ -303,9 +282,6 @@ function init(){
         </td>`];
       cell.style.width = '400px';
       cell.setAttribute('id', 'chat');
-      //Add Chat Button
-      buttons.innerHTML += `<td align='center' style='font-size: 40px; line-height: 10px'> | </td>`;
-      buttons.innerHTML += `<td align='center' id='buttonChat' style='border-style: outset; border-radius: 25% 25% 25% 25%; background-color: #333; color: orange; width: 90px; height: 50px;' onclick="showChat()">Show/Hide Chat</td>`
 
       //Hide other webviews
       for (i = 2; i < (webview.length - 1); i++){
@@ -331,6 +307,8 @@ function init(){
     } else {
       $("#send-message").hide();
     }
+
+    $('#chat').hide();
     listener();
     //updateCheck();
 }
@@ -804,38 +782,3 @@ function forceReplies(i){
   })
 }
 /*Chat Module End*/
-
-/*Updater*/
-/*const app = require('electron').remote.app;
-function updateCheck(){
-  db.collection('app').doc('version').onSnapshot((doc) => {
-    const data = doc.data();
-    var recent = data.current
-
-    //Grab app running version
-    var current = require('electron').remote.app.getVersion();
-    console.log(recent, current)
-
-    if (recent > current){
-      var buttons = document.getElementById('buttons');
-      buttons.innerHTML += `<td align='center' style='border-style: outset; border-radius: 25% 25% 25% 25%; background-color: #333; color: orange; width: 90px; height: 50px;' onclick="update()">Update App</td>`;
-    }
-  })
-}
-
-function update(){
-  var child = require('child_process').execFile;
-  var appPath = app.getPath('exe');
-  var exeLoc = appPath.search('tgsnstaffhq.exe')
-  appPath = appPath.substr(0, exeLoc) + 'updater\\tgsnupdater.exe';
-
-  child(appPath, function(err, data){
-    if (err){
-      console.error(err);
-      return;
-    } else {
-      app.exit();
-    }
-  })
-}
-*/

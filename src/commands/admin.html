@@ -1,0 +1,62 @@
+<html>
+    <head>
+        <title>TGSN Staff HQ v0.0.1-alpha</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src='commands.js'></script>
+        <link href="https://fonts.googleapis.com/css?family=Raleway:600|Sancreek&display=swap" rel="stylesheet">
+        <!-- The core Firebase JS SDK is always required and must be listed first -->
+        <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-app.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-firestore.js"></script>
+
+        <script>
+          // Your web app's Firebase configuration
+          var firebaseConfig = {
+            apiKey: "AIzaSyBAF1jevSp8_E5Okk9z6sMi-t4eRS4N9DE",
+            authDomain: "tgsn-site-v7.firebaseapp.com",
+            databaseURL: "https://tgsn-site-v7.firebaseio.com",
+            projectId: "tgsn-site-v7",
+            storageBucket: "tgsn-site-v7.appspot.com",
+            messagingSenderId: "565689666494",
+            appId: "1:565689666494:web:fc488b17f5018f569547ef"
+          };
+          // Initialize Firebase
+          firebase.initializeApp(firebaseConfig);
+        </script>
+        <style>
+          body{
+            background-color: rgba(255,255,255,0.5)
+          }
+          td, h1 {
+            font-family: Sancreek;
+          }
+          .commands{
+            border-style:inset;
+          }
+        </style>
+    </head>
+
+    <body onload='loadCommands()'>
+      <h1 align='center'>TGSNBot Commands</h1>
+      <table width='100%'>
+        <tr>
+          <td align='center'>
+            Command: !<input type='text' id="command" placeholder="Command Name"></input>
+            Response: <input type='text' size='50' id="response" placeholder="Bot Response"></input>
+            <div style="border: outset; width: 100px; display:inline-block; background-color:orange;font-family: Sancreek;" align='center' onclick='addCommand()' class='button'>Submit</div>
+          </td>
+        </tr>
+      </table>
+      <table width='100%' style='border-style: outset'>
+        <tr>
+          <td width='40%'><h3 align='center'><u>Command</u></h3></td>
+          <td><h3 align='center'><u>Response</u></h3></td>
+        </tr>
+        <tr>
+          <td colspan="2">
+            <table id='commandList' width='100%'>
+            </table>
+          </td>
+        </tr>
+      </table>
+    </body>
+</html>

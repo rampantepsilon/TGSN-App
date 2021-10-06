@@ -1,8 +1,11 @@
 const { app, BrowserView, BrowserWindow, Menu, Tray, Notification, globalShortcut, shell, dialog, ipcMain } = require('electron');
+const contextMenu = require('electron-context-menu');
 const https = require('https');
 const path = require('path');
 const fs = require('fs');
 const Store = require('./src/store.js');
+
+require('update-electron-app')()
 
 //Change Before Building
 //var devBuild = 'false';
@@ -10,11 +13,11 @@ var devBuild = 'true';
 
 //Information
 function title(){
-    var title = 'TGSN Staff HQ v0.1.8-beta';
+    var title = 'TGSN Staff HQ v0.2.0-beta';
     return title;
 }
 function buildNum(){
-    var build = '21.08.3';
+    var build = '21.10.1';
     return build;
 }
 const currentVer = app.getVersion(); //Version Variable
@@ -22,9 +25,11 @@ const changelogOptions = {
     type: 'info',
     buttons: ['Close'],
     title: 'Changelog',
-    message: 'Changes in TGSN Staff HQ v0.1.8-beta',
+    message: 'Changes in TGSN Staff HQ v0.2.0-beta',
     detail: `
-  -
+  - Added Updater
+  - Removed Side Chat (Message Board will stay persistent and replies may come later)
+  - Add Bot Command Console (Staff can see commands/Coordinators and higher can add commands/Removing commands will come later)
   - Stability changes and backend changes
 
   Next Update
@@ -639,6 +644,30 @@ app.commandLine.appendSwitch('disable-features', 'CrossOriginOpenerPolicy')
 
 // Listen for web contents being created
 app.on('web-contents-created', (e, contents) => {
+  /*contextMenu({
+    labels: {
+      cut: 'Cut',
+      copy: 'Copy',
+      paste: 'Paste',
+      save: 'Save Image',
+      saveImageAs: 'Save Image As…',
+      copyLink: 'Copy Link',
+      saveLinkAs: 'Save Link As…',
+      inspect: 'Inspect Element'
+    },
+    showCopyImageAddress: true,
+    showSaveImageAs: true,
+    showInspectElement: true,
+    showSaveLinkAs: true,
+    cut: true,
+    copy: true,
+    paste: true,
+    save: true,
+    saveImageAs: true,
+    copyLink: true,
+    saveLinkAs: true,
+    inspect: true
+  });*/
 
     // Check for a webview
     if (contents.getType() == 'webview') {
