@@ -13,11 +13,11 @@ var devBuild = 'true';
 
 //Information
 function title(){
-    var title = 'TGSN Staff HQ v0.2.0-beta';
+    var title = 'TGSN Staff HQ v0.2.1-beta';
     return title;
 }
 function buildNum(){
-    var build = '21.10.1';
+    var build = '21.10.2';
     return build;
 }
 const currentVer = app.getVersion(); //Version Variable
@@ -25,15 +25,15 @@ const changelogOptions = {
     type: 'info',
     buttons: ['Close'],
     title: 'Changelog',
-    message: 'Changes in TGSN Staff HQ v0.2.0-beta',
+    message: 'Changes in TGSN Staff HQ v0.2.1-beta',
     detail: `
-  - Added Updater
-  - Removed Side Chat (Message Board will stay persistent and replies may come later)
-  - Add Bot Command Console (Staff can see commands/Coordinators and higher can add commands/Removing commands will come later)
+  - Changed Layout to side for a cleaner view
   - Stability changes and backend changes
 
   Next Update
-  - Add Recent Videos Editor
+  - TBD
+
+  The video updater will currently be discontinued provided the Twitch API running the bot continues to work for it. This may be reviewed at a later date though.
 
   If you have any suggestions for the app, please reach out to me on Twitter @rampantepsilon or Discord (RampantEpsilon#7868).`
   }
