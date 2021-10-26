@@ -149,9 +149,11 @@ function init(){
 
     //Add Refresh Button
     buttons.innerHTML = [`
-      <td align='center' id='buttonRefresh' style='border-style: outset; border-radius: 25% 25% 25% 25%; background-color: orange; color: #333; width: 50px; height: 50px;' onclick="refresh()">
-        <img src='./images/refresh.png' width='40px' height='40px'>
-      </td>`];
+      <tr>
+        <td align='center' valign='middle' id='buttonRefresh' style='position:fixed; bottom: 15; border-style: outset; border-radius: 25% 25% 25% 25%; background-color: orange; color: #333; width: 110px; height: 50px;' onclick="refresh()">
+          <img src='./images/refresh.png' width='20px' height='20px'><br>Refresh Page
+        </td>
+      </tr>`];
 
     if (loggedIn == 'yes'){
       if (access == 'Network Admin'){
@@ -164,10 +166,10 @@ function init(){
         }
         //Add Buttons
         for (k = 1; k < (adminView.length + 1); k++){
-            if (k == (adminView.length)){
+            /*if (k == (adminView.length)){
               buttons.innerHTML += `<td align='center' style='font-size: 40px;'> | </td>`
-            }
-            buttons.innerHTML += `<td align='center' id='button` + k + `' style='border-style: outset; border-radius: 25% 25% 25% 25%; background-color: #333; color: orange; width: 90px; height: 50px;' onclick="adminShowWin('` + k + `')">` + adminView[k - 1][1] + `</td>`
+            }*/
+            buttons.innerHTML += `<tr><td align='center' id='button` + k + `' style='border-style: outset; border-radius: 25% 25% 25% 25%; background-color: #333; color: orange; width: 110px; height: 50px;' onclick="adminShowWin('` + k + `')">` + adminView[k - 1][1] + `</td></tr>`
         }
         // Add Chat
         var cell = content.insertCell(j-1);
@@ -183,7 +185,7 @@ function init(){
         cell.setAttribute('id', 'chat');
         //Add Chat Button
         /*buttons.innerHTML += `<td align='center' style='font-size: 40px;'> | </td>`;
-        buttons.innerHTML += `<td align='center' id='buttonChat' style='border-style: outset; border-radius: 25% 25% 25% 25%; background-color: #333; color: orange; width: 90px; height: 50px;' onclick="showChat()">Show/Hide Chat</td>`*/
+        buttons.innerHTML += `<td align='center' id='buttonChat' style='border-style: outset; border-radius: 25% 25% 25% 25%; background-color: #333; color: orange; width: 110px; height: 50px;' onclick="showChat()">Show/Hide Chat</td>`*/
 
         for (i = 2; i < (adminView.length + 1); i++){
           $('#' + i).hide();
@@ -201,10 +203,10 @@ function init(){
         }
         //Add Buttons
         for (k = 1; k < (coordView.length + 1); k++){
-            if (k == (coordView.length)){
+            /*if (k == (coordView.length)){
               buttons.innerHTML += `<td align='center' style='font-size: 40px;'> | </td>`
-            }
-            buttons.innerHTML += `<td align='center' id='button` + k + `' style='border-style: outset; border-radius: 25% 25% 25% 25%; background-color: #333; color: orange; width: 90px; height: 50px;' onclick="adminShowWin('` + k + `')">` + coordView[k - 1][1] + `</td>`
+            }*/
+            buttons.innerHTML += `<tr><td align='center' id='button` + k + `' style='border-style: outset; border-radius: 25% 25% 25% 25%; background-color: #333; color: orange; width: 110px; height: 50px;' onclick="adminShowWin('` + k + `')">` + coordView[k - 1][1] + `</td></tr>`
         }
         // Add Chat
         var cell = content.insertCell(j-1);
@@ -235,7 +237,7 @@ function init(){
         }
         //Add Buttons
         for (k = 1; k < (webview.length + 1); k++){
-          buttons.innerHTML += `<td align='center' id='button` + k + `' style='border-style: outset; border-radius: 25% 25% 25% 25%; background-color: #333; color: orange; width: 90px; height: 50px;' onclick="showWin('` + k + `')">` + webview[k - 1][1] + `</td>`
+          buttons.innerHTML += `<tr><td align='center' id='button` + k + `' style='border-style: outset; border-radius: 25% 25% 25% 25%; background-color: #333; color: orange; width: 110px; height: 50px;' onclick="showWin('` + k + `')">` + webview[k - 1][1] + `</td></tr>`
         }
         //Add Chat
         var cell = content.insertCell(j-1);
@@ -268,7 +270,7 @@ function init(){
       }
       //Add Buttons
       for (k = 1; k < (webview.length - 1); k++){
-        buttons.innerHTML += `<td align='center' id='button` + k + `' style='border-style: outset; border-radius: 25% 25% 25% 25%; background-color: #333; color: orange; width: 90px; height: 50px;' onclick="showWin('` + k + `')">` + webview[k - 1][1] + `</td>`
+        buttons.innerHTML += `<tr><td align='center' id='button` + k + `' style='border-style: outset; border-radius: 25% 25% 25% 25%; background-color: #333; color: orange; width: 110px; height: 50px;' onclick="showWin('` + k + `')">` + webview[k - 1][1] + `</td></tr>`
       }
       //Add Chat
       var cell = content.insertCell(j-1);

@@ -2,7 +2,7 @@ body {
   background-image: url("./images/background.jpg");
 }
 html, body, #main {
-  height: calc(100% - 27px);
+  height: calc(100% - 5px);
   font-family: Sancreek;
 }
 
