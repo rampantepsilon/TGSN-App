@@ -8,12 +8,12 @@ const Store = require('./src/store.js');
 require('update-electron-app')()
 
 //Change Before Building
-//var devBuild = 'false';
-var devBuild = 'true';
+var devBuild = 'false';
+//var devBuild = 'true';
 
 //Information
 function title(){
-    var title = 'TGSN Staff HQ v0.2.1-beta';
+    var title = 'TGSN Staff HQ v1.0.0';
     return title;
 }
 function buildNum(){
@@ -25,7 +25,7 @@ const changelogOptions = {
     type: 'info',
     buttons: ['Close'],
     title: 'Changelog',
-    message: 'Changes in TGSN Staff HQ v0.2.1-beta',
+    message: 'Changes in TGSN Staff HQ v1.0.0',
     detail: `
   - Changed Layout to side for a cleaner view
   - Stability changes and backend changes
