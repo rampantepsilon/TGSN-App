@@ -14,7 +14,7 @@
   "author": "Tom \"RampantEpsilon\" Ware",
   "license": "ISC",
   "devDependencies": {
-    "electron": "^11.5.0"
+    "electron": "^13.5.2"
   },
   "repository": "https://github.com/rampantepsilon/TGSN-Staff-App",
   "dependencies": {
