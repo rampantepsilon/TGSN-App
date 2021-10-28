@@ -8,8 +8,8 @@ const Store = require('./src/store.js');
 require('update-electron-app')()
 
 //Change Before Building
-var devBuild = 'false';
-//var devBuild = 'true';
+//var devBuild = 'false';
+var devBuild = 'true';
 
 //Information
 function title(){
@@ -28,10 +28,14 @@ const changelogOptions = {
     message: 'Changes in TGSN Staff HQ v1.0.0',
     detail: `
   - Changed Layout to side for a cleaner view
+  - Fixed issue where if you weren't logged in you couldn't refresh pages.
+  - Added a release for Linux
   - Stability changes and backend changes
 
-  Next Update
-  - TBD
+  Coming Soon
+  - Patch fixing issue where you cannot login to Google to edit Articles/Change articles to open in default browser
+  - Additional design layout changes
+  - Schedule Editor update (Possibly more of a upcoming streams view rather than a weekly layout)
 
   The video updater will currently be discontinued provided the Twitch API running the bot continues to work for it. This may be reviewed at a later date though.
 
@@ -537,6 +541,7 @@ function createWindow(){
             nativeWindowOpen: true,
             webviewTag: true,
             nodeIntegration: true,
+            contextIsolation: false,
             enableRemoteModule: true
         }
     })
