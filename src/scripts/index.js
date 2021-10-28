@@ -16,7 +16,7 @@ const storeInfo = new Store({
 })
 
 //Variables
-let currentPage = 1;
+var currentPage;
 var defaultScript;
 let chatShown = 1;
 var username;
@@ -35,29 +35,30 @@ function showWin(num){
       [user]: tsTime
     })
   }
-    for (i = 1; i < (webview.length + 2); i++){
-        $('#' + i).hide();
-    }
-    $('#' + num).show();
-    for (j = 1; j < (webview.length + 1); j++){
-        if (j != num){
-            document.getElementById('button' + j).style.backgroundColor = '#333';
-            document.getElementById('button' + j).style.color = 'orange';
-        } else {
-            document.getElementById('button' + num).style.backgroundColor = 'orange';
-            document.getElementById('button' + num).style.color = '#333';
-        }
-    }
-    currentPage = num;
+  for (i = 1; i < (webview.length + 2); i++){
+      $('#' + i).hide();
+  }
 
-    if (currentPage == "4"){
-      refresh();
-    }
-    if (currentPage == '7'){
-      //$('#chat').show();
+  $('#' + num).show();
+  var loggedIn = storeInfo.get('loggedIn');
+
+  for (j = 1; j < (webview.length); j++){
+    if (j != num){
+      if (loggedIn == 'no'){
+        if (j < 8){
+          document.getElementById('button' + j).style.backgroundColor = '#333';
+          document.getElementById('button' + j).style.color = 'orange';
+        }
+      } else {
+        document.getElementById('button' + j).style.backgroundColor = '#333';
+        document.getElementById('button' + j).style.color = 'orange';
+      }
     } else {
-      //$('#chat').hide();
+        document.getElementById('button' + num).style.backgroundColor = 'orange';
+        document.getElementById('button' + num).style.color = '#333';
     }
+  }
+  currentPage = num;
 }
 function adminShowWin(num){
   const app = firebase.app();
@@ -70,34 +71,25 @@ function adminShowWin(num){
       [user]: tsTime
     })
   }
-    for (i = 1; i < (adminView.length + 2); i++){
-        $('#' + i).hide();
-    }
-    $('#' + num).show();
-    sessionStorage.setItem('location', num);
-    for (j = 1; j < (adminView.length + 1); j++){
-        if (j != num){
-            document.getElementById('button' + j).style.backgroundColor = '#333';
-            document.getElementById('button' + j).style.color = 'orange';
-        } else {
-            document.getElementById('button' + num).style.backgroundColor = 'orange';
-            document.getElementById('button' + num).style.color = '#333';
-        }
-    }
-    $('#chatmain').hide();
-    currentPage = num;
-
-    if (currentPage == "4"){
-      refresh();
-    }
-    if (currentPage == '7'){
-      //$('#chat').show();
-    } else {
-      //$('#chat').hide();
-    }
+  for (i = 1; i < (adminView.length + 2); i++){
+      $('#' + i).hide();
+  }
+  $('#' + num).show();
+  sessionStorage.setItem('location', num);
+  for (j = 1; j < (adminView.length + 1); j++){
+      if (j != num){
+          document.getElementById('button' + j).style.backgroundColor = '#333';
+          document.getElementById('button' + j).style.color = 'orange';
+      } else {
+          document.getElementById('button' + num).style.backgroundColor = 'orange';
+          document.getElementById('button' + num).style.color = '#333';
+      }
+  }
+  $('#chatmain').hide();
+  currentPage = num;
 }
 
-//Twitch Chat
+//Chat
 function showChat(){
   if (chatShown == 1){
     $('#chat').hide();
