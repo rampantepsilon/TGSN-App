@@ -14,7 +14,7 @@ function postChat(){
   const chatTxt = document.getElementById('chat-txt');
   const message = chatTxt.value;
   chatTxt.value = '';
-  var msgFB = message.replace(/\[url=\'/g, "<a href='").replace(/\'\]/g, "'>").replace(/\[\/url\]/g, '</a>').replace(/\[img\]/g, "<img src='").replace(/\[\/img\]/g, "' />").replace(/\n/g, '<br>');
+  var msgFB = message.replace(/\[url=\'/g, "<a target='_blank' href='").replace(/\'\]/g, "'>").replace(/\[\/url\]/g, '</a>').replace(/\[img\]/g, "<img src='").replace(/\[\/img\]/g, "' />").replace(/\n/g, '<br>');
   var msgDiscord = message.replace(/(' width).*?px\[/g,"[").replace(/\[.*?\]/g, "");
 
   //Test DB when stuff breaks
