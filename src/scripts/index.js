@@ -1,5 +1,8 @@
 const Store = require('./store.js');
 
+const { Octokit } = require("@octokit/core");
+require('dotenv').config()
+
 const store = new Store({
   configName: 'user-prefences',
   defaults: {
@@ -304,7 +307,7 @@ function init(){
 
     $('#chat').hide();
     listener();
-    //updateCheck();
+    setTimeout(updateChecker, 1000);
 }
 
 //Login
@@ -776,3 +779,27 @@ function forceReplies(i){
   })
 }
 /*Chat Module End*/
+
+/*Update Module*/
+async function updateChecker(){
+  var buttons = document.getElementById('buttons');
+  const octokit = new Octokit({ auth: process.env.GITHUB });
+  const response = await octokit.request('GET /repos/{owner}/{repo}/releases/latest', {
+    owner: 'rampantepsilon',
+    repo: 'TGSN-Staff-App'
+  })
+  const currentVer = require('electron').remote.app.getVersion();
+  if (response.data.tag_name > currentVer){
+    buttons.innerHTML += `<tr>
+      <td align='center' valign='middle' id='buttonUpdate' style='border-style: outset; border-radius: 25% 25% 25% 25%; background-color: orange; color: #333; width: 110px; height: 50px;' onclick='openUpdate("` + response.data.html_url + `")'>
+        Update to v` + response.data.tag_name + `
+      </td>
+    </tr>`
+  }
+}
+
+function openUpdate(url){
+  window.open(url, '_blank');
+}
+
+setInterval(updateChecker, 600000)
