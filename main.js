@@ -5,19 +5,17 @@ const path = require('path');
 const fs = require('fs');
 const Store = require('./src/store.js');
 
-require('update-electron-app')()
-
 //Change Before Building
 //var devBuild = 'false';
 var devBuild = 'true';
 
 //Information
 function title(){
-    var title = 'TGSN Staff HQ v1.0.0';
+    var title = 'TGSN Staff HQ v1.0.1';
     return title;
 }
 function buildNum(){
-    var build = '21.10.2';
+    var build = '21.11.1';
     return build;
 }
 const currentVer = app.getVersion(); //Version Variable
@@ -25,11 +23,10 @@ const changelogOptions = {
     type: 'info',
     buttons: ['Close'],
     title: 'Changelog',
-    message: 'Changes in TGSN Staff HQ v1.0.0',
+    message: 'Changes in TGSN Staff HQ v1.0.1',
     detail: `
-  - Changed Layout to side for a cleaner view
-  - Fixed issue where if you weren't logged in you couldn't refresh pages.
-  - Added a release for Linux
+  - Fixed Issue where updater wasn't working properly. (It will now add a new button informing you an update is available & will list what version.)
+  - Changed links to open in default browser.
   - Stability changes and backend changes
 
   Coming Soon
@@ -649,48 +646,19 @@ app.commandLine.appendSwitch('disable-features', 'CrossOriginOpenerPolicy')
 
 // Listen for web contents being created
 app.on('web-contents-created', (e, contents) => {
-  /*contextMenu({
-    labels: {
-      cut: 'Cut',
-      copy: 'Copy',
-      paste: 'Paste',
-      save: 'Save Image',
-      saveImageAs: 'Save Image As…',
-      copyLink: 'Copy Link',
-      saveLinkAs: 'Save Link As…',
-      inspect: 'Inspect Element'
-    },
-    showCopyImageAddress: true,
-    showSaveImageAs: true,
-    showInspectElement: true,
-    showSaveLinkAs: true,
-    cut: true,
-    copy: true,
-    paste: true,
-    save: true,
-    saveImageAs: true,
-    copyLink: true,
-    saveLinkAs: true,
-    inspect: true
-  });*/
-
-    // Check for a webview
-    if (contents.getType() == 'webview') {
-
-      // Listen for any new window events
-      contents.on('new-window', (e, url) => {
-        e.preventDefault();
-        let win = new BrowserWindow({
-            width: 1200,
-            height: 675,
-            title: title(),
-            webPreferences: {
-                nativeWindowOpen: true,
-                webviewTag: true
-            }
-        });
-        win.loadURL(url);
-        //shell.openExternal(url)
-      })
-    }
+  // Listen for any new window events
+  contents.on('new-window', (e, url) => {
+    e.preventDefault();
+    /*let win = new BrowserWindow({
+        width: 1200,
+        height: 675,
+        title: title(),
+        webPreferences: {
+            nativeWindowOpen: true,
+            webviewTag: true
+        }
+    });
+    win.loadURL(url);*/
+    shell.openExternal(url)
   })
+})
