@@ -6,14 +6,8 @@ var webview = [
     "./releases/index.html",
     "Releases"
   ],[
-    "./schedule/index.html",
-    "Schedule"
-  ],[
     './shows/index.html',
     'Show Resources'
-  ],[
-    'https://tgsnetwork.org',
-    'TGSN Site'
   ],[
     'https://discord.com/channels/@me',
     'Discord'
@@ -36,14 +30,8 @@ var adminView = [
     "./releases/index.html",
     "Releases"
   ],[
-    "./schedule/admin.html",
-    "Schedule"
-  ],[
     './shows/admin.html',
     'Show Resources'
-  ],[
-    'https://tgsnetwork.org',
-    'TGSN Site'
   ],[
     'https://discord.com/channels/@me',
     'Discord'
@@ -59,6 +47,9 @@ var adminView = [
   ],[
     './users/index.html',
     'User Management'
+  ],[
+    './scheduleV2/index.html',
+    'Add To Schedule'
   ]
 ]
 var coordView = [
@@ -69,14 +60,8 @@ var coordView = [
     "./releases/index.html",
     "Releases"
   ],[
-    "./schedule/admin.html",
-    "Schedule"
-  ],[
     './shows/admin.html',
     'Show Resources'
-  ],[
-    'https://tgsnetwork.org',
-    'TGSN Site'
   ],[
     'https://discord.com/channels/@me',
     'Discord'
@@ -92,5 +77,8 @@ var coordView = [
   ],[
     './users/coord.html',
     'User Management'
+  ],[
+    './scheduleV2/index.html',
+    'Add To Schedule'
   ]
 ]

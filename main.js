@@ -11,7 +11,7 @@ var devBuild = 'true';
 
 //Information
 function title(){
-    var title = 'TGSN Staff HQ v1.0.1';
+    var title = 'TGSN Staff HQ v1.1.0';
     return title;
 }
 function buildNum(){
@@ -23,18 +23,21 @@ const changelogOptions = {
     type: 'info',
     buttons: ['Close'],
     title: 'Changelog',
-    message: 'Changes in TGSN Staff HQ v1.0.1',
+    message: 'Changes in TGSN Staff HQ v1.1.0',
     detail: `
   - Fixed Issue where updater wasn't working properly. (It will now add a new button informing you an update is available & will list what version.)
   - Changed links to open in default browser.
+  - Added New Schedule system
+  - Removed Old Schedule System
+  - Removed TGSN Site link due to redundancy
+  - Added Editing for events in the new Schedule System
+  - Added Filter for finding events easier for editing
+  - Added Remove button for removing events
   - Stability changes and backend changes
 
   Coming Soon
   - Patch fixing issue where you cannot login to Google to edit Articles/Change articles to open in default browser
   - Additional design layout changes
-  - Schedule Editor update (Possibly more of a upcoming streams view rather than a weekly layout)
-
-  The video updater will currently be discontinued provided the Twitch API running the bot continues to work for it. This may be reviewed at a later date though.
 
   If you have any suggestions for the app, please reach out to me on Twitter @rampantepsilon or Discord (RampantEpsilon#7868).`
   }
