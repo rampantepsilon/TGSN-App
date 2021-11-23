@@ -108,6 +108,7 @@
                     <tr>
                       <td colspan='2' align='center'>
                         <button onclick='setEvents()'>Add To Schedule</button>
+                        <button onclick='removeEntry()'>Remove From Schedule</button>
                       </td>
                     </tr>
                   </table>
@@ -120,7 +121,9 @@
                       </td>
                     </tr>
                     <tr>
-                      <td id='upcomingEvents' valign='top'>
+                      <td valign='top'>
+                        <div id='upcomingEvents' style='height: 85vh; overflow:auto;'>
+                        </div>
                       </td>
                     </tr>
                   </table>
@@ -133,7 +136,7 @@
     </body>
 </html>
 
-//Filter Scripting
+<!--Filter Scripting-->
 <script>
   function filter(){
     var filterText = document.getElementById('filter').value.toLowerCase();

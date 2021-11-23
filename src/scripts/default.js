@@ -49,7 +49,7 @@ var adminView = [
     'User Management'
   ],[
     './scheduleV2/index.html',
-    'Add To Schedule'
+    'Schedule Editor'
   ]
 ]
 var coordView = [
@@ -79,6 +79,6 @@ var coordView = [
     'User Management'
   ],[
     './scheduleV2/index.html',
-    'Add To Schedule'
+    'Schedule Editor'
   ]
 ]

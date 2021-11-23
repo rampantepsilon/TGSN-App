@@ -92,7 +92,7 @@ async function getEvents(){
         const zeroPad = (num, places) => String(num).padStart(places, '0');
 
         //Add to list for sorting
-        dates[j] = zeroPad(i,3) + "<div align='center' id='fb" + i + "'><h3 align='right'>" + dow + ' ' + doc.data()[i].date + '</h3>' + doc.data()[i].time + '<br>' + doc.data()[i].preShow + '<br>' + doc.data()[i].show + '<br>' + doc.data()[i].game + "<br>ID: " + i + "<br><br></div>";
+        dates[j] = zeroPad(i,3) + "<div align='center' id='fb" + i + "' onclick='edit(" + i + ")'><h3 align='right'>" + dow + ' ' + doc.data()[i].date + '</h3>' + doc.data()[i].time + '<br>' + doc.data()[i].preShow + '<br>' + doc.data()[i].show + '<br>' + doc.data()[i].game + "<br>ID: " + i + "<br></div>";
         j++;
       }
     }
@@ -115,5 +115,12 @@ function edit(num){
     document.getElementById('pShow').value = doc.data()[num].preShow;
     document.getElementById('show').value = doc.data()[num].show;
     document.getElementById('game').value = doc.data()[num].game;
+  })
+}
+
+function removeEntry(){
+  var delID = document.getElementById('id').value;
+  db.collection('schedule').doc('v3').update({
+    [delID]: firebase.firestore.FieldValue.delete()
   })
 }

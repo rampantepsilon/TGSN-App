@@ -31,7 +31,7 @@ async function getEvents(){
           let dow = weekday[d2.getDay()]
 
           //Add to list for sorting
-          dates[j] = eventDate + "<div align='center'><h3 align='right'>" + dow + ' ' + doc.data()[i].date + '</h3>' + doc.data()[i].time + '<br>' + doc.data()[i].preShow + '<br>' + doc.data()[i].show + '<br>' + doc.data()[i].game + "<br><br></div>";
+          dates[j] = eventDate + "<div align='center'><h3 align='right'>" + dow + ' ' + doc.data()[i].date + '</h3>' + doc.data()[i].time + '<br>' + doc.data()[i].preShow + '<br>' + doc.data()[i].show + '<br>' + doc.data()[i].game + "<br></div>";
           j++;
         }
       }
