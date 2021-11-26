@@ -30,6 +30,7 @@ const changelogOptions = {
   - Stability changes and backend changes
 
   Coming Soon
+  - Fix to the issue where Filtering in the schedule editor breaks the layout
   - Patch fixing issue where you cannot login to Google to edit Articles/Change articles to open in default browser
   - Additional design layout changes
 
