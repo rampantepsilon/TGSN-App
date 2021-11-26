@@ -43,4 +43,16 @@ async function getEvents(){
   })
 }
 
+function checkTime(){
+    const d = new Date();
+    let hour = d.getHours();
+    let minute = d.getMinutes();
+    if (hour == 0){
+      if (minute < 1){
+        getEvents();
+      }
+    }
+}
+
+setInterval(checkTime, 60000);
 getEvents();

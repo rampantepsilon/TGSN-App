@@ -92,7 +92,7 @@ async function getEvents(){
         const zeroPad = (num, places) => String(num).padStart(places, '0');
 
         //Add to list for sorting
-        dates[j] = zeroPad(i,3) + "<div align='center' id='fb" + i + "' onclick='edit(" + i + ")'><h3 align='right'>" + dow + ' ' + doc.data()[i].date + '</h3>' + doc.data()[i].time + '<br>' + doc.data()[i].preShow + '<br>' + doc.data()[i].show + '<br>' + doc.data()[i].game + "<br>ID: " + i + "<br></div>";
+        dates[j] = zeroPad(i,3) + `<div align='center' id='fb` + i + `' onclick='edit(` + i + `)'><h3 align='right'>` + dow + ' ' + doc.data()[i].date + '</h3>' + doc.data()[i].time + '<br>' + doc.data()[i].preShow + '<br>' + doc.data()[i].show + '<br>' + doc.data()[i].game + "<br>ID: " + i + "<br></div>";
         j++;
       }
     }
@@ -108,10 +108,33 @@ getEvents();
 function edit(num){
   document.getElementById('id').value = num;
   db.collection('schedule').doc('v3').onSnapshot((doc) => {
-    /*Formatting Needs Completed
-    document.getElementById('date').value = doc.data()[num].date;
-    document.getElementById('sTime').value = doc.data()[num].start;
-    */
+    //Convert Date to input
+    var date = doc.data()[num].date;
+    date = date.substr(6,4) + '-' + date.substr(0,2) + '-' + date.substr(3,2);
+    document.getElementById('date').value = date;
+
+    //Convert Time to input
+    let time = doc.data()[num].time;
+    let colPos = time.indexOf(":");
+    let timeSplit = time.split(' ');
+
+    if (timeSplit[1] == 'PM'){
+    	//Calc length
+        var colLen = colPos - 0;
+    	time = (parseInt(time.substr(0, colLen)) + 12) + time.substr(colPos, 3);
+    } else {
+    	var colLen = colPos - 0;
+    	if (time.substr(0, colLen) == '12'){
+        	time = '0' + (parseInt(time.substr(0, colLen)) - 12) + time.substr(colPos, 3);
+        } else {
+        	if (parseInt(time.substr(0, colLen)) < 10){
+            	time = '0' + time.substr(0, colLen) + time.substr(colPos, 3);
+            } else {
+        		time = time.substr(0, colLen) + time.substr(colPos, 3);
+            }
+        }
+    }
+    document.getElementById('sTime').value = time;
     document.getElementById('pShow').value = doc.data()[num].preShow;
     document.getElementById('show').value = doc.data()[num].show;
     document.getElementById('game').value = doc.data()[num].game;

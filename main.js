@@ -11,11 +11,11 @@ var devBuild = 'true';
 
 //Information
 function title(){
-    var title = 'TGSN Staff HQ v1.1.0';
+    var title = 'TGSN Staff HQ v1.1.1';
     return title;
 }
 function buildNum(){
-    var build = '21.11.1';
+    var build = '21.11.2';
     return build;
 }
 const currentVer = app.getVersion(); //Version Variable
@@ -23,16 +23,10 @@ const changelogOptions = {
     type: 'info',
     buttons: ['Close'],
     title: 'Changelog',
-    message: 'Changes in TGSN Staff HQ v1.1.0',
+    message: 'Changes in TGSN Staff HQ v1.1.1',
     detail: `
-  - Fixed Issue where updater wasn't working properly. (It will now add a new button informing you an update is available & will list what version.)
-  - Changed links to open in default browser.
-  - Added New Schedule system
-  - Removed Old Schedule System
-  - Removed TGSN Site link due to redundancy
-  - Added Editing for events in the new Schedule System
-  - Added Filter for finding events easier for editing
-  - Added Remove button for removing events
+  - Added Backend timer to change schedule on day change
+  - Fixed issue where Date & Time wouldn't update when editing
   - Stability changes and backend changes
 
   Coming Soon
