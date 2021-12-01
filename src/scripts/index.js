@@ -781,6 +781,7 @@ function forceReplies(i){
 /*Chat Module End*/
 
 /*Update Module*/
+var newUpdate = 0;
 async function updateChecker(){
   var buttons = document.getElementById('buttons');
   const octokit = new Octokit({ auth: process.env.GITHUB });
@@ -790,11 +791,14 @@ async function updateChecker(){
   })
   const currentVer = require('electron').remote.app.getVersion();
   if (response.data.tag_name > currentVer){
-    buttons.innerHTML += `<tr>
-      <td align='center' valign='middle' id='buttonUpdate' style='border-style: outset; border-radius: 25% 25% 25% 25%; background-color: orange; color: #333; width: 110px; height: 50px;' onclick='openUpdate("` + response.data.html_url + `")'>
-        Update to v` + response.data.tag_name + `
-      </td>
-    </tr>`
+    if (newUpdate == 0){
+      buttons.innerHTML += `<tr>
+        <td align='center' valign='middle' id='buttonUpdate' style='border-style: outset; border-radius: 25% 25% 25% 25%; background-color: orange; color: #333; width: 110px; height: 50px;' onclick='openUpdate("` + response.data.html_url + `")'>
+          Update to v` + response.data.tag_name + `
+        </td>
+      </tr>`;
+      newUpdate = 1;
+    }
   }
 }
 

@@ -11,11 +11,11 @@ var devBuild = 'true';
 
 //Information
 function title(){
-    var title = 'TGSN Staff HQ v1.1.1';
+    var title = 'TGSN Staff HQ v1.1.2';
     return title;
 }
 function buildNum(){
-    var build = '21.11.2';
+    var build = '21.11.3';
     return build;
 }
 const currentVer = app.getVersion(); //Version Variable
@@ -23,10 +23,11 @@ const changelogOptions = {
     type: 'info',
     buttons: ['Close'],
     title: 'Changelog',
-    message: 'Changes in TGSN Staff HQ v1.1.1',
+    message: 'Changes in TGSN Staff HQ v1.1.2',
     detail: `
-  - Added Backend timer to change schedule on day change
-  - Fixed issue where Date & Time wouldn't update when editing
+  - Fixed Updater to not repeat prompt
+  - Fixed issue where month change would remove all streams planned before the 10th. (Applies to website as well).
+  - Added a way to remove Bot commands
   - Stability changes and backend changes
 
   Coming Soon

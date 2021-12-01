@@ -53,3 +53,29 @@ function addCommand(){
     merge: true,
   })
 }
+
+function remCommand(){
+  //Initialize Values
+  const app = firebase.app();
+  const db = firebase.firestore();
+  const commands = db.collection('bot').doc('commands');
+  var command = document.getElementById('command').value;
+
+  commands.set({
+    commands: {
+      [command]: firebase.firestore.FieldValue.delete()
+    }
+  }, { merge: true });
+
+  commands.onSnapshot(doc => {
+    const data = doc.data();
+    console.log(data.list, command);
+    for (var i = 0; i < data.list.length; i++){
+      if (data.list[i] == command){
+        commands.update({
+          list: firebase.firestore.FieldValue.arrayRemove(command)
+        });
+      }
+    }
+  });
+}
