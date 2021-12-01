@@ -5,11 +5,11 @@
   "main": "main.js",
   "scripts": {
     "start": "electron .",
-    "package-mac": "electron-packager ./ --overwrite --platform=darwin --arch=x64 --icon=logo.jpg --out=build --asar",
-    "package-noasar": "electron-packager ./ tgsnstaffhq --overwrite --platform=win32 --arch=x64 --icon=logo.ico --out=build --version-string.CompanyName=RampantEpsilon --version-string.ProductName=\"TGSN Staff HQ\"",
-    "package-win64": "electron-packager ./ tgsnstaffhq --overwrite --platform=win32 --arch=x64 --icon=logo.ico --out=build --version-string.CompanyName=RampantEpsilon --version-string.ProductName=\"TGSN Staff HQ\" --asar",
-    "package-win32": "electron-packager ./ tgsnstaffhq --overwrite --platform=win32 --arch=ia32 --icon=logo.ico --out=build --version-string.CompanyName=RampantEpsilon --version-string.ProductName=\"TGSN Staff HQ\" --asar",
-    "package-linux": "electron-packager ./ tgsnstaffhq --platform=linux --arch=x64 --overwrite --icon=logo.jpg --out=build --asar"
+    "build-mac": "electron-packager ./ --overwrite --platform=darwin --arch=x64 --icon=logo.jpg --out=build --asar",
+    "build-noasar": "electron-packager ./ tgsnstaffhq --overwrite --platform=win32 --arch=x64 --icon=logo.ico --out=build --version-string.CompanyName=RampantEpsilon --version-string.ProductName=\"TGSN Staff HQ\"",
+    "build-win64": "electron-packager ./ tgsnstaffhq --overwrite --platform=win32 --arch=x64 --icon=logo.ico --out=build --version-string.CompanyName=RampantEpsilon --version-string.ProductName=\"TGSN Staff HQ\" --asar",
+    "build-win32": "electron-packager ./ tgsnstaffhq --overwrite --platform=win32 --arch=ia32 --icon=logo.ico --out=build --version-string.CompanyName=RampantEpsilon --version-string.ProductName=\"TGSN Staff HQ\" --asar",
+    "build-linux": "electron-packager ./ tgsnstaffhq --platform=linux --arch=x64 --overwrite --icon=logo.jpg --out=build --asar"
   },
   "author": "Tom \"RampantEpsilon\" Ware",
   "license": "ISC",
