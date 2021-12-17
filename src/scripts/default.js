@@ -19,7 +19,7 @@ var webview = [
     'Twitch Bot Commands'
   ],[
     "https://obs.ninja/?room=thegamingsaloonnetwork&hash=e588",
-    "OBS Ninja"
+    "VDO.Ninja"
   ]
 ]
 var adminView = [
@@ -43,7 +43,7 @@ var adminView = [
     'Twitch Bot Commands'
   ],[
     "https://obs.ninja/?room=thegamingsaloonnetwork&hash=e588",
-    "OBS Ninja"
+    "VDO.Ninja"
   ],[
     './users/index.html',
     'User Management'
@@ -73,7 +73,7 @@ var coordView = [
     'Twitch Bot Commands'
   ],[
     "https://obs.ninja/?room=thegamingsaloonnetwork&hash=e588",
-    "OBS Ninja"
+    "VDO.Ninja"
   ],[
     './users/coord.html',
     'User Management'
