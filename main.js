@@ -11,11 +11,11 @@ var devBuild = 'true';
 
 //Information
 function title(){
-    var title = 'TGSN Staff HQ v1.1.2';
+    var title = 'TGSN Staff HQ v1.1.3';
     return title;
 }
 function buildNum(){
-    var build = '21.11.3';
+    var build = '21.12.1';
     return build;
 }
 const currentVer = app.getVersion(); //Version Variable
@@ -23,11 +23,9 @@ const changelogOptions = {
     type: 'info',
     buttons: ['Close'],
     title: 'Changelog',
-    message: 'Changes in TGSN Staff HQ v1.1.2',
+    message: 'Changes in TGSN Staff HQ v1.1.3',
     detail: `
-  - Fixed Updater to not repeat prompt
-  - Fixed issue where month change would remove all streams planned before the 10th. (Applies to website as well).
-  - Added a way to remove Bot commands
+  - Fixed issue where Filtering the events in the Schedule Editor would break formatting.
   - Stability changes and backend changes
 
   Coming Soon
