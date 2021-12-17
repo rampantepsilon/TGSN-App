@@ -69,7 +69,6 @@ function remCommand(){
 
   commands.onSnapshot(doc => {
     const data = doc.data();
-    console.log(data.list, command);
     for (var i = 0; i < data.list.length; i++){
       if (data.list[i] == command){
         commands.update({
