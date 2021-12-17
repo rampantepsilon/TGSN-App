@@ -45,10 +45,10 @@ function showWin(num){
   $('#' + num).show();
   var loggedIn = storeInfo.get('loggedIn');
 
-  for (j = 1; j < (webview.length); j++){
+  for (j = 1; j < (webview.length + 1); j++){
     if (j != num){
       if (loggedIn == 'no'){
-        if (j < 8){
+        if (j < 6){
           document.getElementById('button' + j).style.backgroundColor = '#333';
           document.getElementById('button' + j).style.color = 'orange';
         }
@@ -62,6 +62,9 @@ function showWin(num){
     }
   }
   currentPage = num;
+  if (num == '3'){
+    refresh();
+  }
 }
 function adminShowWin(num){
   const app = firebase.app();
@@ -90,6 +93,9 @@ function adminShowWin(num){
   }
   $('#chatmain').hide();
   currentPage = num;
+  if (num == '3'){
+    refresh();
+  }
 }
 
 //Chat
