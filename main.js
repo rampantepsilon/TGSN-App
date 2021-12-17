@@ -26,6 +26,9 @@ const changelogOptions = {
     message: 'Changes in TGSN Staff HQ v1.1.3',
     detail: `
   - Fixed issue where Filtering the events in the Schedule Editor would break formatting.
+  - Fixed issue where you would have to refresh the Show Resources after selecting it in the app.
+  - Fixed bug with TGSN Staff & DR Staff would not show as selecting OBS Ninja.
+  - Updated OBS Ninja link to reflect new name.
   - Stability changes and backend changes
 
   Coming Soon
