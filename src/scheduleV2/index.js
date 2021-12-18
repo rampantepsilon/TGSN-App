@@ -100,6 +100,7 @@ async function getEvents(){
     for (var i = 0; i < dates.length; i++){
       document.getElementById('upcomingEvents').innerHTML += dates[i].substr(3);
     }
+    filter();
   })
 }
 
