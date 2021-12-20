@@ -11,11 +11,11 @@ var devBuild = 'true';
 
 //Information
 function title(){
-    var title = 'TGSN Staff HQ v1.1.3';
+    var title = 'TGSN Staff HQ v1.1.4';
     return title;
 }
 function buildNum(){
-    var build = '21.12.1';
+    var build = '21.12.2';
     return build;
 }
 const currentVer = app.getVersion(); //Version Variable
@@ -23,12 +23,11 @@ const changelogOptions = {
     type: 'info',
     buttons: ['Close'],
     title: 'Changelog',
-    message: 'Changes in TGSN Staff HQ v1.1.3',
+    message: 'Changes in TGSN Staff HQ v1.1.4',
     detail: `
-  - Fixed issue where Filtering the events in the Schedule Editor would break formatting.
-  - Fixed issue where you would have to refresh the Show Resources after selecting it in the app.
-  - Fixed bug with TGSN Staff & DR Staff would not show as selecting OBS Ninja.
-  - Updated OBS Ninja link to reflect new name.
+  - Fixed issue where Filtering the events in the Schedule Editor would reset after removing/adding entries
+  - Added Decoration to links so you know when you are hovered over them (Colors will inverse on click)
+  - Removed Staff View from TGS Show Resources (It will now show what viewers can see on https://tgsnetwork.org/tgsarticles.html)
   - Stability changes and backend changes
 
   Coming Soon
