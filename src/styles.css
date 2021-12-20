@@ -98,3 +98,37 @@ html, body, #main {
   text-decoration: none;
   cursor: pointer;
 }
+
+.navButton{
+  background-color: #333;
+  color: orange;
+}
+
+.navButton:hover{
+  cursor: pointer;
+  background-color: #666;
+  color: #FFA500;
+}
+
+.navButton:active{
+  cursor: pointer;
+  color: #666;
+  background-color: #FFA500;
+}
+
+.navButtonSelected{
+  background-color: #FFA500;
+  color: #333;
+}
+
+.navButtonSelected:hover{
+  cursor: pointer;
+  background-color: #FF7200;
+  color: #333;
+}
+
+.navButtonSelected:active{
+  cursor: pointer;
+  color: #FF7200;
+  background-color: #333;
+}

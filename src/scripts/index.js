@@ -49,16 +49,13 @@ function showWin(num){
     if (j != num){
       if (loggedIn == 'no'){
         if (j < 6){
-          document.getElementById('button' + j).style.backgroundColor = '#333';
-          document.getElementById('button' + j).style.color = 'orange';
+          document.getElementById('button' + j).className = 'navButton';
         }
       } else {
-        document.getElementById('button' + j).style.backgroundColor = '#333';
-        document.getElementById('button' + j).style.color = 'orange';
+        document.getElementById('button' + j).className = 'navButton';
       }
     } else {
-        document.getElementById('button' + num).style.backgroundColor = 'orange';
-        document.getElementById('button' + num).style.color = '#333';
+        document.getElementById('button' + j).className = 'navButtonSelected';
     }
   }
   currentPage = num;
@@ -84,11 +81,9 @@ function adminShowWin(num){
   sessionStorage.setItem('location', num);
   for (j = 1; j < (adminView.length + 1); j++){
       if (j != num){
-          document.getElementById('button' + j).style.backgroundColor = '#333';
-          document.getElementById('button' + j).style.color = 'orange';
+          document.getElementById('button' + j).className = 'navButton';
       } else {
-          document.getElementById('button' + num).style.backgroundColor = 'orange';
-          document.getElementById('button' + num).style.color = '#333';
+          document.getElementById('button' + j).className = 'navButtonSelected';
       }
   }
   $('#chatmain').hide();
@@ -151,7 +146,7 @@ function init(){
     //Add Refresh Button
     buttons.innerHTML = [`
       <tr>
-        <td align='center' valign='middle' id='buttonRefresh' style='position:fixed; bottom: 15; border-style: outset; border-radius: 25% 25% 25% 25%; background-color: orange; color: #333; width: 110px; height: 50px;' onclick="refresh()">
+        <td align='center' class='navButtonSelected' valign='middle' id='buttonRefresh' style='position:fixed; bottom: 15; border-style: outset; border-radius: 25% 25% 25% 25%; width: 110px; height: 50px;' onclick="refresh()">
           <img src='./images/refresh.png' width='20px' height='20px'><br>Refresh Page
         </td>
       </tr>`];
@@ -170,7 +165,7 @@ function init(){
             /*if (k == (adminView.length)){
               buttons.innerHTML += `<td align='center' style='font-size: 40px;'> | </td>`
             }*/
-            buttons.innerHTML += `<tr><td align='center' id='button` + k + `' style='border-style: outset; border-radius: 25% 25% 25% 25%; background-color: #333; color: orange; width: 110px; height: 50px;' onclick="adminShowWin('` + k + `')">` + adminView[k - 1][1] + `</td></tr>`
+            buttons.innerHTML += `<tr><td align='center' class='navButton' id='button` + k + `' style='border-style: outset; border-radius: 25% 25% 25% 25%; width: 110px; height: 50px;' onclick="adminShowWin('` + k + `')">` + adminView[k - 1][1] + `</td></tr>`
         }
         // Add Chat
         var cell = content.insertCell(j-1);
@@ -207,7 +202,7 @@ function init(){
             /*if (k == (coordView.length)){
               buttons.innerHTML += `<td align='center' style='font-size: 40px;'> | </td>`
             }*/
-            buttons.innerHTML += `<tr><td align='center' id='button` + k + `' style='border-style: outset; border-radius: 25% 25% 25% 25%; background-color: #333; color: orange; width: 110px; height: 50px;' onclick="adminShowWin('` + k + `')">` + coordView[k - 1][1] + `</td></tr>`
+            buttons.innerHTML += `<tr><td align='center' class='navButton' id='button` + k + `' style='border-style: outset; border-radius: 25% 25% 25% 25%; width: 110px; height: 50px;' onclick="adminShowWin('` + k + `')">` + coordView[k - 1][1] + `</td></tr>`
         }
         // Add Chat
         var cell = content.insertCell(j-1);
@@ -238,7 +233,7 @@ function init(){
         }
         //Add Buttons
         for (k = 1; k < (webview.length + 1); k++){
-          buttons.innerHTML += `<tr><td align='center' id='button` + k + `' style='border-style: outset; border-radius: 25% 25% 25% 25%; background-color: #333; color: orange; width: 110px; height: 50px;' onclick="showWin('` + k + `')">` + webview[k - 1][1] + `</td></tr>`
+          buttons.innerHTML += `<tr><td align='center' class='navButton' id='button` + k + `' style='border-style: outset; border-radius: 25% 25% 25% 25%; height: 50px;' onclick="showWin('` + k + `')">` + webview[k - 1][1] + `</td></tr>`
         }
         //Add Chat
         var cell = content.insertCell(j-1);
@@ -271,7 +266,7 @@ function init(){
       }
       //Add Buttons
       for (k = 1; k < (webview.length - 1); k++){
-        buttons.innerHTML += `<tr><td align='center' id='button` + k + `' style='border-style: outset; border-radius: 25% 25% 25% 25%; background-color: #333; color: orange; width: 110px; height: 50px;' onclick="showWin('` + k + `')">` + webview[k - 1][1] + `</td></tr>`
+        buttons.innerHTML += `<tr><td align='center' class='navButton' id='button` + k + `' style='border-style: outset; border-radius: 25% 25% 25% 25%; width: 110px; height: 50px;' onclick="showWin('` + k + `')">` + webview[k - 1][1] + `</td></tr>`
       }
       //Add Chat
       var cell = content.insertCell(j-1);
@@ -295,9 +290,7 @@ function init(){
       }
     }
 
-    document.getElementById('button1').style.backgroundColor = 'orange';
-    document.getElementById('button1').style.color = '#333';
-
+    document.getElementById('button1').className='navButtonSelected'
     //Staff Chat Resources
     document.getElementById('chat-txt').onkeyup = function(){
       if (event.keyCode === 13){
