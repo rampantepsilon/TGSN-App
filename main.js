@@ -11,11 +11,11 @@ var devBuild = 'true';
 
 //Information
 function title(){
-    var title = 'TGSN Staff HQ v1.1.4';
+    var title = 'TGSN Staff HQ v1.2.0';
     return title;
 }
 function buildNum(){
-    var build = '21.12.2';
+    var build = '22.1.1';
     return build;
 }
 const currentVer = app.getVersion(); //Version Variable
@@ -23,11 +23,9 @@ const changelogOptions = {
     type: 'info',
     buttons: ['Close'],
     title: 'Changelog',
-    message: 'Changes in TGSN Staff HQ v1.1.4',
+    message: 'Changes in TGSN Staff HQ v1.2.0',
     detail: `
-  - Fixed issue where Filtering the events in the Schedule Editor would reset after removing/adding entries
-  - Added Decoration to links so you know when you are hovered over them (Colors will inverse on click)
-  - Removed Staff View from TGS Show Resources (It will now show what viewers can see on https://tgsnetwork.org/tgsarticles.html)
+  - Changed Show Resources to TGS Resources & TGSR Resources
   - Stability changes and backend changes
 
   Coming Soon
