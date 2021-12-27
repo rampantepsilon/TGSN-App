@@ -6,8 +6,11 @@ var webview = [
     "./releases/index.html",
     "Releases"
   ],[
-    './shows/index.html',
-    'Show Resources'
+    './shows/view/tgs.html',
+    'TGS Resources'
+  ],[
+    './shows/view/tgsr.html',
+    'TGSR Resources'
   ],[
     'https://discord.com/channels/@me',
     'Discord'
@@ -30,8 +33,11 @@ var adminView = [
     "./releases/index.html",
     "Releases"
   ],[
-    './shows/admin.html',
-    'Show Resources'
+    './shows/admin/tgs.html',
+    'TGS Resources'
+  ],[
+    './shows/admin/tgsr.html',
+    'TGSR Resources'
   ],[
     'https://discord.com/channels/@me',
     'Discord'
@@ -60,8 +66,11 @@ var coordView = [
     "./releases/index.html",
     "Releases"
   ],[
-    './shows/admin.html',
-    'Show Resources'
+    './shows/admin/tgs.html',
+    'TGS Resources'
+  ],[
+    './shows/admin/tgsr.html',
+    'TGSR Resources'
   ],[
     'https://discord.com/channels/@me',
     'Discord'

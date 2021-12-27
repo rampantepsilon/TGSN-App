@@ -2,7 +2,7 @@
     <head>
         <title>TGSN Staff HQ v0.0.1-alpha</title>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-        <script src='index.js'></script>
+        <script src='../index.js'></script>
         <link href="https://fonts.googleapis.com/css?family=Raleway:600|Sancreek&display=swap" rel="stylesheet">
         <!-- The core Firebase JS SDK is always required and must be listed first -->
         <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-app.js"></script>
@@ -82,21 +82,10 @@
         </style>
     </head>
 
-    <body onload='showTGSArticles()'>
+    <body onload='showTGSArticlesUser()'>
       <table width='100%' height='100%'>
         <tr>
-          <td valign='top'>
-            <table width='100%' border='1'>
-              <tr>
-                <td align='center' width='33%' id='tgs' onmouseover="this.style.backgroundColor = 'orange'" onmouseout="this.style.backgroundColor = 'rgba(0,0,0,0)'" onclick='showTGSArticles()'>TGS Articles</td>
-                <td align='center' width='33%' id='tgsr' onmouseover="this.style.backgroundColor = 'orange'" onmouseout="this.style.backgroundColor = 'rgba(0,0,0,0)'" onclick='showTGSR()'>TGSR Resources</td>
-                <!--<td align='center' width='33%' id='tvs' onmouseover="this.style.backgroundColor = 'orange'" onmouseout="this.style.backgroundColor = 'rgba(0,0,0,0)'" onclick='showTVS()'>TVS Videos</td>-->
-              </tr>
-            </table>
-          </td>
-        </tr>
-        <tr>
-          <td id='showBody' valign='top'></td>
+          <td id='showBody' valign='top' height='100%'></td>
         </tr>
       </table>
 
@@ -104,7 +93,7 @@
       <div id="myModal" class="modal">
         <div class="modal-content">
           <span class="close">&times;</span>
-          <table id='editModal' width='100%'>
+          <table id='editModal'>
           </table>
         </div>
       </div>

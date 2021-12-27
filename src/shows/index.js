@@ -1,5 +1,5 @@
 var playerWidth = window.innerWidth-50;
-var playerHeight = window.innerHeight-140;
+var playerHeight = window.innerHeight-85;
 
 function showTGSArticlesUser(){
   //Initialize Values
@@ -25,27 +25,11 @@ function showTGSArticlesUser(){
         </tr>
         <tr>
           <td colspan='3' align='center'>
-            <iframe src='` + staffLink + `' id='articlesWin'></iframe>
+            <iframe src='` + link + `' id='articlesWin'></iframe>
           </td>
         </tr>
       </table>`]
 
-    document.getElementById('editModal').innerHTML = [`
-      <tr>
-        <td align='center' width='35%'>
-          <div id='body'>Current TGS Articles (Viewer Facing):<h5>(Only the document part of the URL is shown here)</h5><font size='2'><a href='` + link + `' target='_blank'>`/*Click Here (Opens in new tab)*/ + link.substring(35, trunc) + `</a></font></div>
-        </td>
-        <td align='center' width='35%'>
-          <div id='body'>Current TGS Articles (Staff Facing):<h5>(Only the document part of the URL is shown here)</h5><font size='2'><a href='` + staffLink + `' target='_blank'>`/*Click Here (Opens in new tab)*/ + staffLink.substring(35, trunc) + `</a></font></div>
-        </td>
-        <td align='center' id='body'>
-          Enter the new link for TGS Articles<br>
-          <input id='tgsArticleLink'><br>
-          <button onclick='updateTGSArticles()'>Update Viewer Articles</button>
-          <button onclick='updateStaffArticles()'>Update Staff Articles</button><br>
-          <button onclick='clearTGSArticles()'>Clear Link Field</button>
-        </td>
-      </tr>`]
     $('#articlesWin').css('width', playerWidth +'px');
     $('#articlesWin').css('height', playerHeight +'px');
   })
@@ -95,7 +79,7 @@ function showTGSArticles(){
       </tr>`]
 
     var playerWidth = window.innerWidth-50;
-    var playerHeight = window.innerHeight-140;
+    var playerHeight = window.innerHeight-110;
     $('#articlesWin').css('width', playerWidth +'px');
     $('#articlesWin').css('height', playerHeight +'px');
   })

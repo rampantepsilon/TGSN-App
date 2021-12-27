@@ -48,7 +48,7 @@ function showWin(num){
   for (j = 1; j < (webview.length + 1); j++){
     if (j != num){
       if (loggedIn == 'no'){
-        if (j < 6){
+        if (j < 7){
           document.getElementById('button' + j).className = 'navButton';
         }
       } else {
@@ -59,7 +59,7 @@ function showWin(num){
     }
   }
   currentPage = num;
-  if (num == '3'){
+  if (num == '3' || num == '4'){
     refresh();
   }
 }
@@ -88,7 +88,7 @@ function adminShowWin(num){
   }
   $('#chatmain').hide();
   currentPage = num;
-  if (num == '3'){
+  if (num == '3' || num == '4'){
     refresh();
   }
 }
@@ -233,7 +233,7 @@ function init(){
         }
         //Add Buttons
         for (k = 1; k < (webview.length + 1); k++){
-          buttons.innerHTML += `<tr><td align='center' class='navButton' id='button` + k + `' style='border-style: outset; border-radius: 25% 25% 25% 25%; height: 50px;' onclick="showWin('` + k + `')">` + webview[k - 1][1] + `</td></tr>`
+          buttons.innerHTML += `<tr><td align='center' class='navButton' id='button` + k + `' style='border-style: outset; border-radius: 25% 25% 25% 25%; width: 110px; height: 50px;' onclick="showWin('` + k + `')">` + webview[k - 1][1] + `</td></tr>`
         }
         //Add Chat
         var cell = content.insertCell(j-1);
@@ -258,14 +258,14 @@ function init(){
       }
     } else {
       //Add Saved Links
-      for (j = 1; j < (webview.length - 1); j++){
+      for (j = 1; j < (webview.length); j++){
           var cell = content.insertCell(j-1);
           cell.innerHTML = `<webview style='height:100%' webpreferences='webviewTag' useragent="Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:86.0) Gecko/20100101 Firefox/86.0" src='` + webview[j - 1][0] + `'></webview>`;
           cell.style.width = '80%';
           cell.setAttribute('id', j);
       }
       //Add Buttons
-      for (k = 1; k < (webview.length - 1); k++){
+      for (k = 1; k < (webview.length); k++){
         buttons.innerHTML += `<tr><td align='center' class='navButton' id='button` + k + `' style='border-style: outset; border-radius: 25% 25% 25% 25%; width: 110px; height: 50px;' onclick="showWin('` + k + `')">` + webview[k - 1][1] + `</td></tr>`
       }
       //Add Chat
@@ -282,7 +282,7 @@ function init(){
       cell.setAttribute('id', 'chat');
 
       //Hide other webviews
-      for (i = 2; i < (webview.length - 1); i++){
+      for (i = 2; i < (webview.length); i++){
         $('#' + i).hide();
       }
       if (chatShown == 1){
