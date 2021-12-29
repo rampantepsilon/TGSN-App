@@ -26,6 +26,7 @@ const changelogOptions = {
     message: 'Changes in TGSN Staff HQ v1.2.0',
     detail: `
   - Changed Show Resources to TGS Resources & TGSR Resources
+  - Fixed issue where some staff would see the nav buttons sized improperly
   - Stability changes and backend changes
 
   Coming Soon
