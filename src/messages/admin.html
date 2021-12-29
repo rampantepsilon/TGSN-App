@@ -130,8 +130,9 @@
                     <textarea id="chat-txt" class="textarea" placeholder="Insert Message Here" style="width:100%;"></textarea>
                   </div>
                   <div align='center'>
-                    <div style="border: outset; width: 100px; display:inline-block;" align='center' onclick='postChat()' class='button'>Submit</div>
-                    <div style="border: outset; width: 100px; display:inline-block;" align='center' onclick='showHelp()' class='button'>Help</div>
+                    <div style="border: outset; width: 130px; display:inline-block;" align='center' onclick='postChat()' class='button'>Submit</div>
+                    <div style="border: outset; width: 130px; display:inline-block;" align='center' onclick='showMBL()' class='button'>Add Link/Image</div>
+                    <div style="border: outset; width: 130px; display:inline-block;" align='center' onclick='showHelp()' class='button'>Help</div>
                   </div>
                   <div width='100%' id="messages"></div>
                 </td>
@@ -185,10 +186,34 @@
                 Line Breaks
                 <ul>
                   <li>
-                    Press Enter to create a line break (Using <br> will break the layout now)
+                    Press Enter to create a line break (Using &lt;br&gt; will break the layout now)
                   </li>
                 </ul>
               </li>
+              <li>
+                Add Link / Add Image Buttons
+                <ul>
+                  <li>
+                    Using these buttons will add an image or link at the end of the message listed in the box.<br>
+                    i.e. If the message box has "Welcome to the app!" and you add a link it will look like this<br>
+                    "Welcome to the app![url='https://tgsnetwork.org']https://tgsnetwork.org[/url]"
+                  </li>
+                  <li>
+                    NOTE: All URLs added must include the http/https or they will not work.
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div id="mbModal" class="modal">
+        <div class="modal-content">
+          <span class="close">&times;</span>
+          <div align='center'>
+            Please enter the URL of your link/image.<br>
+            <input type='text' id='messageBoardLink' value='https://tgsnetwork.org'></input><br>
+            <button onclick='addLinkImage("link")'>Add Link</button><button onclick='addLinkImage("image")'>Add Image</button>
           </div>
         </div>
       </div>

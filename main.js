@@ -15,7 +15,7 @@ function title(){
     return title;
 }
 function buildNum(){
-    var build = '22.1.1';
+    var build = '21.12.3';
     return build;
 }
 const currentVer = app.getVersion(); //Version Variable
@@ -27,6 +27,7 @@ const changelogOptions = {
     detail: `
   - Changed Show Resources to TGS Resources & TGSR Resources
   - Fixed issue where some staff would see the nav buttons sized improperly
+  - Added new buttons for adding links and images to Message Board posts
   - Stability changes and backend changes
 
   Coming Soon

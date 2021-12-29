@@ -8,6 +8,33 @@ db.collection('app').doc('data').onSnapshot((doc) => {
   id = doc.data().id;
 })
 
+function showMBL(){
+  var modal = document.getElementById('mbModal');
+  var span = document.getElementsByClassName('close')[1];
+
+  modal.style.display = 'block';
+  span.onclick = function(){
+    modal.style.display = 'none';
+  }
+}
+
+function addLinkImage(type){
+  const chatTxt = document.getElementById('chat-txt');
+  var message = chatTxt.value;
+  var modal = document.getElementById('mbModal');
+  var link = document.getElementById('messageBoardLink').value;
+
+  if (type == 'link'){
+    message = message + "[url='" + link + "']" + link + "[/url]"
+  }
+  if (type == 'image'){
+    message = message + "[img]" + link + "[/img]"
+  }
+  chatTxt.value = message;
+
+  modal.style.display = 'none';
+}
+
 function postChat(){
   //e.preventDefault();
   const date = new Date().toLocaleString();
@@ -36,6 +63,8 @@ function postChat(){
       content: msgDiscord
   }
   request.send(JSON.stringify(params));
+
+  document.querySelector("#chat-txt").style.height = 'auto';
 }
 
 //Listen for updates
