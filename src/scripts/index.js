@@ -290,6 +290,8 @@ function init(){
       }
     }
 
+    currentPage = 1;
+
     document.getElementById('button1').className='navButtonSelected'
     //Staff Chat Resources
     document.getElementById('chat-txt').onkeyup = function(){
