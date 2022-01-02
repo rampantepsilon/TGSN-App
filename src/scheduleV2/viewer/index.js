@@ -18,6 +18,9 @@ async function getEvents(){
     let month = d.getMonth() + 1;
     let year = d.getFullYear();
     let currDate;
+    if (month < 10){
+      month = "0" + month;
+    }
     if (day < 10){
       currDate = year + '/' + month + '/0' + day;
     } else {
