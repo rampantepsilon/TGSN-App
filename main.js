@@ -11,11 +11,11 @@ var devBuild = 'true';
 
 //Information
 function title(){
-    var title = 'TGSN Staff HQ v1.2.1';
+    var title = 'TGSN Staff HQ v1.3.0';
     return title;
 }
 function buildNum(){
-    var build = '22.1.1';
+    var build = '22.1.2';
     return build;
 }
 const currentVer = app.getVersion(); //Version Variable
@@ -23,9 +23,9 @@ const changelogOptions = {
     type: 'info',
     buttons: ['Close'],
     title: 'Changelog',
-    message: 'Changes in TGSN Staff HQ v1.2.1',
+    message: 'Changes in TGSN Staff HQ v1.3.0',
     detail: `
-  - Fixed issue with Schedule Viewer
+  - Added Dashboard for easy access
   - Stability changes and backend changes
 
   Coming Soon
