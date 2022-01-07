@@ -28,8 +28,7 @@ var playerHeight = window.innerHeight-60;
 
 //Redirect Function
 function showWin(num){
-  const app = firebase.app();
-  const db = firebase.firestore();
+
   const timestamp = db.collection('users').doc('timestamp')
   if (sessionStorage.getItem('username')){
     var user = sessionStorage.getItem('username');
@@ -48,7 +47,7 @@ function showWin(num){
   for (j = 1; j < (webview.length + 1); j++){
     if (j != num){
       if (loggedIn == 'no'){
-        if (j < 7){
+        if (j < 9){
           document.getElementById('button' + j).className = 'navButton';
         }
       } else {
@@ -59,13 +58,12 @@ function showWin(num){
     }
   }
   currentPage = num;
-  if (num == '3' || num == '4'){
+  if (num == '4' || num == '5'){
     refresh();
   }
 }
 function adminShowWin(num){
-  const app = firebase.app();
-  const db = firebase.firestore();
+
   const timestamp = db.collection('users').doc('timestamp')
   if (sessionStorage.getItem('username')){
     var user = sessionStorage.getItem('username');
@@ -74,12 +72,12 @@ function adminShowWin(num){
       [user]: tsTime
     })
   }
-  for (i = 1; i < (adminView.length + 2); i++){
+  for (i = 1; i < (adminView.length + 3); i++){
       $('#' + i).hide();
   }
   $('#' + num).show();
   sessionStorage.setItem('location', num);
-  for (j = 1; j < (adminView.length + 1); j++){
+  for (j = 1; j < (adminView.length + 2); j++){
       if (j != num){
           document.getElementById('button' + j).className = 'navButton';
       } else {
@@ -88,7 +86,7 @@ function adminShowWin(num){
   }
   $('#chatmain').hide();
   currentPage = num;
-  if (num == '3' || num == '4'){
+  if (num == '4' || num == '5'){
     refresh();
   }
 }
@@ -104,6 +102,70 @@ function showChat(){
   }
 }
 
+//Dashboard Functions
+//MBLight ID Start
+const app = firebase.app();
+const db = firebase.firestore();
+var id;
+
+//Set id
+db.collection('app').doc('data').onSnapshot((doc) => {
+  id = doc.data().id;
+})
+//MBLight ID End
+function showDashboard(){
+  for (j = 1; j < (adminView.length + 1); j++){
+    if (document.getElementById('button' + j)){
+      document.getElementById('button' + j).className = 'navButton';
+    }
+  }
+  for (i = 1; i < (adminView.length + 2); i++){
+    $('#' + i).hide();
+  }
+  document.getElementById('button1').className = 'navButtonSelected';
+  $("#1").show();
+  sessionStorage.setItem('location', 1);
+}
+function mbLight(){
+  db.collection('app').doc('main').onSnapshot(doc => {
+    const data = doc.data();
+    var start = id - 1;
+
+    for (var i = start; i < id; i ++){
+      document.getElementById("mbLight").innerHTML = `
+        <div id ='` + i + `' style='border-style: double; padding: 5px; position: relative'>
+          <div align='left' valign='top' style="width: calc(100% - 220px);">` +
+            data[i][1] +
+          `</div>
+          <div width='150px' style="padding: 10px; position: absolute; top: 0; right: 0;" valign='top' align='right'><font color='#333' size='2em'>Posted At `
+            + data[i][0] + `</font>
+          </div>
+        </div>`;
+    }
+  })
+}
+function tgsnBot(){
+  //Initialize Values
+
+  const commands = db.collection('bot').doc('commands');
+
+  commands.onSnapshot(doc => {
+    const data = doc.data();
+    var commandList = document.getElementById('commandsLight');
+
+    var list = [];
+    for (var j = 0; j < data.list.length; j++){
+      list[j] = data.list[j];
+    }
+
+    list.sort();
+
+    for (var i = 0; i < data.list.length; i++){
+      commandList.innerHTML += [`!` + list[i] + `<ul><li>` + data.commands[list[i]] + `</li></ul></br>`]
+    }
+  });
+}
+
 //Hide All Windows Except the main on load
 function init(){
     //Variables
@@ -112,7 +174,32 @@ function init(){
     var uName = document.getElementById('uNameStatic');
     var loggedIn = storeInfo.get('loggedIn');
     var access = storeInfo.get('access');
-    content.innerHTML = '';
+    content.innerHTML = [`
+      <td id='1' style="width:80%;">
+        <table width='100%' height='100%' style='background-color: rgba(255,255,255,0.75)' border="1px">
+          <tr style='height: calc(85vh - 520px);'>
+            <td valign='top'>
+              <h3 align='center'>Recent Message</h3>
+              <div id='mbLight'></div>
+            </td>
+            <td valign='top'>
+              <h3 align='center'>VDO.Ninja</h3>
+              <div id='sideLight'></div>
+            </td>
+          </tr>
+          <tr>
+            <td valign='top' width='75%'>
+              <h3 align='center'>Twitch Player/Chat</h3>
+              <webview src='https://tgsnetwork.org/stream.html' id='twitchLight'></webview>
+            </td>
+            <td valign='top' width='25%'>
+              <h3 align='center'>TGSNBot Commands</h3>
+              <div id='commandsLight'></div>
+            </td>
+          </tr>
+        </table>
+      </td>
+    `]
 
     //Login Functions
     var sUser;
@@ -123,7 +210,7 @@ function init(){
     }
     var sLogo = sessionStorage.getItem('logo');
     const app = firebase.app();
-    const db = firebase.firestore();
+
     const login = db.collection('users').doc('logins')
     login.get().then((doc) => {
       const users = doc.data();
@@ -146,6 +233,9 @@ function init(){
     //Add Refresh Button
     buttons.innerHTML = [`
       <tr>
+        <td align='center' class='navButton' id='button1' style='border-style: outset; border-radius: 25% 25% 25% 25%; width: 110px; height: 50px;' onclick="showDashboard()">Dashboard</td>
+      </tr>
+      <tr>
         <td align='center' class='navButtonSelected' valign='middle' id='buttonRefresh' style='position:fixed; bottom: 15; border-style: outset; border-radius: 25% 25% 25% 25%; width: 110px; height: 50px;' onclick="refresh()">
           <img src='./images/refresh.png' width='20px' height='20px'><br>Refresh Page
         </td>
@@ -154,161 +244,80 @@ function init(){
     if (loggedIn == 'yes'){
       if (access == 'Network Admin'){
         //Add Saved Links
-        for (j = 1; j < (adminView.length + 1); j++){
+        for (j = 2; j < (adminView.length + 2); j++){
             var cell = content.insertCell(j-1);
-            cell.innerHTML = `<webview style='height:100%' useragent="Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:86.0) Gecko/20100101 Firefox/86.0" src='` + adminView[j - 1][0] + `'></webview>`;
+            cell.innerHTML = `<webview style='height:100%' useragent="Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:86.0) Gecko/20100101 Firefox/86.0" src='` + adminView[j - 2][0] + `'></webview>`;
             cell.style.width = '80%';
             cell.setAttribute('id', j);
         }
         //Add Buttons
-        for (k = 1; k < (adminView.length + 1); k++){
-            /*if (k == (adminView.length)){
-              buttons.innerHTML += `<td align='center' style='font-size: 40px;'> | </td>`
-            }*/
-            buttons.innerHTML += `<tr><td align='center' class='navButton' id='button` + k + `' style='border-style: outset; border-radius: 25% 25% 25% 25%; width: 110px; height: 50px;' onclick="adminShowWin('` + k + `')">` + adminView[k - 1][1] + `</td></tr>`
+        for (k = 2; k < (adminView.length + 2); k++){
+            buttons.innerHTML += `<tr><td align='center' class='navButton' id='button` + k + `' style='border-style: outset; border-radius: 25% 25% 25% 25%; width: 110px; height: 50px;' onclick="adminShowWin('` + k + `')">` + adminView[k - 2][1] + `</td></tr>`
         }
-        // Add Chat
-        var cell = content.insertCell(j-1);
-        cell.innerHTML = [`
-          <td valign='top' height='100%'>
-            <div id='send-message' align='center'>
-              <textarea id="chat-txt" class="textarea" placeholder="What do you want to say?"></textarea>
-              <button id="chat-btn" type="submit" onclick='postChat()'>Submit</button>
-            </div>
-            <div width='100%' id="messages" style='height: calc(100% - 45px); overflow-y: scroll;'></div>
-          </td>`];
-        cell.style.width = '400px';
-        cell.setAttribute('id', 'chat');
-        //Add Chat Button
-        /*buttons.innerHTML += `<td align='center' style='font-size: 40px;'> | </td>`;
-        buttons.innerHTML += `<td align='center' id='buttonChat' style='border-style: outset; border-radius: 25% 25% 25% 25%; background-color: #333; color: orange; width: 110px; height: 50px;' onclick="showChat()">Show/Hide Chat</td>`*/
 
-        for (i = 2; i < (adminView.length + 1); i++){
+        for (i = 2; i < (adminView.length + 2); i++){
           $('#' + i).hide();
-        }
-        if (chatShown == 1){
-          $('#chat').show();
         }
       } else if (access == 'TGSN Coordinator') {
         //Add Saved Links
-        for (j = 1; j < (coordView.length + 1); j++){
+        for (j = 2; j < (coordView.length + 2); j++){
             var cell = content.insertCell(j-1);
-            cell.innerHTML = `<webview style='height:100%' useragent="Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:86.0) Gecko/20100101 Firefox/86.0" src='` + coordView[j - 1][0] + `'></webview>`;
+            cell.innerHTML = `<webview style='height:100%' useragent="Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:86.0) Gecko/20100101 Firefox/86.0" src='` + coordView[j - 2][0] + `'></webview>`;
             cell.style.width = '80%';
             cell.setAttribute('id', j);
         }
         //Add Buttons
-        for (k = 1; k < (coordView.length + 1); k++){
-            /*if (k == (coordView.length)){
-              buttons.innerHTML += `<td align='center' style='font-size: 40px;'> | </td>`
-            }*/
-            buttons.innerHTML += `<tr><td align='center' class='navButton' id='button` + k + `' style='border-style: outset; border-radius: 25% 25% 25% 25%; width: 110px; height: 50px;' onclick="adminShowWin('` + k + `')">` + coordView[k - 1][1] + `</td></tr>`
+        for (k = 2; k < (coordView.length + 2); k++){
+            buttons.innerHTML += `<tr><td align='center' class='navButton' id='button` + k + `' style='border-style: outset; border-radius: 25% 25% 25% 25%; width: 110px; height: 50px;' onclick="adminShowWin('` + k + `')">` + coordView[k - 2][1] + `</td></tr>`
         }
-        // Add Chat
-        var cell = content.insertCell(j-1);
-        cell.innerHTML = [`
-          <td valign='top' height='100%'>
-            <div id='send-message' align='center'>
-              <textarea id="chat-txt" class="textarea" placeholder="What do you want to say?"></textarea>
-              <button id="chat-btn" type="submit" onclick='postChat()'>Submit</button>
-            </div>
-            <div width='100%' id="messages" style='height: calc(100% - 45px); overflow-y: scroll;'></div>
-          </td>`];
-        cell.style.width = '400px';
-        cell.setAttribute('id', 'chat');
 
-        for (i = 2; i < (coordView.length + 1); i++){
+        for (i = 2; i < (coordView.length + 2); i++){
           $('#' + i).hide();
-        }
-        if (chatShown == 1){
-          $('#chat').show();
         }
       } else {
         //Add Saved Links
-        for (j = 1; j < (webview.length + 1); j++){
+        for (j = 2; j < (webview.length + 2); j++){
             var cell = content.insertCell(j-1);
-            cell.innerHTML = `<webview style='height:100%' webpreferences='webviewTag' useragent="Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:86.0) Gecko/20100101 Firefox/86.0" src='` + webview[j - 1][0] + `'></webview>`;
+            cell.innerHTML = `<webview style='height:100%' webpreferences='webviewTag' useragent="Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:86.0) Gecko/20100101 Firefox/86.0" src='` + webview[j - 2][0] + `'></webview>`;
             cell.style.width = '80%';
             cell.setAttribute('id', j);
         }
         //Add Buttons
-        for (k = 1; k < (webview.length + 1); k++){
-          buttons.innerHTML += `<tr><td align='center' class='navButton' id='button` + k + `' style='border-style: outset; border-radius: 25% 25% 25% 25%; width: 110px; height: 50px;' onclick="showWin('` + k + `')">` + webview[k - 1][1] + `</td></tr>`
+        for (k = 2; k < (webview.length + 2); k++){
+          buttons.innerHTML += `<tr><td align='center' class='navButton' id='button` + k + `' style='border-style: outset; border-radius: 25% 25% 25% 25%; width: 110px; height: 50px;' onclick="showWin('` + k + `')">` + webview[k - 2][1] + `</td></tr>`
         }
-        //Add Chat
-        var cell = content.insertCell(j-1);
-        cell.innerHTML = [`
-          <td valign='top' height='100%'>
-            <div id='send-message' align='center'>
-              <textarea id="chat-txt" class="textarea" placeholder="What do you want to say?"></textarea>
-              <button id="chat-btn" type="submit" onclick='postChat()'>Submit</button>
-            </div>
-            <div width='100%' id="messages" style='height: 100%; overflow-y: scroll;'></div>
-          </td>`];
-        cell.style.width = '400px';
-        cell.setAttribute('id', 'chat');
 
         //Hide other webviews
-        for (i = 2; i < (webview.length + 1); i++){
+        for (i = 2; i < (webview.length + 2); i++){
           $('#' + i).hide();
-        }
-        if (chatShown == 1){
-          $('#chat').show();
         }
       }
     } else {
       //Add Saved Links
-      for (j = 1; j < (webview.length); j++){
+      for (j = 2; j < (webview.length + 1); j++){
           var cell = content.insertCell(j-1);
-          cell.innerHTML = `<webview style='height:100%' webpreferences='webviewTag' useragent="Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:86.0) Gecko/20100101 Firefox/86.0" src='` + webview[j - 1][0] + `'></webview>`;
+          cell.innerHTML = `<webview style='height:100%' webpreferences='webviewTag' useragent="Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:86.0) Gecko/20100101 Firefox/86.0" src='` + webview[j - 2][0] + `'></webview>`;
           cell.style.width = '80%';
           cell.setAttribute('id', j);
       }
       //Add Buttons
-      for (k = 1; k < (webview.length); k++){
-        buttons.innerHTML += `<tr><td align='center' class='navButton' id='button` + k + `' style='border-style: outset; border-radius: 25% 25% 25% 25%; width: 110px; height: 50px;' onclick="showWin('` + k + `')">` + webview[k - 1][1] + `</td></tr>`
+      for (k = 2; k < (webview.length + 1); k++){
+        buttons.innerHTML += `<tr><td align='center' class='navButton' id='button` + k + `' style='border-style: outset; border-radius: 25% 25% 25% 25%; width: 110px; height: 50px;' onclick="showWin('` + k + `')">` + webview[k - 2][1] + `</td></tr>`
       }
-      //Add Chat
-      var cell = content.insertCell(j-1);
-      cell.innerHTML = [`
-        <td valign='top' height='100%'>
-          <div id='send-message' align='center'>
-            <textarea id="chat-txt" class="textarea" placeholder="What do you want to say?"></textarea>
-            <button id="chat-btn" type="submit" onclick='postChat()'>Submit</button>
-          </div>
-          <div width='100%' id="messages" style='height: 100%; overflow-y: scroll;'></div>
-        </td>`];
-      cell.style.width = '400px';
-      cell.setAttribute('id', 'chat');
 
       //Hide other webviews
-      for (i = 2; i < (webview.length); i++){
+      for (i = 2; i < (webview.length + 1); i++){
         $('#' + i).hide();
-      }
-      if (chatShown == 1){
-        $('#chat').show();
       }
     }
 
     currentPage = 1;
 
     document.getElementById('button1').className='navButtonSelected'
-    //Staff Chat Resources
-    document.getElementById('chat-txt').onkeyup = function(){
-      if (event.keyCode === 13){
-        postChat();
-      }
-    }
 
-    if (sUser != ''){
-      document.getElementById('messages').style.height = 'calc(100% - 45px)';
-    } else {
-      $("#send-message").hide();
-    }
-
-    $('#chat').hide();
-    listener();
     setTimeout(updateChecker, 1000);
+    setTimeout(mbLight, 1000);
+    tgsnBot();
 }
 
 //Login
@@ -338,8 +347,7 @@ function login(){
 function fLogin(){
   var uName = document.getElementById('uName').value.toLowerCase();
   var pWord = calcMD5(document.getElementById('pWord').value);
-  const app = firebase.app();
-  const db = firebase.firestore();
+
   const login = db.collection('users').doc('logins')
   const timestamp = db.collection('users').doc('timestamp')
 
@@ -352,8 +360,6 @@ function fLogin(){
         document.getElementById('loginError').innerHTML = 'Login Successful';
         setTimeout(function(){document.getElementById('loginError').innerHTML = ''; document.getElementById('uName').value = ''; document.getElementById('pWord').value = '';}, 1000)
         document.getElementById('myModal').style.display = 'none';
-        document.getElementById('messages').style.height = 'calc(100% - 60px)'
-        $("#send-message").show();
 
         //Update User Fields
         for (var j = 0; j < users.numUsers; j++){
@@ -373,11 +379,7 @@ function fLogin(){
               [tsUName]: tsTime
             })
             init();
-            replys();
           }
-        }
-        for (var i = 1; i < id; i ++){
-          $('#replyField' + i).show();
         }
       } else {
         document.getElementById('loginError').innerHTML = 'Incorrect Password'
@@ -443,8 +445,7 @@ function upd8Pass(){
   var newPass = calcMD5(document.getElementById('newPass').value);
   var confirmPass = calcMD5(document.getElementById('confirmPass').value);
   var user = sessionStorage.getItem('username').toLowerCase();
-  const app = firebase.app();
-  const db = firebase.firestore();
+
   const login = db.collection('users').doc('logins')
 
   login.onSnapshot(doc => {
@@ -480,8 +481,7 @@ function upd8Pass(){
 function upd8Avatar(){
   var newAvatar = document.getElementById('newAvatar').value;
   var user = sessionStorage.getItem('username').toLowerCase();
-  const app = firebase.app();
-  const db = firebase.firestore();
+
   const login = db.collection('users').doc('logins')
 
   login.onSnapshot(doc => {
@@ -507,8 +507,7 @@ function upd8Avatar(){
 
 //Refresh Page
 function refresh(){
-  const app = firebase.app();
-  const db = firebase.firestore();
+
   const login = db.collection('users').doc('logins')
   var sUser;
   if (sessionStorage.getItem('username')){
@@ -525,43 +524,20 @@ function refresh(){
       }
     }
   });
-  if (sessionStorage.getItem('position') == 'Network Admin'){
-    document.getElementById(currentPage).innerHTML = `<webview style='width:100%; height:100%' useragent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36" allowpopups src='` + adminView[parseInt(currentPage - 1)][0] + `'></webview>`;
-  } else if (sessionStorage.getItem('position') == 'TVS Coordinator' || sessionStorage.getItem('position') == 'TGSN Coordinator'){
-    document.getElementById(currentPage).innerHTML = `<webview style='width:100%; height:100%' useragent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36" allowpopups src='` + coordView[parseInt(currentPage - 1)][0] + `'></webview>`;
+  if (currentPage == 1){
+    console.log('Skip for now will revisit later since Dashboard is special case');
   } else {
-    document.getElementById(currentPage).innerHTML = `<webview style='width:100%; height:100%' useragent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36" allowpopups src='` + webview[parseInt(currentPage - 1)][0] + `'></webview>`;
+    if (sessionStorage.getItem('position') == 'Network Admin'){
+      document.getElementById(currentPage).innerHTML = `<webview style='width:100%; height:100%' useragent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36" allowpopups src='` + adminView[parseInt(currentPage - 2)][0] + `'></webview>`;
+    } else if (sessionStorage.getItem('position') == 'TVS Coordinator' || sessionStorage.getItem('position') == 'TGSN Coordinator'){
+      document.getElementById(currentPage).innerHTML = `<webview style='width:100%; height:100%' useragent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36" allowpopups src='` + coordView[parseInt(currentPage - 2)][0] + `'></webview>`;
+    } else {
+      document.getElementById(currentPage).innerHTML = `<webview style='width:100%; height:100%' useragent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36" allowpopups src='` + webview[parseInt(currentPage - 2)][0] + `'></webview>`;
+    }
   }
 }
 
-/*Chat Module Start*/
-const db = firebase.firestore();
-var id;
-
-//Set id
-db.collection('chat').doc('data').onSnapshot((doc) => {
-  id = doc.data().id;
-})
-
-function postChat(){
-  //e.preventDefault();
-  const date = new Date().toLocaleString();
-  const chatTxt = document.getElementById('chat-txt');
-  const message = chatTxt.value;
-  const icon = sessionStorage.getItem('logo');
-  const important = 'disabled'
-  chatTxt.value = '';
-
-  db.collection('chat').doc('main').update({
-    [id]: [username, date, message, icon, important]
-  })
-  var replycount = 'replyCount.'+id;
-  id = parseInt(id)+1;
-  db.collection('chat').doc('data').update({
-    id: id,
-    [replycount]: 1
-  })
-}
+/*Push Notifications*/
 
 function notificationListener(){
   db.collection('app').doc('main').onSnapshot(doc => {
@@ -582,204 +558,6 @@ function notificationListener(){
     })
   })
 }
-
-//Listen for updates
-function listener(){
-  db.collection('chat').doc('main').onSnapshot(doc => {
-    const data = doc.data();
-
-    document.getElementById('messages').innerHTML = "";
-
-    for (var i = 1; i < id; i ++){
-    if (data[i] == null){
-
-    } else {
-      const msg = [`
-        <div id ='` + i + `' class='chat' style='border-style: outset; padding: 5px; overflow-y: scroll;'>
-          <table width='100%'>
-            <tr>
-              <td width='20px'>
-                <img src='` + data[i][3] + `' width='30px' height='30px' style='border-radius: 50%' />
-              </td>
-              <td><font size='4em'>` + data[i][0] + `</font></td>
-              <td align='right'>
-                <font size= '2px' color='#222'>` + data[i][1] + `</font>
-              </td>
-            </tr>
-            <tr>
-              <td colspan='3' style="padding: 10px">`
-                + data[i][2] + `
-              </td>
-            </tr>
-            <tr>
-              <td colspan='3' id='replyField` + i + `'>
-                <div style="border: outset; width: 100px;" align='center' onclick='replyDialog(` + i + `)' id='replyButton` + i + `'>Reply</div>
-              </td>
-            </tr>
-            <tr>
-              <td colspan='3'>
-                <div id='` + i + `reply'></div>
-              </td>
-            </tr>
-          </table>
-        </div>`];
-      document.getElementById("messages").innerHTML = msg + document.getElementById("messages").innerHTML;
-    }
-  }
-
-    replys();
-    username = sessionStorage.getItem('username');
-    if (username == null){
-        for (var j = 1; j < id; j ++){
-        $('#replyField' + j).hide();
-      }
-    }
-    document.getElementById('chat-txt').onkeyup = function(){
-      if (event.keyCode === 13){
-        postChat();
-      }
-    }
-  })
-}
-
-function replyDialog(num){
-  var replyField = document.getElementById('replyField' + num);
-  $("#replyButton" + num).hide();
-  replyField.innerHTML += [`
-    <span id='replyForm` + num + `'>
-      <textarea id='replyMSG` + num + `' class="textarea" placeholder="What do you want to say?"></textarea>
-      <button onclick='sendReply(` + num + `)'>Reply</button>
-    </span>
-  `]
-  document.getElementById('replyMSG' + num).onkeyup = function(){
-    if (event.keyCode === 13){
-      sendReply(num);
-    }
-  }
-}
-
-function sendReply(num){
-  var replyCount;
-
-  //Get Reply count
-  db.collection('chat').doc('data').get().then((doc) => {
-    const data = doc.data();
-    replyCount = parseInt(data.replyCount[num]);
-
-    const date = new Date().toLocaleString();
-    const chatTxt = document.getElementById('replyMSG' + num);
-    const message = chatTxt.value;
-    const icon = sessionStorage.getItem('logo');
-    chatTxt.value = '';
-
-    var replyPosition = num + "." + replyCount;
-
-    db.collection('chat').doc('reply').update({
-      [replyPosition]: [username, date, message, icon]
-    })
-    var pass = 'replyCount.' + num;
-    var newCount = replyCount + 1;
-    db.collection('chat').doc('data').update({
-      [pass]: newCount,
-    })
-    document.getElementById('replyField' + num).innerHTML = `<span style="border: outset;" onclick='replyDialog(` + num + `)' id='replyButton` + num + `'>Reply</span>`;
-  })
-}
-
-function replys(){
-  db.collection('chat').doc('reply').onSnapshot(doc => {
-    const data = doc.data();
-
-    for (var i = 1; i < id; i++){
-      if (document.getElementById(i + 'reply') != null){
-        if (data[i]){
-          var len = 0;
-          for (var count in data[i]){
-            len++;
-          }
-          if (len > 2){
-            document.getElementById(i + 'reply').innerHTML = '';
-            document.getElementById(i + 'reply').innerHTML += `<br><span onclick='forceReplies("` + i + `")'>Show more comments</span>`;
-            for (var j = (len-1); j < len+1; j++){
-              const msg = `<table width='100%' style='border-style: inset; padding: 5px;'>
-                <tr>
-                  <td width='20px'>
-                    <img src='` + data[i][j][3] + `' width='30px' height='30px' style='border-radius: 50%' />
-                  </td>
-                  <td>` + data[i][j][0] + `</td>
-                  <td align='right'>
-                    <font size= '2px' color='#222'>` + data[i][j][1] + `</font>
-                  </td>
-                </tr>
-                <tr>
-                  <td colspan='3'>`
-                    + data[i][j][2] +
-                  `</td>
-                </tr>
-              </table>`;
-              document.getElementById(i + 'reply').innerHTML += msg;
-            }
-          } else {
-            document.getElementById(i + 'reply').innerHTML = '';
-            for (var j = 1; j < len+1; j++){
-              const msg = `<table width='100%' style='border-style: inset; padding: 5px;'>
-                <tr>
-                  <td width='20px'>
-                    <img src='` + data[i][j][3] + `' width='30px' height='30px' style='border-radius: 50%' />
-                  </td>
-                  <td>` + data[i][j][0] + `</td>
-                  <td align='right'>
-                    <font size= '2px' color='#222'>` + data[i][j][1] + `</font>
-                  </td>
-                </tr>
-                <tr>
-                  <td colspan='3'>`
-                    + data[i][j][2] +
-                  `</td>
-                </tr>
-              </table>`;
-              document.getElementById(i + 'reply').innerHTML += msg;
-            }
-          }
-        }
-      }
-    }
-  })
-}
-
-function forceReplies(i){
-  db.collection('chat').doc('reply').onSnapshot(doc => {
-    const data = doc.data();
-
-    document.getElementById(i + 'reply').innerHTML = '<br>'
-
-    var len = 0;
-    for (var count in data[i]){
-      len++;
-    }
-
-    for (var j = 1; j < len+1; j++){
-      const msg = `<table width='100%' style='border-style: inset; padding: 5px;'>
-        <tr>
-          <td width='20px'>
-            <img src='` + data[i][j][3] + `' width='30px' height='30px' style='border-radius: 50%' />
-          </td>
-          <td>` + data[i][j][0] + `</td>
-          <td align='right'>
-            <font size= '2px' color='#222'>` + data[i][j][1] + `</font>
-          </td>
-        </tr>
-        <tr>
-          <td colspan='3'>`
-            + data[i][j][2] +
-          `</td>
-        </tr>
-      </table>`;
-      document.getElementById(i + 'reply').innerHTML += msg;
-    }
-  })
-}
-/*Chat Module End*/
 
 /*Update Module*/
 var newUpdate = 0;

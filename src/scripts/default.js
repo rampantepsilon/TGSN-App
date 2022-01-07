@@ -26,10 +26,7 @@ var webview = [
   ]
 ]
 var adminView = [
-  /*[
-    "./dashboard/index.html",
-    'Dashboard'
-  ],*/[
+  [
     "./messages/admin.html",
     'Message Board'
   ],[

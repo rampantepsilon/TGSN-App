@@ -57,6 +57,21 @@ html, body, #main {
   background: darkorange;
 }
 
+#twitchLight{
+  height: 480px;
+  width: 100%;
+}
+
+#commandsLight{
+   height: 480px;
+   overflow:auto;
+}
+
+#mbLight{
+  height:100%;
+  overflow: auto;
+}
+
 /* The Modal (background) */
 .modal {
   display: none; /* Hidden by default */
