@@ -63,13 +63,8 @@ html, body, #main {
 }
 
 #commandsLight{
-   height: 480px;
+   height: 286px;
    overflow:auto;
-}
-
-#mbLight{
-  height:100%;
-  overflow: auto;
 }
 
 /* The Modal (background) */

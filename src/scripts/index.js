@@ -129,19 +129,17 @@ function showDashboard(){
 function mbLight(){
   db.collection('app').doc('main').onSnapshot(doc => {
     const data = doc.data();
-    var start = id - 1;
+    var i = id - 1;
 
-    for (var i = start; i < id; i ++){
-      document.getElementById("mbLight").innerHTML = `
-        <div id ='` + i + `' style='border-style: double; padding: 5px; position: relative'>
-          <div align='left' valign='top' style="width: calc(100% - 220px);">` +
-            data[i][1] +
-          `</div>
-          <div width='150px' style="padding: 10px; position: absolute; top: 0; right: 0;" valign='top' align='right'><font color='#333' size='2em'>Posted At `
-            + data[i][0] + `</font>
-          </div>
-        </div>`;
-    }
+    document.getElementById("mbLight").innerHTML = `
+      <div id ='` + i + `' style='padding: 5px; position: relative; width: 97%;">
+        <div valign='top' align='right'><font color='#333' size='2em'>Posted At `
+          + data[i][0] + `</font>
+        </div>
+        <div align='left' valign='top'>` +
+          data[i][1] +
+        `</div>
+      </div>`;
   })
 }
 function tgsnBot(){
@@ -161,7 +159,7 @@ function tgsnBot(){
     list.sort();
 
     for (var i = 0; i < data.list.length; i++){
-      commandList.innerHTML += [`!` + list[i] + `<ul><li>` + data.commands[list[i]] + `</li></ul></br>`]
+      commandList.innerHTML += [`!` + list[i] + `<br> -> ` + data.commands[list[i]] + `</br></br>`]
     }
   });
 }
@@ -176,25 +174,25 @@ function init(){
     var access = storeInfo.get('access');
     content.innerHTML = [`
       <td id='1' style="width:80%;">
-        <table width='100%' height='100%' style='background-color: rgba(255,255,255,0.75)' border="1px">
-          <tr style='height: calc(85vh - 520px);'>
-            <td valign='top'>
+        <table width='100%' id='dash' height='30%' style='background-color: rgba(255,255,255,0.75)' border="1px">
+          <tr>
+            <td valign='top' width='62%' height='100%'>
               <h3 align='center'>Recent Message</h3>
-              <div id='mbLight'></div>
+              <div id='mbLight' style='height: 286px; overflow:auto;'></div>
             </td>
-            <td valign='top'>
-              <h3 align='center'>VDO.Ninja</h3>
-              <div id='sideLight'></div>
+            <td valign='top' width='38%'>
+              <h3 align='center'>TGSNBot Commands</h3>
+              <div id='commandsLight'></div>
             </td>
           </tr>
           <tr>
-            <td valign='top' width='75%'>
+            <td valign='top' width='62%'>
               <h3 align='center'>Twitch Player/Chat</h3>
               <webview src='https://tgsnetwork.org/stream.html' id='twitchLight'></webview>
             </td>
-            <td valign='top' width='25%'>
-              <h3 align='center'>TGSNBot Commands</h3>
-              <div id='commandsLight'></div>
+            <td valign='top' id='slTD'>
+              <h3 align='center'>VDO.Ninja (Viewer [Blank When Not In Use])</h3>
+              <webview style='height: 85%' src='https://obs.ninja/?scene&room=thegamingsaloonnetwork&password=tgsnstaff2020'></webview>
             </td>
           </tr>
         </table>
