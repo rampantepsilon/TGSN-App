@@ -6,8 +6,8 @@ const fs = require('fs');
 const Store = require('./src/store.js');
 
 //Change Before Building
-//var devBuild = 'false';
-var devBuild = 'true';
+var devBuild = 'false';
+//var devBuild = 'true';
 
 //Information
 function title(){
