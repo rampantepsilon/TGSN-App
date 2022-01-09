@@ -26,6 +26,7 @@ const changelogOptions = {
     message: 'Changes in TGSN Staff HQ v2.0.0',
     detail: `
   - Added Dashboard for easy access
+  --- Dashboard Allows for ease of access to modules by clicking the appropriate title
   - Stability changes and backend changes
 
   Coming Soon
