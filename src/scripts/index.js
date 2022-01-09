@@ -19,7 +19,6 @@ const storeInfo = new Store({
 })
 
 //Variables
-var currentPage;
 var defaultScript;
 let chatShown = 1;
 var username;
@@ -45,19 +44,11 @@ function showWin(num){
   var loggedIn = storeInfo.get('loggedIn');
 
   for (j = 1; j < (webview.length + 1); j++){
-    if (j != num){
-      if (loggedIn == 'no'){
-        if (j < 9){
-          document.getElementById('button' + j).className = 'navButton';
-        }
-      } else {
-        document.getElementById('button' + j).className = 'navButton';
-      }
-    } else {
-        document.getElementById('button' + j).className = 'navButtonSelected';
-    }
+    document.getElementById('button' + j).className = 'navButton';
   }
-  currentPage = num;
+  document.getElementById('button' + num).className = 'navButtonSelected';
+
+  sessionStorage.setItem('location', num);
   if (num == '4' || num == '5'){
     refresh();
   }
@@ -72,20 +63,17 @@ function adminShowWin(num){
       [user]: tsTime
     })
   }
-  for (i = 1; i < (adminView.length + 3); i++){
+  for (i = 1; i < (adminView.length + 2); i++){
       $('#' + i).hide();
   }
   $('#' + num).show();
   sessionStorage.setItem('location', num);
   for (j = 1; j < (adminView.length + 2); j++){
-      if (j != num){
-          document.getElementById('button' + j).className = 'navButton';
-      } else {
-          document.getElementById('button' + j).className = 'navButtonSelected';
-      }
+      document.getElementById('button' + j).className = 'navButton';
   }
+  document.getElementById('button' + num).className = 'navButtonSelected';
   $('#chatmain').hide();
-  currentPage = num;
+  sessionStorage.setItem('location', num);
   if (num == '4' || num == '5'){
     refresh();
   }
@@ -114,7 +102,7 @@ db.collection('app').doc('data').onSnapshot((doc) => {
 })
 //MBLight ID End
 function showDashboard(){
-  for (j = 1; j < (adminView.length + 1); j++){
+  for (j = 1; j < (adminView.length + 2); j++){
     if (document.getElementById('button' + j)){
       document.getElementById('button' + j).className = 'navButton';
     }
@@ -310,6 +298,7 @@ function init(){
     }
 
     currentPage = 1;
+    sessionStorage.setItem('location', currentPage);
 
     document.getElementById('button1').className='navButtonSelected'
 
@@ -506,6 +495,8 @@ function upd8Avatar(){
 //Refresh Page
 function refresh(){
 
+  var currentPage = sessionStorage.getItem('location');
+
   const login = db.collection('users').doc('logins')
   var sUser;
   if (sessionStorage.getItem('username')){
@@ -523,7 +514,7 @@ function refresh(){
     }
   });
   if (currentPage == 1){
-    console.log('Skip for now will revisit later since Dashboard is special case');
+    location.reload();
   } else {
     if (sessionStorage.getItem('position') == 'Network Admin'){
       document.getElementById(currentPage).innerHTML = `<webview style='width:100%; height:100%' useragent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36" allowpopups src='` + adminView[parseInt(currentPage - 2)][0] + `'></webview>`;
@@ -536,23 +527,25 @@ function refresh(){
 }
 
 /*Push Notifications*/
-
 function notificationListener(){
   db.collection('app').doc('main').onSnapshot(doc => {
     const data = doc.data();
     var notifID;
     db.collection('app').doc('data').get().then((doc) => {
       notifID = doc.data().id;
-
       var message = data[notifID - 1][1].replace(/<br>/g, '\n').substr(0,70);
-      if (sessionStorage.getItem('showNotifs') == 'yes'){}
-      new Notification(
-        'New Message',
-        {
-          body: message + '...\n\nRead More on the Message Board',
-          icon: './logo.jpg'
-        }
-      )
+      if (sessionStorage.getItem('currMSG') == message){
+
+      } else {
+        new Notification(
+          'New Message',
+          {
+            body: message + '...\n\nRead More on the Message Board',
+            icon: './logo.jpg'
+          }
+        )
+        sessionStorage.setItem('currMSG', message);
+      }
     })
   })
 }
