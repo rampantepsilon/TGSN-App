@@ -11,7 +11,7 @@ var devBuild = 'true';
 
 //Information
 function title(){
-    var title = 'TGSN Staff HQ v1.3.0';
+    var title = 'TGSN Staff HQ v2.0.0';
     return title;
 }
 function buildNum(){
@@ -23,7 +23,7 @@ const changelogOptions = {
     type: 'info',
     buttons: ['Close'],
     title: 'Changelog',
-    message: 'Changes in TGSN Staff HQ v1.3.0',
+    message: 'Changes in TGSN Staff HQ v2.0.0',
     detail: `
   - Added Dashboard for easy access
   - Stability changes and backend changes
