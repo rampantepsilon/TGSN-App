@@ -160,32 +160,115 @@ function init(){
     var uName = document.getElementById('uNameStatic');
     var loggedIn = storeInfo.get('loggedIn');
     var access = storeInfo.get('access');
-    content.innerHTML = [`
-      <td id='1' style="width:80%;">
-        <table width='100%' id='dash' height='30%' style='background-color: rgba(255,255,255,0.75)' border="1px">
-          <tr>
-            <td valign='top' width='62%' height='100%'>
-              <h3 align='center'>Recent Message</h3>
-              <div id='mbLight' style='height: 286px; overflow:auto;'></div>
-            </td>
-            <td valign='top' width='38%'>
-              <h3 align='center'>TGSNBot Commands</h3>
-              <div id='commandsLight'></div>
-            </td>
-          </tr>
-          <tr>
-            <td valign='top' width='62%'>
-              <h3 align='center'>Twitch Player/Chat</h3>
-              <webview src='https://tgsnetwork.org/stream.html' id='twitchLight'></webview>
-            </td>
-            <td valign='top' id='slTD'>
-              <h3 align='center'>VDO.Ninja (Viewer [Blank When Not In Use])</h3>
-              <webview style='height: 85%' src='https://obs.ninja/?scene&room=thegamingsaloonnetwork&password=tgsnstaff2020'></webview>
-            </td>
-          </tr>
-        </table>
-      </td>
-    `]
+    if (sessionStorage.getItem('position') == 'Network Admin'){
+      content.innerHTML = [`
+        <td id='1' style="width:80%;">
+          <table width='100%' id='dash' height='30%' style='background-color: rgba(255,255,255,0.75)' border="1px">
+            <tr>
+              <td valign='top' width='62%' height='100%'>
+                <h3 align='center' onclick='adminShowWin("2")'>Recent Message</h3>
+                <div id='mbLight' style='height: 286px; overflow:auto;'></div>
+              </td>
+              <td valign='top' width='38%'>
+                <h3 align='center' onclick='adminShowWin("8")'>TGSNBot Commands</h3>
+                <div id='commandsLight'></div>
+              </td>
+            </tr>
+            <tr>
+              <td valign='top' width='62%'>
+                <h3 align='center' onclick='adminShowWin("7")'>Twitch Player/Chat</h3>
+                <webview src='https://tgsnetwork.org/stream.html' id='twitchLight'></webview>
+              </td>
+              <td valign='top' id='slTD'>
+                <h3 align='center' onclick='adminShowWin("9")'>VDO.Ninja (Viewer [Blank When Not In Use])</h3>
+                <webview style='height: 85%' src='https://obs.ninja/?scene&room=thegamingsaloonnetwork&password=tgsnstaff2020'></webview>
+              </td>
+            </tr>
+          </table>
+        </td>
+      `]
+    } else if (sessionStorage.getItem('position') == 'TGSN Coordinator'){
+      content.innerHTML = [`
+        <td id='1' style="width:80%;">
+          <table width='100%' id='dash' height='30%' style='background-color: rgba(255,255,255,0.75)' border="1px">
+            <tr>
+              <td valign='top' width='62%' height='100%'>
+                <h3 align='center' onclick='adminShowWin("2")'>Recent Message</h3>
+                <div id='mbLight' style='height: 286px; overflow:auto;'></div>
+              </td>
+              <td valign='top' width='38%'>
+                <h3 align='center' onclick='adminShowWin("8")'>TGSNBot Commands</h3>
+                <div id='commandsLight'></div>
+              </td>
+            </tr>
+            <tr>
+              <td valign='top' width='62%'>
+                <h3 align='center' onclick='adminShowWin("7")'>Twitch Player/Chat</h3>
+                <webview src='https://tgsnetwork.org/stream.html' id='twitchLight'></webview>
+              </td>
+              <td valign='top' id='slTD'>
+                <h3 align='center' onclick='adminShowWin("9")'>VDO.Ninja (Viewer [Blank When Not In Use])</h3>
+                <webview style='height: 85%' src='https://obs.ninja/?scene&room=thegamingsaloonnetwork&password=tgsnstaff2020'></webview>
+              </td>
+            </tr>
+          </table>
+        </td>
+      `]
+    } else if (sessionStorage.getItem('position')){
+      content.innerHTML = [`
+        <td id='1' style="width:80%;">
+          <table width='100%' id='dash' height='30%' style='background-color: rgba(255,255,255,0.75)' border="1px">
+            <tr>
+              <td valign='top' width='62%' height='100%'>
+                <h3 align='center' onclick='showWin("2")'>Recent Message</h3>
+                <div id='mbLight' style='height: 286px; overflow:auto;'></div>
+              </td>
+              <td valign='top' width='38%'>
+                <h3 align='center' onclick='showWin("8")'>TGSNBot Commands</h3>
+                <div id='commandsLight'></div>
+              </td>
+            </tr>
+            <tr>
+              <td valign='top' width='62%'>
+                <h3 align='center' onclick='showWin("7")'>Twitch Player/Chat</h3>
+                <webview src='https://tgsnetwork.org/stream.html' id='twitchLight'></webview>
+              </td>
+              <td valign='top' id='slTD'>
+                <h3 align='center' onclick='showWin("9")'>VDO.Ninja (Viewer [Blank When Not In Use])</h3>
+                <webview style='height: 85%' src='https://obs.ninja/?scene&room=thegamingsaloonnetwork&password=tgsnstaff2020'></webview>
+              </td>
+            </tr>
+          </table>
+        </td>
+      `]
+    } else {
+      content.innerHTML = [`
+        <td id='1' style="width:80%;">
+          <table width='100%' id='dash' height='30%' style='background-color: rgba(255,255,255,0.75)' border="1px">
+            <tr>
+              <td valign='top' width='62%' height='100%'>
+                <h3 align='center' onclick='showWin("2")'>Recent Message</h3>
+                <div id='mbLight' style='height: 286px; overflow:auto;'></div>
+              </td>
+              <td valign='top' width='38%'>
+                <h3 align='center' onclick='showWin("8")'>TGSNBot Commands</h3>
+                <div id='commandsLight'></div>
+              </td>
+            </tr>
+            <tr>
+              <td valign='top' width='62%'>
+                <h3 align='center' onclick='showWin("7")'>Twitch Player/Chat</h3>
+                <webview src='https://tgsnetwork.org/stream.html' id='twitchLight'></webview>
+              </td>
+              <td valign='top' id='slTD'>
+                <h3 align='center'>VDO.Ninja (Viewer [Blank When Not In Use])</h3>
+                <webview style='height: 85%' src='https://obs.ninja/?scene&room=thegamingsaloonnetwork&password=tgsnstaff2020'></webview>
+              </td>
+            </tr>
+          </table>
+        </td>
+      `]
+    }
 
     //Login Functions
     var sUser;
