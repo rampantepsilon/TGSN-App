@@ -1,125 +1,176 @@
 <html>
-    <head>
-        <script>window.$ = window.jQuery = require('jquery');</script>
-        <!-- The core Firebase JS SDK is always required and must be listed first -->
-        <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-app.js"></script>
-        <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-firestore.js"></script>
+  <head>
+    <script src='https://unpkg.com/vue@3'></script>
+    <script>
+      window.$ = window.jQuery = require('jquery');
+      if (!sessionStorage.getItem('currPage')){
+        sessionStorage.setItem('currPage',0)
+      }
+      if (localStorage.getItem('username')){
+        sessionStorage.setItem('username', localStorage.getItem('username'))
+        sessionStorage.setItem('logo', localStorage.getItem('logo'))
+        sessionStorage.setItem('menuAccess', localStorage.getItem('menuAccess'))
+        sessionStorage.setItem('position', localStorage.getItem('position'))
+      }
+      if (!localStorage.getItem('min2Tray')){
+        localStorage.setItem('min2Tray','no')
+      }
+    </script>
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-firestore.js"></script>
 
-        <script>
-          // Your web app's Firebase configuration
-          var firebaseConfig = {
-            apiKey: "AIzaSyBAF1jevSp8_E5Okk9z6sMi-t4eRS4N9DE",
-            authDomain: "tgsn-site-v7.firebaseapp.com",
-            databaseURL: "https://tgsn-site-v7.firebaseio.com",
-            projectId: "tgsn-site-v7",
-            storageBucket: "tgsn-site-v7.appspot.com",
-            messagingSenderId: "565689666494",
-            appId: "1:565689666494:web:fc488b17f5018f569547ef"
-          };
-          // Initialize Firebase
-          firebase.initializeApp(firebaseConfig);
-        </script>
-        <script src='./scripts/index.js'></script>
-        <script id='buttonScript' src='./scripts/default.js'></script>
-        <script src='./scripts/md5.js'></script>
-        <script>
-          notificationListener();
-        </script>
-        <link href="https://fonts.googleapis.com/css?family=Raleway:600|Sancreek&display=swap" rel="stylesheet">
-        <link href='./styles.css' rel='stylesheet'>
-    </head>
+    <script>
+      // Your web app's Firebase configuration
+      var firebaseConfig = {
+        apiKey: "AIzaSyBAF1jevSp8_E5Okk9z6sMi-t4eRS4N9DE",
+        authDomain: "tgsn-site-v7.firebaseapp.com",
+        databaseURL: "https://tgsn-site-v7.firebaseio.com",
+        projectId: "tgsn-site-v7",
+        storageBucket: "tgsn-site-v7.appspot.com",
+        messagingSenderId: "565689666494",
+        appId: "1:565689666494:web:fc488b17f5018f569547ef"
+      };
+      // Initialize Firebase
+      firebase.initializeApp(firebaseConfig);
+    </script>
 
-    <body onload='init()'>
-        <table id='main' style='width: 100%;' cellspacing='0' cellpadding='0'>
-          <tr>
-            <td height='20px' colspan='3'>
-              <!--Start Nav Bar-->
-              <table width='100%' height='95px' align='center' style='background-color: rgba(0,0,0,0.75);'>
-                <tr id='siteName' height='95px'>
-                  <td width='86px' valign='middle'><img src='./images/tgsn.jpg' width='86px' height='86px'></td>
-                  <td id='top' valign='middle' align='center' width='250px'>The Gaming<br>Saloon Network</td>
-                  <td id='top' valign='middle' align='center'><span id='positionTag'>Staff HQ</span></td>
-                  <td valign='middle' align='right'>
-                    <table>
-                      <tr>
-                        <td align='center'><p id='uNameStatic'></p></td>
-                      </tr>
-                    </table>
-                  </td>
-                  <td valign='middle' align='center' width='86px' id='userPic'></td>
-                </tr>
-              </table>
-            </td>
-          </tr>
-          <tr>
-            <td align='center' valign='top' style='background-color: rgba(0,0,0,0.75)' width='140px'>
-              <table id='buttons'>
-                  <!--Intentionally Blank scripts/index.js fills this in-->
-              </table>
-            </td>
-            <td>
-              <table width='100%' height='100%'>
-                <tr id='content'>
-                  <!--Intentionally Blank scripts/index.js fills this in-->
-                </tr>
-              </table>
-            </td>
-            <td width='250px'>
-              <webview style='height:100%' useragent="Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:86.0) Gecko/20100101 Firefox/86.0" src='./scheduleV2/viewer/index.html'></webview>
-            </td>
-          </tr>
-        </table>
+    <link href="https://fonts.googleapis.com/css?family=Raleway:600|Sancreek&display=swap" rel="stylesheet">
+    <link href='./styles.css' rel='stylesheet'>
+    <script src='scripts/md5.js'></script>
+  </head>
 
-        <!--Modal for login-->
-        <div id="myModal" class="modal">
-          <div class="modal-content">
-            <span class="close">&times;</span>
-            <table align='center'>
-              <tr>
-                <td align='right' valign='top' style='font-size:18px; color: white'>
-                  Username:<br>
-                  Password:<br>
+  <body>
+    <div id='home'>
+      <table id='navBar' width='100%' style='background-color: rgba(0,0,0,0.75);'>
+        <tr>
+          <td colspan="2">
+            <table width='100%' height='95px' align='center'>
+              <tr id='siteName' height='95px'>
+                <td align='left' onclick='showHideMenu()' style='color:#fff;' width='90px'>
+                  <img id='menuPic' src='./images/menuClosed.png'/>
                 </td>
-                <td valign='top' align='left'>
-                  <input type="text" id='uName'><br>
-                  <input type="password" id='pWord'><br>
-                  <button onclick='fLogin()' id='ud8Schedule'>Login</button>
+                <td width='86px' valign='middle'><img src='./images/tgsn.jpg' width='86' height='86'></td>
+                <td id='top' valign='middle' align='center'>The Gaming Saloon Network App</td>
+                <td valign='middle' align='right' class='userInfo' width='400px'>
+                  <table width='100%'>
+                    <tr>
+                      <td valign='middle' align='center' width='86px' id='userPic'></td>
+                      <td align='center'><p id='uNameStatic'></p></td>
+                      <td id='loginButtons'></td>
+                    </tr>
+                  </table>
                 </td>
               </tr>
             </table>
-            <div id='loginError'></div>
-          </div>
-        </div>
-
-        <!--Modal for Password Change-->
-        <div id="passModal" class="modal">
-          <div class="modal-content">
-            <span class="close">&times;</span>
-            <table align='center'>
+          </td>
+        </tr>
+      </table>
+      <table width='100%' id='mainTable' style='height: calc(100% - 110px);position:absolute; bottom: 0; left: 0;'>
+        <tr>
+          <td width='165px' valign='top' id='buttonsTable'>
+            <div style='height: calc(100% - 95px); margin-top: 10px; overflow-y: scroll;'>
+              <table width='100%' id='buttons'>
+              </table>
+            </div>
+          </td>
+          <td>
+            <table width='100%' height='100%'>
               <tr>
-                <td align='right' valign='top' style='font-size:18px; color: white'>
-                  Avatar:<br>
-                  (Must Be A URL)
-                </td>
-                <td valign='top' align='left'>
-                  <input id='newAvatar'><br>
-                  <button onclick='upd8Avatar()'>Update Avatar</button>
-                </td>
-                <td align='right' valign='top' style='font-size:18px; color: white'>
-                  Old Password:<br>
-                  New Password:<br>
-                  Confirm Password:<br>
-                </td>
-                <td valign='top' align='left'>
-                  <input type="password" id='oldPass'><br>
-                  <input type="password" id='newPass'><br>
-                  <input type="password" id='confirmPass'><br>
-                  <button onclick='upd8Pass()'>Update Password</button>
-                </td>
+                <td v-html='message' valign='top' id='webviewTD'></td>
               </tr>
             </table>
-            <div id='passError'></div>
-          </div>
-        </div>
-    </body>
+          </td>
+        </tr>
+      </table>
+    </div>
+    <div id='buttonFoot' style='position:fixed; bottom: 20px; left: 40px; text-align: center; color: white; font-size: 12px;'>
+      TGSN Staff App by<br>
+      RampantEpsilon
+    </div>
+  </body>
+
+  <!--Modal for login-->
+  <div id="myModal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <table align='center'>
+        <tr>
+          <td align='right' valign='top' style='font-size:18px; color: white'>
+            Username:<br>
+            Password:
+          </td>
+          <td valign='top' align='left'>
+            <input type="text" id='uName'><br>
+            <input type="password" id='pWord'>
+          </td>
+        </tr>
+        <tr>
+          <td align='right' valign='top' style='font-size:18px; color: white'>
+            Remember Me:
+          </td>
+          <td valign='top' align='left'>
+            <input type="checkbox" id='rememberMe'>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2">
+            <div class='userEditButtons' onclick='fLogin()' id='ud8Schedule'>Login</div>
+          </td>
+        </tr>
+      </table>
+      <div id='loginError'></div>
+    </div>
+  </div>
+
+  <!--Modal for Password Change-->
+  <div id="passModal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <table align='center'>
+        <tr>
+          <td align='right' valign='top' style='font-size:18px; color: white'>
+            Avatar:<br>
+            (Must Be A URL)
+          </td>
+          <td valign='top' align='left'>
+            <input id='newAvatar'>
+          </td>
+          <td align='right' valign='top' style='font-size:18px; color: white'>
+            Old Password:<br>
+            New Password:<br>
+            Confirm Password:<br>
+          </td>
+          <td valign='top' align='left'>
+            <input type="password" id='oldPass'><br>
+            <input type="password" id='newPass'><br>
+            <input type="password" id='confirmPass'>
+          </td>
+          <td id='min2Tray' align='center' style='font-size:18px; color: white'>
+            Minimize To Tray<br>
+            <input type='radio' id='yes' name='min2Tray' value='Yes'><label for='min2Tray'>Yes</label><br>
+            <input type='radio' id='no' name='min2Tray' value='No'><label for='min2Tray' >No</label>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2">
+            <div class='userEditButtons' onclick='upd8Avatar()'>Update Avatar</div>
+          </td>
+          <td colspan="2">
+            <div class='userEditButtons' onclick='upd8Pass()'>Update Password</div>
+          </td>
+        </tr>
+      </table>
+      <div id='passError'></div>
+    </div>
+  </div>
+
+  <!--Locations Scripting -->
+  <script src='scripts/locations.js'></script>
+
+  <!--Login Scripting-->
+  <script src='scripts/login.js'></script>
+
+  <!-- VueJS Scripting -->
+  <script src='scripts/index.js'></script>
 </html>

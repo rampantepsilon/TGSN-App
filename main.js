@@ -3,19 +3,19 @@ const contextMenu = require('electron-context-menu');
 const https = require('https');
 const path = require('path');
 const fs = require('fs');
-const Store = require('./src/store.js');
+const {localStorage, sessionStorage} = require('electron-browser-storage');
 
 //Change Before Building
-var devBuild = 'false';
-//var devBuild = 'true';
+//var devBuild = 'false';
+var devBuild = 'true';
 
 //Information
 function title(){
-    var title = 'TGSN Staff HQ v2.0.0';
+    var title = 'TGSN Staff HQ v3.0.0-beta';
     return title;
 }
 function buildNum(){
-    var build = '22.1.2';
+    var build = '22.7.16';
     return build;
 }
 const currentVer = app.getVersion(); //Version Variable
@@ -23,15 +23,13 @@ const changelogOptions = {
     type: 'info',
     buttons: ['Close'],
     title: 'Changelog',
-    message: 'Changes in TGSN Staff HQ v2.0.0',
+    message: 'Changes in TGSN Staff HQ v3.0.0-beta',
     detail: `
-  - Added Dashboard for easy access
-  --- Dashboard Allows for ease of access to modules by clicking the appropriate title
-  - Stability changes and backend changes
+  - Relaunch of app using new setup design
+  - Can now side-load resources while viewing the Dashboard
 
   Coming Soon
-  - Patch fixing issue where you cannot login to Google to edit Articles/Change articles to open in default browser
-  - Additional design layout changes
+  - Message Board
 
   If you have any suggestions for the app, please reach out to me on Twitter @rampantepsilon or Discord (RampantEpsilon#7868).`
   }
@@ -43,25 +41,6 @@ var homeWindow; //Var to know the state of MainWindow
 var notifications; //Notification Toggle
 var launchCheck = 'true';
 
-//Storage
-const store = new Store({
-  configName: 'user-prefences',
-  defaults: {
-    min2Tray: 'false',
-    showNotifs: 'true'
-  }
-})
-const storeInfo = new Store({
-  configName: 'user-info',
-  defaults: {
-    loggedIn: 'no',
-    access: 'guest'
-  }
-})
-
-//Determine Menu
-var min2Tray = store.get('min2Tray');
-
 //App Menu
 let menuTemplate = [
     {
@@ -69,127 +48,22 @@ let menuTemplate = [
         submenu: [
           {
             label: 'Minimize On Close',
-            type: 'checkbox',
             id: 'min2TrayMenu',
             click: function (item) {
-              if (item.checked == true){
-                min2Tray = 'true';
-                store.set('min2Tray', 'true');
-                console.log(min2Tray)
-              } else {
-                min2Tray = 'false';
-                store.set('min2Tray', 'false')
-                console.log(min2Tray)
-              }
-            }
-          },{
-              type: 'separator'
-          },{
-              label: 'Reload',
-              role: 'reload',
-              accelerator: 'F5'
-          },{
-              label: 'Clear Cache & Reload',
-              role: 'forceReload',
-              accelerator: 'CommandOrControl+F5'
-          },{
-              type: 'separator'
-          },{
-              label: 'Toggle Full Screen',
-              role: 'togglefullscreen',
-              accelerator: 'CommandOrControl+F11'
-          },{
-              type: 'separator'
-          },{
-            label: 'Minimize',
-            role: 'minimize',
-            accelerator: 'CommandOrControl+M'
-          },{
-            label: 'Close',
-            role: 'close',
-            accelerator: 'CommandOrControl+W'
-          }
-        ]
-    },
-    {
-        label: 'Edit',
-        submenu: [
-        {
-            label: 'Undo',
-            role: 'undo',
-            accelerator: 'CommandOrControl+Z'
-        },{
-            label: 'Redo',
-            role: 'redo',
-            accelerator: 'CommandOrControl+Y'
-        },{
-            type: 'separator'
-        },{
-            label: 'Cut',
-            role: 'cut',
-            accelerator: 'CommandOrControl+X'
-        },{
-            label: 'Copy',
-            role: 'copy',
-            accelerator: 'CommandOrControl+C'
-        },{
-            label: 'Paste',
-            role: 'paste',
-            accelerator: 'CommandOrControl+V'
-        },{
-            label: 'Delete',
-            role: 'delete'
-        },{
-            type: 'separator'
-        },{
-            label: 'Select All',
-            role: 'selectAll',
-            accelerator: 'CommandOrControl+A'
-        }
-        ]
-    },
-    {
-        label: 'About',
-        role: 'about',
-        submenu: [
-        {
-            label: title(),
-            enabled: false,
-        },{
-            label: "Version " + currentVer,
-            enabled: false,
-        },{
-            label: "Build: " + buildNum(),
-            enabled: false,
-        },{
-            label: "Changelog",
-            click(){
-            changeLog()
-            }
-        }
-        ]
-    }
-]
-
-let menuCTemplate = [
-    {
-        label: 'App',
-        submenu: [
-          {
-            label: 'Minimize On Close',
-            type: 'checkbox',
-            id: 'min2TrayMenu',
-            checked: true,
-            click: function (item) {
-              if (item.checked == true){
-                min2Tray = 'true';
-                store.set('min2Tray', 'true');
-                console.log(min2Tray)
-              } else {
-                min2Tray = 'false';
-                store.set('min2Tray', 'false')
-                console.log(min2Tray)
-              }
+              dialog.showMessageBox(mainWindow, {
+                type: 'question',
+                buttons: ['Yes', 'No'],
+                defaultID: 1,
+                title: 'Minimize To Tray',
+                message: 'Do you wish to minimize this window to the tray?'
+              })
+              .then(result => {
+                if (result.response === 1){
+                  localStorage.setItem('min2Tray', false);
+                } else {
+                  localStorage.setItem('min2Tray', true);
+                }
+              })
             }
           },{
               type: 'separator'
@@ -286,131 +160,22 @@ let devTemplate = [
         submenu: [
           {
             label: 'Minimize On Close',
-            type: 'checkbox',
             id: 'min2TrayMenu',
             click: function (item) {
-              if (item.checked == true){
-                min2Tray = 'true';
-                store.set('min2Tray', 'true');
-                console.log(min2Tray)
-              } else {
-                min2Tray = 'false';
-                store.set('min2Tray', 'false')
-                console.log(min2Tray)
-              }
-            }
-          },{
-              type: 'separator'
-          },{
-              label: 'Reload',
-              role: 'reload',
-              accelerator: 'F5'
-          },{
-              label: 'Clear Cache & Reload',
-              role: 'forceReload',
-              accelerator: 'CommandOrControl+F5'
-          },{
-              label: 'Toggle Dev Tools',
-              role: 'toggledevtools',
-              accelerator: 'CommandOrControl+Alt+I',
-          },{
-              type: 'separator'
-          },{
-              label: 'Toggle Full Screen',
-              role: 'togglefullscreen',
-              accelerator: 'CommandOrControl+F11'
-          },{
-              type: 'separator'
-          },{
-            label: 'Minimize',
-            role: 'minimize',
-            accelerator: 'CommandOrControl+M'
-          },{
-            label: 'Close',
-            role: 'close',
-            accelerator: 'CommandOrControl+W'
-          }
-        ]
-    },
-    {
-        label: 'Edit',
-        submenu: [
-        {
-            label: 'Undo',
-            role: 'undo',
-            accelerator: 'CommandOrControl+Z'
-        },{
-            label: 'Redo',
-            role: 'redo',
-            accelerator: 'CommandOrControl+Y'
-        },{
-            type: 'separator'
-        },{
-            label: 'Cut',
-            role: 'cut',
-            accelerator: 'CommandOrControl+X'
-        },{
-            label: 'Copy',
-            role: 'copy',
-            accelerator: 'CommandOrControl+C'
-        },{
-            label: 'Paste',
-            role: 'paste',
-            accelerator: 'CommandOrControl+V'
-        },{
-            label: 'Delete',
-            role: 'delete'
-        },{
-            type: 'separator'
-        },{
-            label: 'Select All',
-            role: 'selectAll',
-            accelerator: 'CommandOrControl+A'
-        }
-        ]
-    },
-    {
-        label: 'About',
-        role: 'about',
-        submenu: [
-        {
-            label: title(),
-            enabled: false,
-        },{
-            label: "Version " + currentVer,
-            enabled: false,
-        },{
-            label: "Build: " + buildNum(),
-            enabled: false,
-        },{
-            label: "Changelog",
-            click(){
-            changeLog()
-            }
-        }
-        ]
-    }
-]
-
-let devCTemplate = [
-    {
-        label: 'App',
-        submenu: [
-          {
-            label: 'Minimize On Close',
-            type: 'checkbox',
-            id: 'min2TrayMenu',
-            checked: true,
-            click: function (item) {
-              if (item.checked == true){
-                min2Tray = 'true';
-                store.set('min2Tray', 'true');
-                console.log(min2Tray)
-              } else {
-                min2Tray = 'false';
-                store.set('min2Tray', 'false')
-                console.log(min2Tray)
-              }
+              dialog.showMessageBox(mainWindow, {
+                type: 'question',
+                buttons: ['Yes', 'No'],
+                defaultID: 1,
+                title: 'Minimize To Tray',
+                message: 'Do you wish to minimize this window to the tray?'
+              })
+              .then(result => {
+                if (result.response === 1){
+                  localStorage.setItem('min2Tray', false);
+                } else {
+                  localStorage.setItem('min2Tray', true);
+                }
+              })
             }
           },{
               type: 'separator'
@@ -507,17 +272,9 @@ let devCTemplate = [
 
 //Decide which menu to show
 if (devBuild == 'true'){
-  if (min2Tray == 'true'){
-    var menu = Menu.buildFromTemplate(devCTemplate); //Add Template to Menu
-  } else {
-    var menu = Menu.buildFromTemplate(devTemplate); //Add Template to Menu
-  }
+  var menu = Menu.buildFromTemplate(devTemplate); //Add Template to Menu
 } else {
-  if (min2Tray == 'true'){
-    var menu = Menu.buildFromTemplate(menuCTemplate); //Add Template to Menu
-  } else {
-    var menu = Menu.buildFromTemplate(menuTemplate); //Add Template to Menu
-  }
+  var menu = Menu.buildFromTemplate(menuTemplate); //Add Template to Menu
 }
 
 //Function for Changelog
@@ -544,28 +301,28 @@ function createWindow(){
 
     Menu.setApplicationMenu(menu);
 
-    mainWindow.on('close', function(event){
+    mainWindow.on('close', async function(event){
       event.preventDefault();
+      var min2Tray = await localStorage.getItem('min2Tray');
       if (min2Tray == 'false'){
         dialog.showMessageBox(mainWindow, {
           type: 'question',
           buttons: ['Yes', 'No'],
           defaultID: 1,
           title: 'Minimize To Tray',
-          //checkboxLabel: 'Remember This Session',
+          checkboxLabel: 'Remember This?',
           message: 'Do you wish to minimize this window to the tray?'
         })
           .then(result => {
             if (result.response === 1){
-              storeInfo.set('loggedIn', 'no');
-              storeInfo.set('access', 'guest');
+              localStorage.setItem('min2Tray', false);
               mainWindow.destroy();
               app.quit();
             } else {
               mainWindow.hide();
-              /*if (result.checkboxChecked == true){
-                checkMin2Tray();
-              }*/
+              if (result.checkboxChecked == true){
+                localStorage.setItem('min2Tray', true);
+              }
             }
           })
       } else {
@@ -593,8 +350,6 @@ function createWindow(){
         },{
         label: 'Quit',
         click: function () {
-            storeInfo.set('loggedIn', 'no');
-            storeInfo.set('access', 'guest');
             mainWindow.destroy();
             app.quit();
           }
@@ -606,9 +361,12 @@ function createWindow(){
 
     //Add tray click function
     if (process.platform == 'win32'){
-        tray.on('click', function(){
+      tray.on('double-click', function(){
+        mainWindow.show();
+      })
+      tray.on('right-click', function(){
         tray.popUpContextMenu();
-        })
+      })
     }
 }
 
@@ -646,7 +404,7 @@ app.on('web-contents-created', (e, contents) => {
   // Listen for any new window events
   contents.on('new-window', (e, url) => {
     e.preventDefault();
-    /*let win = new BrowserWindow({
+    let win = new BrowserWindow({
         width: 1200,
         height: 675,
         title: title(),
@@ -655,7 +413,7 @@ app.on('web-contents-created', (e, contents) => {
             webviewTag: true
         }
     });
-    win.loadURL(url);*/
-    shell.openExternal(url)
+    win.loadURL(url);
+    //shell.openExternal(url)
   })
 })

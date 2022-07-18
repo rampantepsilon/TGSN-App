@@ -1,7 +1,8 @@
 <html>
     <head>
-        <script>window.$ = window.jQuery = require('jquery');</script>
+        <title>TGSN Staff HQ v0.0.1-alpha</title>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <link href="https://fonts.googleapis.com/css?family=Raleway:600|Sancreek&display=swap" rel="stylesheet">
         <!-- The core Firebase JS SDK is always required and must be listed first -->
         <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-app.js"></script>
         <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-firestore.js"></script>
@@ -20,21 +21,19 @@
           // Initialize Firebase
           firebase.initializeApp(firebaseConfig);
         </script>
-        <script src='./index.js'></script>
-        <link href="https://fonts.googleapis.com/css?family=Raleway:600|Sancreek&display=swap" rel="stylesheet">
+        <script src='discordlink.js'></script>
+        <script src='index.js'></script>
         <style>
-          html, body, #main {
-            height: calc(100% - 4px);
+          td{
             font-family: Sancreek;
+            text-align: center;
           }
-          #main{
-            background-color: rgba(255, 255, 255, 0.5);
+          #board{
+            background-color: rgba(255,255,255,0.75);
+            border-radius: 50% 50% 0% 0%;
           }
-          h3 {
-            background-color: rgba(0, 0, 0, 0.5);
-            color: white;
-            text-shadow: 2px 2px black;
-            padding-right: 4px;
+          #boardData{
+            background-color: rgba(255,255,255,0.75);
           }
           /* width */
           ::-webkit-scrollbar {
@@ -58,12 +57,25 @@
         </style>
     </head>
 
-    <body>
-        <table id='main' style='width: 100%;'>
-          <tr>
-            <td id='upcomingEvents' valign='top'>
-            </td>
-          </tr>
-        </table>
+    <body onload='listener()'>
+      <table width='100%' style='border-spacing: 0px;'>
+        <tr>
+          <td style='border: 1px solid;' id='board'>
+            <h2><u>Message Board</u></h2>
+            <h3>Welcome to The Gaming Saloon Network Staff HQ! This location will hold important information regarding TGSN Staff!</h3>
+          </td>
+        </tr>
+        <tr>
+          <td style='border: 1px solid;' id='boardData'>
+            <table width='100%'>
+              <tr>
+                <td>
+                  <div width='100%' id="messages"></div>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
     </body>
 </html>

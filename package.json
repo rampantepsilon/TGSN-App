@@ -1,6 +1,6 @@
 {
-  "name": "tgsn-staff-app",
-  "version": "2.0.0",
+  "name": "tgsn-staff-app-3",
+  "version": "3.0.0",
   "description": "",
   "main": "main.js",
   "scripts": {
@@ -9,20 +9,19 @@
     "build-noasar": "electron-packager ./ tgsnstaffhq --overwrite --platform=win32 --arch=x64 --icon=logo.ico --out=build --version-string.CompanyName=RampantEpsilon --version-string.ProductName=\"TGSN Staff HQ\"",
     "build-win64": "electron-packager ./ tgsnstaffhq --overwrite --platform=win32 --arch=x64 --icon=logo.ico --out=build --version-string.CompanyName=RampantEpsilon --version-string.ProductName=\"TGSN Staff HQ\" --asar",
     "build-win32": "electron-packager ./ tgsnstaffhq --overwrite --platform=win32 --arch=ia32 --icon=logo.ico --out=build --version-string.CompanyName=RampantEpsilon --version-string.ProductName=\"TGSN Staff HQ\" --asar",
-    "build-linux": "electron-packager ./ tgsnstaffhq --platform=linux --arch=x64 --overwrite --icon=logo.jpg --out=build --asar"
+    "build-linux": "electron-packager ./ tgsnstaffhq --platform=linux --arch=x64 --overwrite --icon=logo.jpg --out=build --asar",
+    "build": "npm run build-win64 && npm run build-mac && npm run build-linux"
   },
   "author": "Tom \"RampantEpsilon\" Ware",
   "license": "ISC",
   "devDependencies": {
-    "electron": "^13.5.2"
+    "electron": "^19.0.6"
   },
-  "repository": "https://github.com/rampantepsilon/TGSN-Staff-App",
   "dependencies": {
-    "@octokit/core": "^3.5.1",
-    "dotenv": "^10.0.0",
-    "electron-context-menu": "^3.1.1",
-    "firebase-admin": "^9.10.0",
-    "jquery": "^3.6.0",
-    "update-electron-app": "^2.0.1"
+    "@octokit/core": "^4.0.4",
+    "dotenv": "^16.0.1",
+    "electron-browser-storage": "^1.0.7",
+    "electron-context-menu": "^3.3.0",
+    "jquery": "^3.6.0"
   }
 }

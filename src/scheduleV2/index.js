@@ -89,16 +89,18 @@ async function getEvents(){
         const d2 = new Date(doc.data()[i].date);
         let dow = weekday[d2.getDay()]
 
+        let eventDate = doc.data()[i].date.substr(6,4) + '/' + doc.data()[i].date.substr(0,2) + '/' + doc.data()[i].date.substr(3,2)
+
         const zeroPad = (num, places) => String(num).padStart(places, '0');
 
         //Add to list for sorting
-        dates[j] = zeroPad(i,3) + `<div align='center' id='fb` + i + `' onclick='edit(` + i + `)'><h3 align='right'>` + dow + ' ' + doc.data()[i].date + '</h3>' + doc.data()[i].time + '<br>' + doc.data()[i].preShow + '<br>' + doc.data()[i].show + '<br>' + doc.data()[i].game + "<br>ID: " + i + "<br></div>";
+        dates[j] = eventDate + `<div align='center' id='fb` + i + `' onclick='edit(` + i + `)'><h3 align='right'>` + dow + ' ' + doc.data()[i].date + '</h3>' + doc.data()[i].time + '<br>' + doc.data()[i].preShow + '<br>' + doc.data()[i].show + '<br>' + doc.data()[i].game + "<br>ID: " + i + "<br></div>";
         j++;
       }
     }
     dates.sort();
     for (var i = 0; i < dates.length; i++){
-      document.getElementById('upcomingEvents').innerHTML += dates[i].substr(3);
+      document.getElementById('upcomingEvents').innerHTML += dates[i].substr(10);
     }
     filter();
   })

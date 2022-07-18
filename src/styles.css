@@ -11,7 +11,6 @@ html, body, #main {
   color: white;
 }
 #uNameStatic{
-  font-size: 1.5em;
   color: white;
 }
 #points{
@@ -109,36 +108,51 @@ html, body, #main {
   cursor: pointer;
 }
 
-.navButton{
-  background-color: #333;
+.button {
   color: orange;
+  border-radius: 15px;
+  text-align: center;
+  height:50px;
+  position:relative;
 }
-
-.navButton:hover{
-  cursor: pointer;
-  background-color: #666;
-  color: #FFA500;
-}
-
-.navButton:active{
-  cursor: pointer;
-  color: #666;
-  background-color: #FFA500;
-}
-
-.navButtonSelected{
-  background-color: #FFA500;
-  color: #333;
-}
-
-.navButtonSelected:hover{
-  cursor: pointer;
-  background-color: #FF7200;
-  color: #333;
-}
-
-.navButtonSelected:active{
-  cursor: pointer;
-  color: #FF7200;
+.button:hover{
   background-color: #333;
+}
+.active{
+  position:absolute;
+  top:auto;
+  left: 10px;
+  top: 10px;
+  height: 30px;
+}
+.link{
+  width: 120px;
+  margin-left: 15px;
+}
+#buttonsTable{
+  background-color: black;
+  border-radius: 15px;
+  position: relative;
+}
+#buttons td{
+  border-top: 1px solid #fff;
+  border-bottom: 1px solid #fff;
+}
+
+.userInfo{
+  background-color: black;
+  border-radius: 15px;
+  position: relative;
+  border: 1px solid #fff;
+}
+
+.userEditButtons{
+  color: #fff;
+  text-align: center;
+  background-color: black;
+  border-radius: 15px;
+  position: relative;
+  border: 1px solid #fff;
+  font-size: 10px;
+  cursor: pointer;
 }

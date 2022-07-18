@@ -21,6 +21,7 @@ function showTGSArticlesUser(){
         <tr>
           <td align='center' valign='top' colspan='3'>
             <h3><u>TGS Resources</u></h3>
+            <a href='./tgs.html' target='_blank'>Open in New Window</a>
           </td>
         </tr>
         <tr>
@@ -73,7 +74,7 @@ function showTGSArticles(){
       <tr>
         <td align='center' id='body'>
           Enter the new link for TGS Articles:<input id='tgsArticleLink'><br>
-          <button onclick='updateTGSArticles()'>Update Viewer Articles</button>
+          <button onclick='updateTGSArticles()'>Update Articles</button>
           <button onclick='clearTGSArticles()'>Clear Link Field</button>
         </td>
       </tr>`]
