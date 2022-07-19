@@ -93,7 +93,7 @@ function fLogin(){
             sessionStorage.setItem('username', userNames[j])
             sessionStorage.setItem('logo', users['logo'][j])
             sessionStorage.setItem('position', users['position'][j])
-            if (rMe == true){
+            //if (rMe == true){
               localStorage.setItem('username', userNames[j])
               localStorage.setItem('logo', users['logo'][j])
               localStorage.setItem('position', users['position'][j])
@@ -103,6 +103,10 @@ function fLogin(){
               if (users['position'][j] == 'TGSN Staff' || users['position'][j] == 'DR Staff'){
                 localStorage.setItem('menuAccess', 'staff')
               }
+            if (rMe = true){
+              sessionStorage.setItem('rememberMe', 'yes');
+            } else {
+              sessionStorage.setItem('rememberMe', 'no');
             }
             if (users['position'][j] == 'Network Admin' || users['position'][j] == 'TGSN Coordinator'){
               sessionStorage.setItem('menuAccess', 'admin')
@@ -137,6 +141,7 @@ function logout(){
   localStorage.removeItem('logo');
   localStorage.removeItem('position');
   localStorage.removeItem('menuAccess');
+  localStorage.setItem('rememberMe', 'no')
   var uName = document.getElementById('uNameStatic');
   uName.innerHTML = `Not Signed In<br>`;
   document.getElementById('loginButtons').innerHTML = `<div class='userEditButtons' onclick='login()'>Login</div>`;

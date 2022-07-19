@@ -282,6 +282,16 @@ function changeLog(){
     dialog.showMessageBox(null, changelogOptions, (response, checkboxChecked) =>{});
 }
 
+async function removeStorage(){
+  var rMe = await localStorage.getItem('rememberMe');
+  if (rMe == 'no'){
+    await localStorage.removeItem('username');
+    await localStorage.removeItem('logo');
+    await localStorage.removeItem('position');
+    await localStorage.removeItem('menuAccess');
+  }
+}
+
 function createWindow(){
     const mainWindow = new BrowserWindow({
         width: 1600,
@@ -315,9 +325,12 @@ function createWindow(){
         })
           .then(result => {
             if (result.response === 1){
+              removeStorage();
               localStorage.setItem('min2Tray', false);
-              mainWindow.destroy();
-              app.quit();
+              setTimeout(function(){
+                mainWindow.destroy();
+                app.quit();
+              },500);
             } else {
               mainWindow.hide();
               if (result.checkboxChecked == true){
@@ -350,8 +363,11 @@ function createWindow(){
         },{
         label: 'Quit',
         click: function () {
-            mainWindow.destroy();
-            app.quit();
+            removeStorage();
+            setTimeout(function(){
+              mainWindow.destroy();
+              app.quit();
+            },500);
           }
         }
     ];

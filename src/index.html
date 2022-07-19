@@ -5,6 +5,7 @@
       window.$ = window.jQuery = require('jquery');
       if (!sessionStorage.getItem('currPage')){
         sessionStorage.setItem('currPage',0)
+        localStorage.setItem('rememberMe', 'no');
       }
       if (localStorage.getItem('username')){
         sessionStorage.setItem('username', localStorage.getItem('username'))
