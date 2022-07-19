@@ -31,9 +31,9 @@ var locations = [
   'https://dashboard.twitch.tv/u/thegamingsaloonnetwork/stream-manager',
   'https://obs.ninja/?room=thegamingsaloonnetwork&hash=e588',
   'https://obs.ninja/?scene&room=thegamingsaloonnetwork&password=tgsnstaff2020',
-  './scheduleV2/index.html',
-  './users/index.html',
-  './shows/admin/index.html'
+  './scheduleV2/redirect.html',
+  './users/redirect.html',
+  './shows/admin/redirect.html'
 ]
 
 //Add Menus
