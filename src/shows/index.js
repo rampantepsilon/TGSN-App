@@ -20,9 +20,9 @@ function showTGSArticlesUser(){
       <table width='100%'>
         <tr>
           <td align='center' valign='top' colspan='3'>
-            <h3><u>TGS Resources</u></h3>
-            <a href='./tgs.html' target='_blank'>Open in New Window</a>
-          </td>
+            <h3><u>TGS Resources</u></h3>` +
+            //<a href='./tgs.html' target='_blank'>Open in New Window</a>
+          `</td>
         </tr>
         <tr>
           <td colspan='3' align='center'>
