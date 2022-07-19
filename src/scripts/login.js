@@ -93,26 +93,21 @@ function fLogin(){
             sessionStorage.setItem('username', userNames[j])
             sessionStorage.setItem('logo', users['logo'][j])
             sessionStorage.setItem('position', users['position'][j])
-            //if (rMe == true){
-              localStorage.setItem('username', userNames[j])
-              localStorage.setItem('logo', users['logo'][j])
-              localStorage.setItem('position', users['position'][j])
-              if (users['position'][j] == 'Network Admin' || users['position'][j] == 'TGSN Coordinator'){
-                localStorage.setItem('menuAccess', 'admin')
-              }
-              if (users['position'][j] == 'TGSN Staff' || users['position'][j] == 'DR Staff'){
-                localStorage.setItem('menuAccess', 'staff')
-              }
+            localStorage.setItem('username', userNames[j])
+            localStorage.setItem('logo', users['logo'][j])
+            localStorage.setItem('position', users['position'][j])
             if (rMe = true){
-              sessionStorage.setItem('rememberMe', 'yes');
+              localStorage.setItem('rememberMe', 'yes');
             } else {
-              sessionStorage.setItem('rememberMe', 'no');
+              localStorage.setItem('rememberMe', 'no');
             }
             if (users['position'][j] == 'Network Admin' || users['position'][j] == 'TGSN Coordinator'){
               sessionStorage.setItem('menuAccess', 'admin')
+              localStorage.setItem('menuAccess', 'admin')
             }
             if (users['position'][j] == 'TGSN Staff' || users['position'][j] == 'DR Staff'){
               sessionStorage.setItem('menuAccess', 'staff')
+              localStorage.setItem('menuAccess', 'staff')
             }
             var tsUName = userNames[j];
             var tsTime = new Date().toLocaleString();
