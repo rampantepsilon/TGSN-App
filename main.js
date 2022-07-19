@@ -11,11 +11,11 @@ var devBuild = 'true';
 
 //Information
 function title(){
-    var title = 'TGSN Staff HQ v3.0.0-beta';
+    var title = 'TGSN Staff HQ v3.0.1-beta';
     return title;
 }
 function buildNum(){
-    var build = '22.7.16';
+    var build = '22.7.19';
     return build;
 }
 const currentVer = app.getVersion(); //Version Variable
@@ -23,13 +23,12 @@ const changelogOptions = {
     type: 'info',
     buttons: ['Close'],
     title: 'Changelog',
-    message: 'Changes in TGSN Staff HQ v3.0.0-beta',
+    message: 'Changes in TGSN Staff HQ v3.0.1-beta',
     detail: `
-  - Relaunch of app using new setup design
-  - Can now side-load resources while viewing the Dashboard
+  - Minor bug fix for User Management
 
   Coming Soon
-  - Message Board
+  - All show resources being able to be loaded in new windows.
 
   If you have any suggestions for the app, please reach out to me on Twitter @rampantepsilon or Discord (RampantEpsilon#7868).`
   }
@@ -384,6 +383,20 @@ function createWindow(){
         tray.popUpContextMenu();
       })
     }
+
+    mainWindow.webContents.on('new-window', function(e, url){
+      e.preventDefault();
+      const win = new BrowserWindow({
+          width: 1200,
+          height: 675,
+          title: title(),
+          webPreferences: {
+              nativeWindowOpen: true,
+              webviewTag: true
+          }
+      });
+      win.loadURL(url);
+    })
 }
 
 // This method will be called when Electron has finished
@@ -415,21 +428,27 @@ if (process.platform === 'win32')
 
 app.commandLine.appendSwitch('disable-features', 'CrossOriginOpenerPolicy')
 
+var approvedLinks=['./tgs.html', './releases/index.html', './shows/view/tgsr.html']
+
 // Listen for web contents being created
-app.on('web-contents-created', (e, contents) => {
+/*app.on('web-contents-created', (e, contents) => {
   // Listen for any new window events
   contents.on('new-window', (e, url) => {
     e.preventDefault();
-    let win = new BrowserWindow({
-        width: 1200,
-        height: 675,
-        title: title(),
-        webPreferences: {
-            nativeWindowOpen: true,
-            webviewTag: true
-        }
-    });
-    win.loadURL(url);
-    //shell.openExternal(url)
+    console.log(url);
+    if (url.contains('https://') || url.contains('http://')){
+      shell.openExternal(url)
+    } else {
+      let win = new BrowserWindow({
+          width: 1200,
+          height: 675,
+          title: title(),
+          webPreferences: {
+              nativeWindowOpen: true,
+              webviewTag: true
+          }
+      });
+      win.loadURL(url);
+    }
   })
-})
+})*/
