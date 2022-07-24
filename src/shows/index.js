@@ -21,7 +21,7 @@ function showTGSArticlesUser(){
         <tr>
           <td align='center' valign='top' colspan='3'>
             <h3><u>TGS Resources</u></h3>` +
-            //<a href='./tgs.html' target='_blank'>Open in New Window</a>
+            `<a href='./tgs.html' target='_blank'>Open in New Window</a>` +
           `</td>
         </tr>
         <tr>
