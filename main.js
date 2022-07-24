@@ -26,6 +26,7 @@ const changelogOptions = {
     message: 'Changes in TGSN Staff HQ v3.0.1-beta',
     detail: `
   - Minor bug fix for User Management
+  - Added ability to see articles and videos for TGSR from the Show Resource Management page.
 
   Coming Soon
   - All show resources being able to be loaded in new windows.
@@ -36,6 +37,7 @@ const changelogOptions = {
 //Global Variables
 let tray;
 let mainWindow; //MainWindow tracker
+var win;
 var homeWindow; //Var to know the state of MainWindow
 var notifications; //Notification Toggle
 var launchCheck = 'true';
@@ -291,7 +293,7 @@ async function removeStorage(){
   }
 }
 
-function createWindow(){
+async function createWindow(){
     const mainWindow = new BrowserWindow({
         width: 1600,
         height: 900,
@@ -331,6 +333,7 @@ function createWindow(){
                 app.quit();
               },500);
             } else {
+              win = null;
               mainWindow.hide();
               if (result.checkboxChecked == true){
                 localStorage.setItem('min2Tray', true);
@@ -338,6 +341,7 @@ function createWindow(){
             }
           })
       } else {
+        win = null;
         mainWindow.hide();
       }
     })
@@ -383,20 +387,6 @@ function createWindow(){
         tray.popUpContextMenu();
       })
     }
-
-    mainWindow.webContents.on('new-window', function(e, url){
-      e.preventDefault();
-      const win = new BrowserWindow({
-          width: 1200,
-          height: 675,
-          title: title(),
-          webPreferences: {
-              nativeWindowOpen: true,
-              webviewTag: true
-          }
-      });
-      win.loadURL(url);
-    })
 }
 
 // This method will be called when Electron has finished
@@ -431,15 +421,15 @@ app.commandLine.appendSwitch('disable-features', 'CrossOriginOpenerPolicy')
 var approvedLinks=['./tgs.html', './releases/index.html', './shows/view/tgsr.html']
 
 // Listen for web contents being created
-/*app.on('web-contents-created', (e, contents) => {
+app.on('web-contents-created', (e, contents) => {
   // Listen for any new window events
   contents.on('new-window', (e, url) => {
     e.preventDefault();
-    console.log(url);
-    if (url.contains('https://') || url.contains('http://')){
+    shell.openExternal(url);
+    /*if (url.startsWith('https://') || url.startsWith('http://')){
       shell.openExternal(url)
     } else {
-      let win = new BrowserWindow({
+      win = new BrowserWindow({
           width: 1200,
           height: 675,
           title: title(),
@@ -449,6 +439,6 @@ var approvedLinks=['./tgs.html', './releases/index.html', './shows/view/tgsr.htm
           }
       });
       win.loadURL(url);
-    }
+    }*/
   })
-})*/
+})
