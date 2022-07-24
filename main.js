@@ -15,7 +15,7 @@ function title(){
     return title;
 }
 function buildNum(){
-    var build = '22.7.19';
+    var build = '22.7.24';
     return build;
 }
 const currentVer = app.getVersion(); //Version Variable
@@ -26,10 +26,11 @@ const changelogOptions = {
     message: 'Changes in TGSN Staff HQ v3.0.1-beta',
     detail: `
   - Minor bug fix for User Management
-  - Added ability to see articles and videos for TGSR from the Show Resource Management page.
+  - Added ability to see articles and videos for TGSR from the Show Resource Management page
+  - All show resources can now be side loaded while watching the stream
 
   Coming Soon
-  - All show resources being able to be loaded in new windows.
+  - Show Resources will show up as a button in the bottom of the app on stream days.
 
   If you have any suggestions for the app, please reach out to me on Twitter @rampantepsilon or Discord (RampantEpsilon#7868).`
   }
@@ -333,6 +334,7 @@ async function createWindow(){
                 app.quit();
               },500);
             } else {
+              win.close();
               win = null;
               mainWindow.hide();
               if (result.checkboxChecked == true){
@@ -341,6 +343,7 @@ async function createWindow(){
             }
           })
       } else {
+        win.close();
         win = null;
         mainWindow.hide();
       }
@@ -425,8 +428,10 @@ app.on('web-contents-created', (e, contents) => {
   // Listen for any new window events
   contents.on('new-window', (e, url) => {
     e.preventDefault();
-    shell.openExternal(url);
-    /*if (url.startsWith('https://') || url.startsWith('http://')){
+    //shell.openExternal(url);
+    console.log(url)
+    console.log(url.startsWith('https://'))
+    if (url.startsWith('https://') == true || url.startsWith('http://') == true){
       shell.openExternal(url)
     } else {
       win = new BrowserWindow({
@@ -439,6 +444,6 @@ app.on('web-contents-created', (e, contents) => {
           }
       });
       win.loadURL(url);
-    }*/
+    }
   })
 })
