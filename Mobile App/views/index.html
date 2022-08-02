@@ -1,0 +1,184 @@
+<html>
+  <head>
+    <script src='https://unpkg.com/vue@3'></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+      //window.$ = window.jQuery = require('jquery');
+      if (!sessionStorage.getItem('currPage')){
+        sessionStorage.setItem('currPage',0)
+        localStorage.setItem('rememberMe', 'no');
+      }
+      if (localStorage.getItem('username')){
+        sessionStorage.setItem('username', localStorage.getItem('username'))
+        sessionStorage.setItem('logo', localStorage.getItem('logo'))
+        sessionStorage.setItem('menuAccess', localStorage.getItem('menuAccess'))
+        sessionStorage.setItem('position', localStorage.getItem('position'))
+      }
+      if (!localStorage.getItem('min2Tray')){
+        localStorage.setItem('min2Tray','no')
+      }
+    </script>
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-firestore.js"></script>
+
+    <script>
+      // Your web app's Firebase configuration
+      var firebaseConfig = {
+        apiKey: "AIzaSyBAF1jevSp8_E5Okk9z6sMi-t4eRS4N9DE",
+        authDomain: "tgsn-site-v7.firebaseapp.com",
+        databaseURL: "https://tgsn-site-v7.firebaseio.com",
+        projectId: "tgsn-site-v7",
+        storageBucket: "tgsn-site-v7.appspot.com",
+        messagingSenderId: "565689666494",
+        appId: "1:565689666494:web:fc488b17f5018f569547ef"
+      };
+      // Initialize Firebase
+      firebase.initializeApp(firebaseConfig);
+    </script>
+
+    <link href="https://fonts.googleapis.com/css?family=Raleway:600|Sancreek&display=swap" rel="stylesheet">
+    <link href='./styles.css' rel='stylesheet'>
+    <script src='scripts/md5.js'></script>
+  </head>
+
+  <body>
+    <div id='home'>
+      <table id='navBar' width='100%' style='background-color: rgba(0,0,0,0.75);'>
+        <tr>
+          <td colspan="2">
+            <table width='100%' height='75px' align='center'>
+              <tr id='siteName' height='75px'>
+                <td align='left' onclick='showHideMenu()' style='color:#fff;' width='90px'>
+                  <img id='menuPic' src='./images/menuClosed.png'/>
+                </td>
+                <td width='66px' valign='middle'><img src='./images/tgsn.jpg' width='66' height='66'></td>
+                <td id='top' valign='middle' align='center'>The Gaming Saloon Network App</td>
+                <td valign='middle' align='right' class='userInfo' width='250px'>
+                  <table width='100%'>
+                    <tr>
+                      <td valign='middle' align='center' width='66px' id='userPic'></td>
+                      <td align='center'><p id='uNameStatic'></p></td>
+                      <td id='loginButtons'></td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+      <table width='100%' id='mainTable' style='height: calc(100% - 110px);position:absolute; bottom: 0; left: 0;'>
+        <tr>
+          <td width='165px' valign='top' id='buttonsTable'>
+            <div style='height: calc(100% - 95px); margin-top: 10px; overflow-y: scroll;'>
+              <table width='100%' id='buttons'>
+              </table>
+            </div>
+          </td>
+          <td>
+            <table width='100%' height='100%'>
+              <tr>
+                <td v-html='message' valign='top' id='webviewTD'></td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+    </div>
+    <div style='position:fixed; bottom: 20px; left: 5px;'>
+      <table width='154px'>
+        <tr>
+          <td id='buttonFoot'>
+            TGSN Staff App by<br>
+            RampantEpsilon
+          </td>
+        </tr>
+      </table>
+    </div>
+  </body>
+
+  <!--Modal for login-->
+  <div id="myModal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <table align='center'>
+        <tr>
+          <td align='right' valign='top' style='font-size:18px; color: white'>
+            Username:<br>
+            Password:
+          </td>
+          <td valign='top' align='left'>
+            <input type="text" id='uName'><br>
+            <input type="password" id='pWord'>
+          </td>
+        </tr>
+        <tr>
+          <td align='right' valign='top' style='font-size:18px; color: white'>
+            Remember Me:
+          </td>
+          <td valign='top' align='left'>
+            <input type="checkbox" id='rememberMe'>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2">
+            <div class='userEditButtons' onclick='fLogin()' id='ud8Schedule'>Login</div>
+          </td>
+        </tr>
+      </table>
+      <div id='loginError'></div>
+    </div>
+  </div>
+
+  <!--Modal for Password Change-->
+  <div id="passModal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <table align='center'>
+        <tr>
+          <td align='right' valign='top' style='font-size:18px; color: white'>
+            Avatar:<br>
+            (Must Be A URL)
+          </td>
+          <td valign='top' align='left'>
+            <input id='newAvatar'>
+          </td>
+          <td align='right' valign='top' style='font-size:18px; color: white'>
+            Old Password:<br>
+            New Password:<br>
+            Confirm Password:<br>
+          </td>
+          <td valign='top' align='left'>
+            <input type="password" id='oldPass'><br>
+            <input type="password" id='newPass'><br>
+            <input type="password" id='confirmPass'>
+          </td>
+          <td id='min2Tray' align='center' style='font-size:18px; color: white'>
+            Minimize To Tray<br>
+            <input type='radio' id='yes' name='min2Tray' value='Yes'><label for='min2Tray'>Yes</label><br>
+            <input type='radio' id='no' name='min2Tray' value='No'><label for='min2Tray' >No</label>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2">
+            <div class='userEditButtons' onclick='upd8Avatar()'>Update Avatar</div>
+          </td>
+          <td colspan="2">
+            <div class='userEditButtons' onclick='upd8Pass()'>Update Password</div>
+          </td>
+        </tr>
+      </table>
+      <div id='passError'></div>
+    </div>
+  </div>
+
+  <!--Locations Scripting -->
+  <script src='scripts/locations.js'></script>
+
+  <!--Login Scripting-->
+  <script src='scripts/login.js'></script>
+
+  <!-- VueJS Scripting -->
+  <script src='scripts/index.js'></script>
+</html>

@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>TGSN Staff HQ - Schedule</title>
+
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<!-- The core Firebase JS SDK is always required and must be listed first -->
+	<script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-app.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-firestore.js"></script>
+
+	<script>
+		// Your web app's Firebase configuration
+		var firebaseConfig = {
+			apiKey: "AIzaSyBAF1jevSp8_E5Okk9z6sMi-t4eRS4N9DE",
+			authDomain: "tgsn-site-v7.firebaseapp.com",
+			databaseURL: "https://tgsn-site-v7.firebaseio.com",
+			projectId: "tgsn-site-v7",
+			storageBucket: "tgsn-site-v7.appspot.com",
+			messagingSenderId: "565689666494",
+			appId: "1:565689666494:web:fc488b17f5018f569547ef"
+		};
+		// Initialize Firebase
+		firebase.initializeApp(firebaseConfig);
+	</script>
+	<link href="https://fonts.googleapis.com/css?family=Raleway:600|Sancreek&display=swap" rel="stylesheet">
+</head>
+
+<body>
+	<table id='main' width='100%'>
+		<tr>
+			<td id='mainContent'>
+        <!--Fill in using JS-->
+			</td>
+		</tr>
+		<tr>
+			<td id='dashContent'>
+				<!--Fill in using JS-->
+			</td>
+		</tr>
+	</table>
+
+	<style type="text/css">
+	  html, body {
+	    height: 100%;
+			font-family: Sancreek;
+	  }
+		body {
+			background-image: url('./images/background.jpg');
+		}
+		a {
+			color: orange;
+		  text-shadow:
+		       3px 3px 0 #000,
+		     -1px -1px 0 #000,
+		      1px -1px 0 #000,
+		      -1px 1px 0 #000,
+		       1px 1px 0 #000;
+			text-decoration: none;
+		}
+		#main{
+			background-color: rgba(255,255,255,0.5)
+		}
+		#topBar{
+			background-color: rgba(0,0,0,1);
+      color: white;
+		}
+    #header{
+      font-size: 24px;
+    }
+		#mainContent div{
+			border-style: outset;
+		}
+		#mainContent div:hover{
+			background-color: orange
+		}
+		#myBtn{
+			border-style: outset;
+			background-color: rgba(255,255,255,0.5)
+		}
+		#myBtn:hover{
+			background-color: orange
+		}
+		/* The Modal (background) */
+		.modal {
+		  display: none; /* Hidden by default */
+		  position: fixed; /* Stay in place */
+		  z-index: 1; /* Sit on top */
+		  width: 100%; /* Full width */
+		  height: 100%; /* Full height */
+		  overflow: auto; /* Enable scroll if needed */
+		  background-color: rgb(0,0,0); /* Fallback color */
+		  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+		}
+
+		/* Modal Content/Box */
+		.modal-content {
+		  background-color: #fefefe;
+		  margin: 15% auto; /* 15% from the top and centered */
+		  padding: 20px;
+		  border: 1px solid #888;
+		  width: 80%; /* Could be more or less, depending on screen size */
+		}
+
+		/* The Close Button */
+		.close {
+		  color: #aaa;
+		  float: right;
+		  font-size: 28px;
+		  font-weight: bold;
+		}
+
+		.close:hover,
+		.close:focus {
+		  color: black;
+		  text-decoration: none;
+		  cursor: pointer;
+		}
+	</style>
+  <script type='text/javascript' src='./scripts/main.js'></script>
+</body>
+
+</html>

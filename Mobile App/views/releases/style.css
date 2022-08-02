@@ -1,0 +1,34 @@
+  body, html{
+    height: 99%;
+    color: white;
+  }
+  #bodyContent{
+    height: calc(100% - 40px);
+    background-color: rgba(0,0,0,0.75);
+  }
+  a, #loginError, #passError {
+    color: white;
+  }
+  .controls{
+    background-color: rgba(0,0,0,0.75);
+  }
+
+  /* width */
+  ::-webkit-scrollbar {
+      width: 7px;
+  }
+
+  /* Track */
+  ::-webkit-scrollbar-track {
+      background: #ffcc00;
+  }
+
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+      background: #ff6600;
+  }
+
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+      background: #ff3300;
+  }

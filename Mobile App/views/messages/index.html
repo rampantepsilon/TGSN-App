@@ -1,0 +1,11 @@
+<html>
+  <head>
+    <script>
+      if (localStorage.getItem('menuAccess') == 'admin'){
+        window.location.replace('./admin.html')
+      } else {
+        window.location.replace('./view.html')
+      }
+    </script>
+  </head>
+</html>

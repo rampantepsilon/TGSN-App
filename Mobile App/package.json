@@ -1,0 +1,33 @@
+{
+  "version": "3.0.2-beta",
+  "name": "TGSN App",
+  "app-name": "TGSN App",
+  "package-name": "tgsnapp",
+  "project-type": "webview",
+  "icon": "./assets/icon/logo.png",
+  "dist-path": "./dist",
+  "permission": [
+    "android.permission.INTERNET"
+  ],
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start:dev": "node main.js",
+    "buildDev": "androidjs build",
+    "buildRel": "androidjs build --release"
+  },
+  "project-name": "TGSN Staff App",
+  "theme": {
+    "fullScreen": true,
+    "screenOrientation": "landscape",
+    "colorPrimary": "#333333",
+    "colorAccent": "#ff6600"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@octokit/core": "^4.0.4",
+    "androidjs": "^2.0.4",
+    "dotenv": "^16.0.1"
+  }
+}

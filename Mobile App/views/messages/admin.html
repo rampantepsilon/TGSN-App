@@ -1,0 +1,222 @@
+<html>
+    <head>
+        <title>TGSN Staff HQ v0.0.1-alpha</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <link href="https://fonts.googleapis.com/css?family=Raleway:600|Sancreek&display=swap" rel="stylesheet">
+        <!-- The core Firebase JS SDK is always required and must be listed first -->
+        <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-app.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-firestore.js"></script>
+
+        <script>
+          // Your web app's Firebase configuration
+          var firebaseConfig = {
+            apiKey: "AIzaSyBAF1jevSp8_E5Okk9z6sMi-t4eRS4N9DE",
+            authDomain: "tgsn-site-v7.firebaseapp.com",
+            databaseURL: "https://tgsn-site-v7.firebaseio.com",
+            projectId: "tgsn-site-v7",
+            storageBucket: "tgsn-site-v7.appspot.com",
+            messagingSenderId: "565689666494",
+            appId: "1:565689666494:web:fc488b17f5018f569547ef"
+          };
+          // Initialize Firebase
+          firebase.initializeApp(firebaseConfig);
+        </script>
+        <script src='discordlink.js'></script>
+        <script src='index.js'></script>
+        <style>
+          td{
+            font-family: Sancreek;
+            text-align: center;
+          }
+          #board{
+            background-color: rgba(255,255,255,0.75);
+            border-radius: 50% 50% 0% 0%;
+          }
+          #boardData{
+            background-color: rgba(255,255,255,0.75);
+          }
+          /* width */
+          ::-webkit-scrollbar {
+            width: 7px;
+          }
+
+          /* Track */
+          ::-webkit-scrollbar-track {
+            background: #333;
+          }
+
+          /* Handle */
+          ::-webkit-scrollbar-thumb {
+            background: orange;
+          }
+
+          /* Handle on hover */
+          ::-webkit-scrollbar-thumb:hover {
+            background: darkorange;
+          }
+          /* The Modal (background) */
+          .modal {
+            display: none; /* Hidden by default */
+            position: absolute;; /* Stay in place */
+            z-index: 1; /* Sit on top */
+            padding-top: 100px; /* Location of the box */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 89%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgb(0,0,0); /* Fallback color */
+            background-color: rgba(255,255,255,0.4); /* Black w/ opacity */
+            text-align: center;
+          }
+
+          /* Modal Content */
+          .modal-content {
+            background-color: #000000;
+            color: #fff;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            text-align: center;
+          }
+
+          /* The Close Button */
+          .close {
+            color: #aaaaaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+          }
+
+          .close:hover,
+          .close:focus {
+            color: #fff;
+            text-decoration: none;
+            cursor: pointer;
+          }
+
+          .button{
+            color: black;
+            background-color: darkorange;
+            cursor: pointer;
+          }
+          .button:hover{
+            background-color: black;
+            color: darkorange;
+            cursor: pointer;
+          }
+          #chat-txt{
+            display:block;
+            resize: none;
+          }
+        </style>
+    </head>
+
+    <body onload="listener()">
+      <table width='100%' style='border-spacing: 0px;'>
+        <tr>
+          <td style='border: 1px solid;' id='board'>
+            &nbsp;</br>
+            <h2><u>Message Board</u></h2>
+            <h3>Welcome to The Gaming Saloon Network Staff HQ! This location will hold important information regarding TGSN Staff!</h3>
+          </td>
+        </tr>
+        <tr>
+          <td style='border: 1px solid;' id='boardData'>
+            <table width='100%'>
+              <tr>
+                <td valign='top' height='100%'>
+                  <div id='send-message' align='center'>
+                    <textarea id="chat-txt" class="textarea" placeholder="Insert Message Here" style="width:100%;"></textarea>
+                  </div>
+                  <div align='center'>
+                    <div style="border: outset; width: 130px; display:inline-block;" align='center' onclick='postChat()' class='button'>Submit</div>
+                    <div style="border: outset; width: 130px; display:inline-block;" align='center' onclick='showMBL()' class='button'>Add Link/Image</div>
+                    <div style="border: outset; width: 130px; display:inline-block;" align='center' onclick='showHelp()' class='button'>Help</div>
+                  </div>
+                  <div width='100%' id="messages"></div>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+      <script type="text/javascript">
+        textarea = document.querySelector("#chat-txt");
+        textarea.addEventListener('input', autoResize, false);
+
+        function autoResize() {
+            this.style.height = 'auto';
+            console.log(this.scrollHeight);
+            if (this.scrollHeight < "302"){
+              this.style.height = this.scrollHeight + 'px';
+            } else {
+              this.style.height = '302px';
+            }
+        }
+      </script>
+
+      <!--Modal for login-->
+      <div id="myModal" class="modal">
+        <div class="modal-content">
+          <span class="close">&times;</span>
+          <div align='left'>
+            <h3 align='center'>Formatting Help</h3>
+            <ul>
+              <li>
+                [url] & [/url]
+                <ul>
+                  <li>
+                    Use this to wrap links. (ex. [url='https://tgsnetwork.org']https://tgsnetwork.org[/url])<br>
+                    NOTE: Using this in any other way will cause it to not work either on the Message Board or in Discord.
+                  </li>
+                </ul>
+              </li>
+              <li>
+                [img] & [/img]
+                <ul>
+                  <li>
+                    Use this to wrap images. (ex. [img]https://tgsnetwork.org/images/logo.png[/img])<br>
+                    If you want to set a size, use as follows -> [img]https://tgsnetwork.org/images/logo.png' width='60px' height='60px[/img]<br>
+                    NOTE: Using this in any other way may cause it to fail on the Message Board or in Discord.
+                  </li>
+                </ul>
+              </li>
+              <li>
+                Line Breaks
+                <ul>
+                  <li>
+                    Press Enter to create a line break (Using &lt;br&gt; will break the layout now)
+                  </li>
+                </ul>
+              </li>
+              <li>
+                Add Link / Add Image Buttons
+                <ul>
+                  <li>
+                    Using these buttons will add an image or link at the end of the message listed in the box.<br>
+                    i.e. If the message box has "Welcome to the app!" and you add a link it will look like this<br>
+                    "Welcome to the app![url='https://tgsnetwork.org']https://tgsnetwork.org[/url]"
+                  </li>
+                  <li>
+                    NOTE: All URLs added must include the http/https or they will not work.
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div id="mbModal" class="modal">
+        <div class="modal-content">
+          <span class="close">&times;</span>
+          <div align='center'>
+            Please enter the URL of your link/image.<br>
+            <input type='text' id='messageBoardLink' value='https://tgsnetwork.org'></input><br>
+            <button onclick='addLinkImage("link")'>Add Link</button><button onclick='addLinkImage("image")'>Add Image</button>
+          </div>
+        </div>
+      </div>
+    </body>
+</html>
