@@ -32,7 +32,7 @@ function loginInit(){
   if (sUser){
     document.getElementById('uNameStatic').innerHTML = `<span style='font-size: 14px'>` + sUser + `</span><br><span style='font-size:12px'>` + sPosition + `</span>`;
     document.getElementById('loginButtons').innerHTML = `<div class='userEditButtons' onclick='changePass()'>Edit Profile</div><div class='userEditButtons' onclick='logout()'>Logout</div>`;
-    document.getElementById('userPic').innerHTML = `<img src='` + sLogo + `' width='40' height='40' style='border-radius: 50% 50% 50% 50%;'>`
+    document.getElementById('userPic').innerHTML = `<img src='` + sLogo + `' width='35' height='35' style='border-radius: 50% 50% 50% 50%;'>`
   } else {
     uName.innerHTML = `Not Signed In`
     document.getElementById('loginButtons').innerHTML = `<div class='userEditButtons' onclick='login()'>Login</div>`
