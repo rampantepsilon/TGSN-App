@@ -11,7 +11,7 @@ var devBuild = 'true';
 
 //Information
 function title(){
-    var title = 'TGSN Staff HQ v3.0.1-beta';
+    var title = 'TGSN Staff HQ v3.0.2-beta';
     return title;
 }
 function buildNum(){
