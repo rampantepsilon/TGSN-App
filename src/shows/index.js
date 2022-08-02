@@ -133,7 +133,7 @@ function showTGSRUser(){
         <tr>
           <td colspan='3' align='center'>
             <div align='center'>Videos -> <a href='` + data.source + `' target='_blank'>Click Here to watch</a></div>` +
-            `<a href='./tgs.html' target='_blank'>Open in New Window</a>` +
+            `<a href='./tgsr.html' target='_blank'>Open in New Window</a>` +
             `<iframe src='` + data.notes + `' id='notesWin'></iframe>
           </td>
         </tr>

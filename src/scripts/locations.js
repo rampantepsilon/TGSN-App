@@ -57,6 +57,18 @@ function addMenus(){
       document.getElementById('buttons').innerHTML += `<tr><td class='button' valign='middle' style='backgroundColor:#333' v-on:click='navigate("` + j + `")' id='b`+ j +`'><div class='link'>` + links['adminLinks'][i] + `</div></td></tr>`;
     }
   }
+
+  const d = new Date();
+  if (d.getDay() == '6'){
+    document.getElementById('buttonFoot').innerHTML = "<a href='./shows/view/tgs.html' target='_blank'>TGS Resources<br>(Popout)</a>";
+    document.getElementById('buttonFoot').setAttribute('class','specialFoot');
+  } else if (d.getDay() == '0'){
+    document.getElementById('buttonFoot').innerHTML = "<a href='./shows/view/tgsr.html' target='_blank'>TGSR Resources<br>(Popout)</a>";
+    document.getElementById('buttonFoot').setAttribute('class','specialFoot');
+  } else {
+    document.getElementById('buttonFoot').innerHTML = 'TGSN Staff App by<br>RampantEpsilon';
+    document.getElementById('buttonFoot').setAttribute('class','');
+  }
 }
 
 function activeButton(location){

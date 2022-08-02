@@ -15,7 +15,7 @@ function title(){
     return title;
 }
 function buildNum(){
-    var build = '22.7.24';
+    var build = '22.8.2';
     return build;
 }
 const currentVer = app.getVersion(); //Version Variable
@@ -23,14 +23,15 @@ const changelogOptions = {
     type: 'info',
     buttons: ['Close'],
     title: 'Changelog',
-    message: 'Changes in TGSN Staff HQ v3.0.1-beta',
+    message: 'Changes in TGSN Staff HQ v3.0.2-beta',
     detail: `
-  - Minor bug fix for User Management
-  - Added ability to see articles and videos for TGSR from the Show Resource Management page
-  - All show resources can now be side loaded while watching the stream
+  - Minor bug fix with TGSR Resources where popout would display TGS Resources instead of TGSR Resources
+  - Show Resources now show up as a button in the bottom corner of the app on stream days (Saturdays for TGS & Sundays for TGSR)
 
   Coming Soon
-  - Show Resources will show up as a button in the bottom of the app on stream days.
+  - Mobile App's first Version
+  - Smart Remembering for Show/Hide Nav Menu
+  - Minor bug fixes
 
   If you have any suggestions for the app, please reach out to me on Twitter @rampantepsilon or Discord (RampantEpsilon#7868).`
   }
@@ -334,7 +335,10 @@ async function createWindow(){
                 app.quit();
               },500);
             } else {
-              win.close();
+              if (win != null){
+                win.close();
+                win = null;
+              }
               win = null;
               mainWindow.hide();
               if (result.checkboxChecked == true){
@@ -343,8 +347,10 @@ async function createWindow(){
             }
           })
       } else {
-        win.close();
-        win = null;
+        if (win != null){
+          win.close();
+          win = null;
+        }
         mainWindow.hide();
       }
     })
@@ -444,6 +450,10 @@ app.on('web-contents-created', (e, contents) => {
           }
       });
       win.loadURL(url);
+
+      win.on('close', function(){
+        win = null;
+      })
     }
   })
 })

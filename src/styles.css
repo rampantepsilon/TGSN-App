@@ -156,3 +156,21 @@ html, body, #main {
   font-size: 10px;
   cursor: pointer;
 }
+
+#buttonFoot {
+  color: white;
+  text-align: center;
+  color: white;
+}
+
+#buttonFoot a {
+  color: black;
+  text-decoration: none;
+}
+
+.specialFoot{
+  background-color: orange;
+  border-radius: 15px;
+  border-top: 1px solid #fff;
+  border-bottom: 1px solid #fff;
+}
