@@ -11,7 +11,7 @@ var devBuild = 'true';
 
 //Information
 function title(){
-    var title = 'TGSN Staff HQ v3.0.2-beta';
+    var title = 'TGSN Staff HQ v3.0.3-beta';
     return title;
 }
 function buildNum(){
@@ -23,13 +23,11 @@ const changelogOptions = {
     type: 'info',
     buttons: ['Close'],
     title: 'Changelog',
-    message: 'Changes in TGSN Staff HQ v3.0.2-beta',
+    message: 'Changes in TGSN Staff HQ v3.0.3-beta',
     detail: `
-  - Minor bug fix with TGSR Resources where popout would display TGS Resources instead of TGSR Resources
-  - Show Resources now show up as a button in the bottom corner of the app on stream days (Saturdays for TGS & Sundays for TGSR)
+  - Mobile App updated to add Changelog
 
   Coming Soon
-  - Mobile App's first Version
   - Smart Remembering for Show/Hide Nav Menu
   - Minor bug fixes
 
