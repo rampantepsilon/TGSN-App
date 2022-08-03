@@ -35,6 +35,9 @@ var locations = [
   './users/redirect.html',
   './shows/admin/redirect.html'
 ]
+function changelog(){
+    alert('TGSN App v3.0.3-beta Changelog\n\nChanges in this build:\n- Fixed layout for some devices where it would span off screen')
+}
 
 //Add Menus
 function addMenus(){
@@ -61,6 +64,9 @@ function addMenus(){
       document.getElementById('buttons').innerHTML += `<tr><td class='button' valign='middle' style='backgroundColor:#333' v-on:click='navigate("` + j + `")' id='b`+ j +`'><div class='link'>` + links['adminLinks'][i] + `</div></td></tr>`;
     }
   }
+
+  var linksTotal = links['userLinks'].length + links['loggedInLinks'].length + links['adminLinks'].length;
+  document.getElementById('buttons').innerHTML += `<tr><td class='button' valign='middle' onclick='changelog()' id='b`+ linksTotal +`'><div class='link'>Changelog</div></td></tr>`
 
   const d = new Date();
   if (d.getDay() == '6'){
