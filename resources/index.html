@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TGSN Staff App v4.0.0</title>
+  <link href="https://fonts.googleapis.com/css?family=Raleway:600|Sancreek&amp;display=swap" rel="stylesheet">
+  <link href="./style.css" rel="stylesheet" />
+
+  <!-- The core Firebase JS SDK is always required and must be listed first -->
+  <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-firestore.js"></script>
+
+  <script src="./scripts/firebase.js"></script>
+
+  <!-- Make sure the official Neutralino library is loaded first -->
+  <script src="js/neutralino.js"></script>
+  <script src="js/NeutralinoMenuBar.min.js"></script>
+  <script src="js/main.js"></script>
+
+  <!-- jQuery -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+    integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
+  <!--Releases API-->
+  <script src="scripts/releases.js"></script>
+</head>
+
+<body style='background-image: url("images/background.jpg");'>
+  <table id='navBar' width='100%'>
+    <!--Top Bar-->
+    <tr>
+      <td class="panel2">
+        <table width='100%' height='95px' align='center'>
+          <tr id='siteName' height='95px'>
+            <td width='86px' valign='middle' style="padding: 20px"><img src='./images/tgsn.jpg' width='86' height='86'>
+            </td>
+            <td id='top' valign='middle' align='left'><a href='index.html' style="text-decoration: none;">The Gaming
+                Saloon Network App</a></td>
+            <td class="panel" align="center" width="300px">Today's Show:<br>
+              <div id='currentShow'></div>
+            </td>
+            <td valign='middle' align='right' class='userInfo' width='400px'>
+              <table width='100%'>
+                <tr>
+                  <td align='center'>
+                    <p id='uNameStatic'></p>
+                  </td>
+                  <td id='loginButtons'><!-- Login Button -->
+                    <div align='center'>
+                      <a id="login-btn"
+                        href="https://discord.com/oauth2/authorize?client_id=1562248363410202664&response_type=token&redirect_uri=http%3A%2F%2F127.0.0.1%3A65432&scope=identify"
+                        class="discord-btn" style="padding: 8px 16px;">
+                        Login with Discord
+                      </a>
+                    </div>
+
+                    <!-- Profile Display Area -->
+                    <div id="profile-card">
+                      <table width="100%">
+                        <tr>
+                          <td valign='middle' align='left'>
+                            <img id="avatar" src="" alt="Discord Avatar">
+                          </td>
+                          <td valign='middle' align='center'>
+                            <span id="username" style="font-size: 24px;"></span><br>
+                            <span id="role" style="font-size: 18px;"></span>
+                          </td>
+                          <td valign='middle' align='center'>
+                            <button onclick="logout()" style="padding: 8px 16px; cursor: pointer;"
+                              class='discord-btn'>Log Out</button>
+                          </td>
+                        </tr>
+                      </table>
+                    </div>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+    <!--Top Bar Navigation-->
+    <tr id="mainNav" style="display: none;">
+    </tr>
+    <!--Main Body Content-->
+    <!--Twitch Chat, Rotator, & Resources-->
+    <tr>
+      <td>
+        <table width="100%">
+          <tr>
+            <td class="panel" style="width: calc((100vw * 940) / 1600)">
+              <h3 align='center'><a href='https://twitch.tv/thegamingsaloonnetwork' target="_blank"><u>Stream</u></a>
+              </h3>
+              <div id="twitch-embed"></div>
+            </td>
+            <td class="panel" style="vertical-align: top;">
+              <table width='100%'>
+                <tr>
+                  <td style="vertical-align: top; height: 168px; width: 470px;" align='center'>
+                    <table width='470px' height='155px' id='plug'>
+                      <tr>
+                        <td>
+                          <div valign='top' height='45px' align='left'>
+                            <p id='title' class='title'>Welcome to the TGSN Staff App!</p>
+                          </div>
+                          <div valign='middle'>
+                            <p id='body' class='body'>Login with your Discord account to get started!</p>
+                          </div>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="panel" style="vertical-align: top;">
+                    <h3 align='center' id="TGSResources"><u>TGS Resources</u></h3>
+                    <div id="tgsResources"></div>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="panel" style="vertical-align: top;">
+                    <h3 align='center' id="TGSRResources"><u>TGSR Resources</u></h3>
+                    <div id="tgsrResources"></div>
+                  </td>
+                </tr>
+                <tr id="sidestreamStreamer" style="display: none;">
+                  <td>
+                    <h3 align='center'><u><a
+                          href='https://obs.ninja/?room=thegamingsaloonnetwork&hash=e588&password=tgsnstaff2020'
+                          target="_blank">Sidestream
+                          Streamer</a></u><br><span style='font-size: 12px'>Opens in New Window</span>
+                    </h3>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+    <!--Commands-->
+    <tr>
+      <td class="panel" style="vertical-align: top; padding-bottom: 10px;" align='center'>
+        <h3 align='center' id="commands"><u>Commands</u></h3>
+        <div style="height:150px; overflow-y: auto; overflow-x: hidden; width: calc(97vw);">
+          <table id='commandList'
+            style='border-style: outset; text-align: left; width: calc(96vw); background-color: rgba(20,20,20,.75);'>
+            <tr>
+              <td>
+              </td>
+            </tr>
+          </table>
+        </div>
+      </td>
+    </tr>
+    <!--Timed Messages-->
+    <tr>
+      <td>
+        <table width='100%'>
+          <tr>
+            <td class='panel' align='center'>
+              <h3 id="timedMsg"><u>Current Timed Messages</u></h3>
+              <div id="currentMessages" align="left"
+                style="margin-left: 25px; height:104.56px; overflow-y: auto; overflow-x: hidden;"></div>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+  <script src="../scripts/navigation.js"></script>
+  <script src="../scripts/login.js"></script>
+  <!-- Load the Twitch embed JavaScript file -->
+  <script src="https://embed.twitch.tv/embed/v1.js"></script>
+  <script src="../scripts/twitch.js"></script>
+  <script src="../scripts/rotator.js"></script>
+  <script src="../scripts/shows.js"></script>
+  <script>
+    loadCommands();
+    showTGSArticlesUser();
+    getTimedMessages();
+    setInterval(showStream(), (60 * 60 * 1000));
+    loadNavBar();
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,175 @@
+body {
+    font-family: Sancreek;
+    text-align: center;
+    background-color: #23272A;
+    color: white;
+}
+
+.discord-btn {
+    color: #fff;
+    text-align: center;
+    background-color: black;
+    border-radius: 15px;
+    position: relative;
+    border: 1px solid #fff;
+    font-size: 20px;
+    cursor: pointer;
+    font-family: Sancreek;
+}
+
+.discord-btn:hover {
+    background-color: #4752C4;
+}
+
+#profile-card {
+    display: none;
+}
+
+#avatar {
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+}
+
+#top {
+    font-size: 2em;
+    color: white;
+    padding-left: 20px;
+}
+
+.userInfo,
+.panel {
+    background-color: black;
+    border-radius: 15px;
+    position: relative;
+    border: 1px solid #fff;
+}
+
+.panel2 {
+    background-color: rgba(20, 20, 20, .75);
+    border-radius: 15px;
+    position: relative;
+    border: 1px solid #fff;
+}
+
+.tooltip {
+    position: relative;
+    display: inline-block;
+    border-bottom: 1px dotted black;
+}
+
+.tooltip .tooltiptext {
+    visibility: hidden;
+    width: 450px;
+    background-color: #555;
+    color: #fff;
+    text-align: center;
+    padding: 5px 0;
+    border-radius: 6px;
+
+    /* Position the tooltip text */
+    position: absolute;
+    z-index: 1;
+    top: 50px;
+    left: 75px;
+    margin-left: -60px;
+
+    /* Fade in tooltip */
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.tooltip .tooltiptext::after {
+    content: "";
+    position: absolute;
+    top: 125%;
+    left: 100%;
+    margin-left: -60px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #555 transparent transparent transparent;
+}
+
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+    opacity: 1;
+}
+
+a,
+a:visited {
+    color: white;
+}
+
+#twitch-embed {
+    width: calc((100vw * 940) / 1600) !important;
+}
+
+#plug {
+    background-image: url("/images/bricks.jpg");
+    background-blend-mode: overlay;
+    background-color: rgba(30, 30, 30, 0.75);
+    background-size: 480px auto;
+    color: #fff;
+    border-radius: 10%;
+}
+
+.title {
+    font-size: 24px;
+    color: rgba(255, 156, 52, 1);
+    position: relative;
+    top: 5px;
+    left: 5px;
+    text-shadow: rgb(51, 51, 51) 2px 0px 0px, rgb(51, 51, 51) 1.75517px 0.958851px 0px, rgb(51, 51, 51) 1.0806px 1.68294px 0px, rgb(51, 51, 51) 0.141474px 1.99499px 0px, rgb(51, 51, 51) -0.832294px 1.81859px 0px, rgb(51, 51, 51) -1.60229px 1.19694px 0px, rgb(51, 51, 51) -1.97998px 0.28224px 0px, rgb(51, 51, 51) -1.87291px -0.701566px 0px, rgb(51, 51, 51) -1.30729px -1.5136px 0px, rgb(51, 51, 51) -0.421592px -1.95506px 0px, rgb(51, 51, 51) 0.567324px -1.91785px 0px, rgb(51, 51, 51) 1.41734px -1.41108px 0px, rgb(51, 51, 51) 1.92034px -0.558831px 0px;
+}
+
+.body {
+    font-size: 22px;
+    color: rgba(255, 255, 255, 1);
+    position: relative;
+    top: 5px;
+    text-align: center;
+    text-shadow: rgb(0, 0, 0) 2px 0px 0px, rgb(0, 0, 0) 1.75517px 0.958851px 0px, rgb(0, 0, 0) 1.0806px 1.68294px 0px, rgb(0, 0, 0) 0.141474px 1.99499px 0px, rgb(0, 0, 0) -0.832294px 1.81859px 0px, rgb(0, 0, 0) -1.60229px 1.19694px 0px, rgb(0, 0, 0) -1.97998px 0.28224px 0px, rgb(0, 0, 0) -1.87291px -0.701566px 0px, rgb(0, 0, 0) -1.30729px -1.5136px 0px, rgb(0, 0, 0) -0.421592px -1.95506px 0px, rgb(0, 0, 0) 0.567324px -1.91785px 0px, rgb(0, 0, 0) 1.41734px -1.41108px 0px, rgb(0, 0, 0) 1.92034px -0.558831px 0px;
+}
+
+#buttonFoot {
+    color: white;
+    text-align: center;
+    color: white;
+}
+
+#buttonFoot a {
+    color: black;
+    text-decoration: none;
+}
+
+.navClick {
+    padding: 0;
+    border-radius: 15px;
+}
+
+.navClick a {
+    display: block;
+    /* Makes the link behave like a block, taking up full width */
+    width: 100%;
+    height: 100%;
+    /* Apply the padding to the LINK instead of the TD */
+    text-decoration: none;
+    /* Optional: removes the default underline */
+    color: inherit;
+    /* Optional: makes the text color match your table style */
+}
+
+.navClick:hover {
+    background-color: #f5f5f5;
+    color: black
+}
+
+.schedule-day {
+    background-color: orange;
+    color: black;
+    border-radius: 10px;
+    position: relative;
+    border: 1px solid #fff;
+    padding: 5px;
+    filter: drop-shadow(-4px 4px 8px rgba(0, 0, 0, 1));
+}

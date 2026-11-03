@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TGSN Staff App v4.0.0</title>
+    <link href="https://fonts.googleapis.com/css?family=Raleway:600|Sancreek&amp;display=swap" rel="stylesheet">
+    <link href="../style.css" rel="stylesheet" />
+
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-firestore.js"></script>
+
+    <script src="../scripts/firebase.js"></script>
+
+    <!-- Make sure the official Neutralino library is loaded first -->
+    <script src="../js/neutralino.js"></script>
+    <script src="../js/NeutralinoMenuBar.min.js"></script>
+    <script src="../js/main.js"></script>
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+</head>
+
+<body style='background-image: url("../images/background.jpg");'>
+    <table id='navBar' width='100%'>
+        <!--Top Bar-->
+        <tr style="background-color: rgba(20,20,20,.75);">
+            <td>
+                <table width='100%' height='95px' align='center'>
+                    <tr id='siteName' height='95px'>
+                        <td width='86px' valign='middle' style="padding: 20px"><img src='../images/tgsn.jpg' width='86'
+                                height='86'>
+                        </td>
+                        <td id='top' valign='middle' align='left'><a href='../index.html'
+                                style="text-decoration: none;">The Gaming
+                                Saloon Network App</a></td>
+                        <td class="panel" align="center" width="300px">Today's Show:<br>
+                            <div id='currentShow'></div>
+                        </td>
+                        <td valign='middle' align='right' class='userInfo' width='400px'>
+                            <table width='100%'>
+                                <tr>
+                                    <td align='center'>
+                                        <p id='uNameStatic'></p>
+                                    </td>
+                                    <td id='loginButtons'><!-- Login Button -->
+                                        <div align='center'>
+                                            <a id="login-btn"
+                                                href="https://discord.com/oauth2/authorize?client_id=1562248363410202664&response_type=token&redirect_uri=http%3A%2F%2F127.0.0.1%3A65432&scope=identify"
+                                                class="discord-btn" style="padding: 8px 16px;">
+                                                Login with Discord
+                                            </a>
+                                        </div>
+
+                                        <!-- Profile Display Area -->
+                                        <div id="profile-card">
+                                            <table width="100%">
+                                                <tr>
+                                                    <td valign='middle' align='left'>
+                                                        <img id="avatar" src="" alt="Discord Avatar">
+                                                    </td>
+                                                    <td valign='middle' align='center'>
+                                                        <span id="username" style="font-size: 24px;"></span><br>
+                                                        <span id="role" style="font-size: 18px;"></span>
+                                                    </td>
+                                                    <td valign='middle' align='center'>
+                                                        <button onclick="logout()"
+                                                            style="padding: 8px 16px; cursor: pointer;"
+                                                            class='discord-btn'>Log Out</button>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <!--Top Bar Navigation-->
+        <tr id="mainNav" style="display: none;">
+        </tr>
+        <!--Main Body Content-->
+        <!--Schedule Builder (Show if Network Admin)-->
+        <tr>
+            <td class="panel" style="vertical-align: top; padding-bottom: 10px;" align='center'>
+                <table width="100%">
+                    <tr>
+                        <td class="panel" width="30%" align="center">
+                            <h3 align='center'><u>Schedule Builder</u></h3>
+                            Monday:<br> <input size="50" type="text" id="monday"><br>
+                            Tuesday:<br> <input size="50" type="text" id="tuesday"><br>
+                            Wednesday:<br> <input size="50" type="text" id="wednesday"><br>
+                            Thursday:<br> <input size="50" type="text" id="thursday"><br>
+                            Friday:<br> <input size="50" type="text" id="friday"><br>
+                            Saturday:<br> <input size="50" type="text" id="saturday"><br>
+                            Sunday:<br> <input size="50" type="text" id="sunday"><br><br>
+                            <div style="border: outset; width: 150px; display:inline-block; background-color:orange;font-family: Sancreek; color: black;"
+                                align='center' onclick='updateSchedule()' class='button'>Update Schedule</div>
+                        </td>
+                        <td class="panel" style="vertical-align:top;" align="center">
+                            <span style="font-size: 8px;">&nbsp;</span>
+                            <table style="width: 50vw;background-image: url('../images/woodtexture.jpg');"
+                                id="scheduleBlock">
+                                <tr>
+                                    <td colspan="2">&nbsp;</td>
+                                </tr>
+                                <tr>
+                                    <td align="right" style="width: calc((50vw/3.25))"><img src='../images/tgsn.jpg'
+                                            width='100' height='100'></td>
+                                    <td align="left">
+                                        <table style="height:40px; width:500px">
+                                            <tr>
+                                                <td align='center'
+                                                    style="background-color: orange; border-radius: 20px;"
+                                                    class="schedule-day">
+                                                    <span
+                                                        style="padding-bottom: 0; padding-left: 20px;color: black; filter: drop-shadow(-4px 4px 8px rgba(0,0,0,0.1)); -webkit-text-stroke: .5px black; font-size: 48px;">Stream
+                                                        Schedule</span><br>
+                                                    <span
+                                                        style="padding-bottom: 0; padding-left: 20px;color: black; filter: drop-shadow(-4px 4px 8px rgba(0,0,0,0.1)); -webkit-text-stroke: .5px black; font-size: 32px;">8
+                                                        PM EST Start Time</span>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">&nbsp;</td>
+                                </tr>
+                                <tr>
+                                    <td colspan=" 2" id="scheduledShows" style="font-size: 24px;">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">&nbsp;</td>
+                                </tr>
+                            </table>
+                            <div style="border: outset; width: 150px; display:inline-block; background-color:orange;font-family: Sancreek; color: black;"
+                                align='center' onclick='downloadImg()' class='button'>Save Image For Posting
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+    <script src="../scripts/navigation.js"></script>
+    <script src="../scripts/login.js"></script>
+    <script src="../scripts/shows.js"></script>
+    <script src="builder.js"></script>
+    <script>
+        showStream();
+        loadNavBar();
+    </script>
+</body>
+
+</html>
