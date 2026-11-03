@@ -222,23 +222,35 @@ function checkForUpdates() {
 
     updates.get().then((doc => {
         const data = doc.data();
-        //console.log(data);
-        //console.log(Object.keys(data))
-        //console.log(window.NL_APPVERSION)
+        let keys = Object.keys(data)
+        let today = new Date().toLocaleDateString('en-CA', 'America/New_York');
+        let currentVersion = window.NL_APPVERSION;
+        if (window.NL_APPVERSION.includes('-alpha')) {
+            currentVersion = '3.9.9';
+        }
 
-        for (i in Object.keys(data)) {
-            if (window.NL_APPVERSION >= Object.keys(data)[i]) {
-                break;
+        for (i in keys) {
+            if (currentVersion >= keys[i]) {
             } else {
-                for (j in data[i]['changes']) {
-                    if (j == 0) {
-                        changeList.innerHTML += (data[i]['changes'][j])
+                if (keys[i].includes('-alpha')) {
+                    if (window.NL_APPVERSION >= keys[i]) {
                     } else {
-                        changeList.innerHTML += " | " + (data[i]['changes'][j])
+                        for (j in data[keys[i]]['changes']) {
+                            changeList.innerHTML += (data[keys[i]]['changes'][j]) + " | "
+                        }
+                        document.getElementById('updateBlock').style.display = 'table-row'
                     }
+                } else {
+                    for (j in data[keys[i]]['changes']) {
+                        changeList.innerHTML += (data[keys[i]]['changes'][j]) + " | "
+                    }
+                    document.getElementById('updateBlock').style.display = 'table-row'
                 }
-                document.getElementById('updateBlock').style.display = 'table-row'
             }
+
+        }
+        if (changeList.innerHTML.length > 0) {
+            changeList.innerHTML = changeList.innerHTML.slice(0, -3);
         }
     }))
 }
