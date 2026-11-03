@@ -131,7 +131,7 @@ var messageID;
 function getTimedMessages() {
     //Update messages
     rotator.onSnapshot(doc => {
-        console.log('Rotator Updated : ' + doc.data().main)
+        //console.log('Rotator Updated : ' + doc.data().main)
         messageLength = doc.data().main.length;
         for (var i = 0; i < doc.data().main.length; i++) {
             messageList[i] = doc.data().main[i];
@@ -208,6 +208,36 @@ function todaysReleases() {
                     date: formatDate(today),
                     list: gameList
                 }, { merge: true });
+            }
+        }
+    }))
+}
+
+//Update Check
+function checkForUpdates() {
+    const db = firebase.firestore();
+    const updates = db.collection('app').doc('changelog');
+
+    let changeList = document.getElementById('updatePanel');
+
+    updates.get().then((doc => {
+        const data = doc.data();
+        //console.log(data);
+        //console.log(Object.keys(data))
+        //console.log(window.NL_APPVERSION)
+
+        for (i in Object.keys(data)) {
+            if (window.NL_APPVERSION >= Object.keys(data)[i]) {
+                break;
+            } else {
+                for (j in data[i]['changes']) {
+                    if (j == 0) {
+                        changeList.innerHTML += (data[i]['changes'][j])
+                    } else {
+                        changeList.innerHTML += " | " + (data[i]['changes'][j])
+                    }
+                }
+                document.getElementById('updateBlock').style.display = 'table-row'
             }
         }
     }))

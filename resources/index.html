@@ -85,6 +85,14 @@
     <!--Top Bar Navigation-->
     <tr id="mainNav" style="display: none;">
     </tr>
+    <!--Update Block-->
+    <tr id="updateBlock" style="display: none;">
+      <td class="panel" style="background-color: orange; color: black; cursor: pointer;" align="center" width="100px"
+        onclick="window.open('https://github.com/rampantepsilon/TGSN-App/releases', '_blank')">
+        Update
+        Available: <span id='updatePanel'></span>
+      </td>
+    </tr>
     <!--Main Body Content-->
     <!--Twitch Chat, Rotator, & Resources-->
     <tr>
@@ -184,6 +192,8 @@
     getTimedMessages();
     setInterval(showStream(), (60 * 60 * 1000));
     loadNavBar();
+    checkForUpdates();
+    setInterval(checkForUpdates, (24 * 60 * 60 * 1000));
   </script>
 </body>
 
