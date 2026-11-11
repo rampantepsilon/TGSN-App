@@ -223,34 +223,62 @@ function checkForUpdates() {
     updates.get().then((doc => {
         const data = doc.data();
         let keys = Object.keys(data)
-        let today = new Date().toLocaleDateString('en-CA', 'America/New_York');
-        let currentVersion = window.NL_APPVERSION;
-        if (window.NL_APPVERSION.includes('-alpha')) {
-            currentVersion = '3.9.9';
-        }
 
         for (i in keys) {
-            if (currentVersion >= keys[i]) {
+            if (NL_buildNumber >= keys[i]) {
+
             } else {
-                if (keys[i].includes('-alpha')) {
-                    if (window.NL_APPVERSION >= keys[i]) {
-                    } else {
-                        for (j in data[keys[i]]['changes']) {
-                            changeList.innerHTML += (data[keys[i]]['changes'][j]) + " | "
-                        }
-                        document.getElementById('updateBlock').style.display = 'table-row'
-                    }
-                } else {
+                if (NL_buildType == 'alpha') {
+                    changeList.innerHTML += "v" + data[keys[i]]['versionName'] + ": "
                     for (j in data[keys[i]]['changes']) {
                         changeList.innerHTML += (data[keys[i]]['changes'][j]) + " | "
                     }
+
+                    if (data[keys[i]]['releaseLink']) {
+                        document.getElementById('updateBlock').setAttribute('onclick', "window.open('" + data[keys[i]]['releaseLink'] + "', '_blank')")
+                    } else {
+                        document.getElementById('updateBlock').setAttribute('onclick', "window.open('https://github.com/rampantepsilon/TGSN-App/releases', '_blank')")
+                    }
+
                     document.getElementById('updateBlock').style.display = 'table-row'
+                } else if (NL_buildType == 'beta') {
+                    if (data[keys[i]]['buildType'] != 'alpha') {
+                        changeList.innerHTML += "v" + data[keys[i]]['versionName'] + ": "
+                        for (j in data[keys[i]]['changes']) {
+                            changeList.innerHTML += (data[keys[i]]['changes'][j]) + " | "
+                        }
+
+                        if (data[keys[i]]['releaseLink']) {
+                            document.getElementById('updateBlock').setAttribute('onclick', "window.open('" + data[keys[i]]['releaseLink'] + "', '_blank')")
+                        } else {
+                            document.getElementById('updateBlock').setAttribute('onclick', "window.open('https://github.com/rampantepsilon/TGSN-App/releases', '_blank')")
+                        }
+
+
+                        document.getElementById('updateBlock').style.display = 'table-row'
+                    }
+                } else if (NL_buildType == 'stable') {
+                    if (data[keys[i]]['buildType'] == 'stable') {
+                        changeList.innerHTML += "v" + data[keys[i]]['versionName'] + ": "
+                        for (j in data[keys[i]]['changes']) {
+                            changeList.innerHTML += (data[keys[i]]['changes'][j]) + " | "
+                        }
+
+                        if (data[keys[i]]['releaseLink']) {
+                            document.getElementById('updateBlock').setAttribute('onclick', "window.open('" + data[keys[i]]['releaseLink'] + "', '_blank')")
+                        } else {
+                            document.getElementById('updateBlock').setAttribute('onclick', "window.open('https://github.com/rampantepsilon/TGSN-App/releases', '_blank')")
+                        }
+
+
+                        document.getElementById('updateBlock').style.display = 'table-row'
+                    }
                 }
             }
 
-        }
-        if (changeList.innerHTML.length > 0) {
-            changeList.innerHTML = changeList.innerHTML.slice(0, -3);
+            if (changeList.innerHTML.length > 0) {
+                changeList.innerHTML = changeList.innerHTML.slice(0, -3);
+            }
         }
     }))
 }

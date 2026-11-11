@@ -57,6 +57,14 @@ function getDiscordUser(token) {
             const avatarBase = `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png`
 
             document.getElementById('avatar').src = avatarBase;
+            document.getElementById('avatar').setAttribute('onclick', 'window.location.href = "../updater.html"');
+            document.getElementById('avatar').setAttribute('style', 'cursor: pointer');
+
+            if (user.global_name == 'RampantEpsilon') {
+                if (document.getElementById('changeLogBuilder')) {
+                    document.getElementById('changeLogBuilder').style.display = 'table-cell'
+                }
+            }
 
             //Set token to local storage if not stored
             if (!localStorage.getItem('access_token')) {

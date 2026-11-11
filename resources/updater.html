@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TGSN Staff App v4.0.0</title>
+    <link href="https://fonts.googleapis.com/css?family=Raleway:600|Sancreek&amp;display=swap" rel="stylesheet">
+    <link href="../style.css" rel="stylesheet" />
+
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-firestore.js"></script>
+
+    <script src="../scripts/firebase.js"></script>
+
+    <!-- Make sure the official Neutralino library is loaded first -->
+    <script src="../js/neutralino.js"></script>
+    <script src="../js/NeutralinoMenuBar.min.js"></script>
+    <script src="../js/main.js"></script>
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+</head>
+
+<body style='background-image: url("../images/background.jpg");'>
+    <table id='navBar' width='100%'>
+        <!--Top Bar-->
+        <tr style="background-color: rgba(20,20,20,.75);">
+            <td>
+                <table width='100%' height='95px' align='center'>
+                    <tr id='siteName' height='95px'>
+                        <td width='86px' valign='middle' style="padding: 20px"><img src='../images/tgsn.jpg' width='86'
+                                height='86'>
+                        </td>
+                        <td id='top' valign='middle' align='left'><a href='../index.html'
+                                style="text-decoration: none;">The Gaming
+                                Saloon Network App</a></td>
+                        <td class="panel" align="center" width="300px">Today's Show:<br>
+                            <div id='currentShow'></div>
+                        </td>
+                        <td valign='middle' align='right' class='userInfo' width='400px'>
+                            <table width='100%'>
+                                <tr>
+                                    <td align='center'>
+                                        <p id='uNameStatic'></p>
+                                    </td>
+                                    <td id='loginButtons'><!-- Login Button -->
+                                        <div align='center'>
+                                            <a id="login-btn"
+                                                href="https://discord.com/oauth2/authorize?client_id=1562248363410202664&response_type=token&redirect_uri=http%3A%2F%2F127.0.0.1%3A65432&scope=identify"
+                                                class="discord-btn" style="padding: 8px 16px;">
+                                                Login with Discord
+                                            </a>
+                                        </div>
+
+                                        <!-- Profile Display Area -->
+                                        <div id="profile-card">
+                                            <table width="100%">
+                                                <tr>
+                                                    <td valign='middle' align='left'>
+                                                        <img id="avatar" src="" alt="Discord Avatar">
+                                                    </td>
+                                                    <td valign='middle' align='center'>
+                                                        <span id="username" style="font-size: 24px;"></span><br>
+                                                        <span id="role" style="font-size: 18px;"></span>
+                                                    </td>
+                                                    <td valign='middle' align='center'>
+                                                        <button onclick="logout()"
+                                                            style="padding: 8px 16px; cursor: pointer;"
+                                                            class='discord-btn'>Log Out</button>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <!--Top Bar Navigation-->
+        <tr id="mainNav" style="display: none;">
+        </tr>
+        <!--Update Block-->
+        <tr id="updateBlock" style="display: none;">
+            <td class="panel" style="background-color: orange; color: black; cursor: pointer;" align="center"
+                width="100px">
+                Update
+                Available: <span id='updatePanel'></span>
+            </td>
+        </tr>
+        <!--Main Body Content-->
+        <!--Changelog Builder (Show if RampantEpsilon)-->
+        <tr>
+            <td class="panel" style="vertical-align: top; padding-bottom: 10px;" align='center'>
+                <table width="100%">
+                    <tr>
+                        <td id="changeLogBuilder" class="panel" width="30%" align="center"
+                            style="display: none; vertical-align: top;">
+                            <h3 align='center'><u>Change Log</u></h3>
+                            Version Name (e.g. 4.0.0-alpha5):<br>
+                            <input size="50" type="text" id="versionName"><br>
+                            Version Base (e.g. 4.0.0):<br>
+                            <input size="50" type="text" id="versionBase"><br>
+                            Version Type:<br>
+                            <input type="radio" name="versionType" id="versionType" value="Alpha"> Alpha
+                            <input type="radio" name="versionType" id="versionType" value="Beta"> Beta <input
+                                type="radio" name="versionType" id="versionType" value="Stable" checked> Stable<br>
+                            Changes:<br>
+                            <textarea rows="7" cols="50" id="changes"></textarea><br>
+                            Link to Release:<br>
+                            <input size="50" type="text" id="releaseLink" placeholder=" "><br><br>
+                            <div style="border: outset; width: 150px; display:inline-block; background-color:orange;font-family: Sancreek; color: black;"
+                                align='center' onclick='updateLog()' class='button'>Update Changelog & Publish Version
+                            </div>
+                        </td>
+                        <td class="panel" style="vertical-align:top;" align="center" id="changeLogHistory">
+                            <h2 align='center'><u>Changelog</u></h2>
+                            <div id="changelogHistory" align="left"
+                                style="margin-left: 25px; height:500px; overflow-y: auto; overflow-x: hidden;"></div>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+    <script src="../scripts/navigation.js"></script>
+    <script src="../scripts/login.js"></script>
+    <script src="../scripts/shows.js"></script>
+    <script src="../scripts/updater.js"></script>
+    <script>
+        showStream();
+        loadNavBar();
+        checkForUpdates();
+        setInterval(checkForUpdates, (24 * 60 * 60 * 1000));
+    </script>
+</body>
+
+</html>
