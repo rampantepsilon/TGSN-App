@@ -189,7 +189,8 @@
     loadCommands();
     showTGSArticlesUser();
     getTimedMessages();
-    setInterval(showStream(), (60 * 60 * 1000));
+    showStream();
+    setInterval(showStream, (60 * 60 * 1000));
     loadNavBar();
     checkForUpdates();
     setInterval(checkForUpdates, (24 * 60 * 60 * 1000));
