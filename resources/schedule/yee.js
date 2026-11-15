@@ -23,11 +23,11 @@ yee.onSnapshot(doc => {
         //console.log(data[i])
         if (data[i] != '') {
             scheduleTable += '<tr><td class="schedule-day" align="center">' + days[day] + ' 12/' + i + '</td><td>&nbsp;</td><td class="schedule-day">' + data[i] + '</td></tr><tr><td colspan="3" style="font-size:8px">&nbsp;</td></tr>'
-            if (day < 6) {
-                day += 1;
-            } else {
-                day = 0;
-            }
+        }
+        if (day < 6) {
+            day += 1;
+        } else {
+            day = 0;
         }
     }
 
@@ -65,6 +65,14 @@ function updateSchedule() {
         }
     }
 
-
     yee.set(editValues);
+}
+
+function downloadImg() {
+    html2canvas(document.getElementById('scheduleBlock')).then(canvas => {
+        const link = document.createElement('a');
+        link.download = 'schedule.png';
+        link.href = canvas.toDataURL('image/png');
+        link.click();
+    })
 }
