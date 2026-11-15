@@ -10,7 +10,7 @@ let sunEdit = document.getElementById('sunday');
 
 builder.onSnapshot(doc => {
     const data = doc.data();
-    console.log(data);
+    //console.log(data);
 
     //Put values in editor
     monEdit.value = data.monday;
