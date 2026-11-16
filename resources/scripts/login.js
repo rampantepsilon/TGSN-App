@@ -45,8 +45,8 @@ function getDiscordUser(token) {
             if (!res.ok) throw new Error('Token might be expired or invalid');
             return res.json();
         })
-        .then(user => {
-            var role = userRole(user.global_name)
+        .then(async user => {
+            var role = await userRole(user.global_name)
             navigation(role);
 
             document.getElementById('profile-card').style.display = 'block';
@@ -86,10 +86,24 @@ function logout() {
     window.location.href = window.location.pathname;
 }
 
-function userRole(name) {
-    if (name == "RampantEpsilon" || name == 'peacemaker2448') {
+async function userRole(name) {
+    /*if (name == "RampantEpsilon" || name == 'peacemaker2448') {
         return "Network Admin";
     } else {
         return "User";
+    }*/
+
+    const userRoles = await db.collection('users').doc('v4.x.x').get()
+    if (userRoles.exists) {
+        const data = userRoles.data();
+
+        let keys = Object.keys(data['users'])
+
+        for (i in keys) {
+            if (keys[i] == name) {
+                return data['users'][keys[i]];
+            }
+        }
     }
+
 }
