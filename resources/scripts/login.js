@@ -46,7 +46,7 @@ function getDiscordUser(token) {
             return res.json();
         })
         .then(user => {
-            var role = userRole(user.global_name);
+            var role = userRole(user.global_name)
             navigation(role);
 
             document.getElementById('profile-card').style.display = 'block';

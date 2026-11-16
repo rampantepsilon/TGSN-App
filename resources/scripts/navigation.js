@@ -5,7 +5,7 @@ let timedMsg = document.getElementById('timedMsg');
 let sidestreamStreamer = document.getElementById('sidestreamStreamer')
 
 function loadNavBar() {
-    document.getElementById('mainNav').innerHTML = `
+  document.getElementById('mainNav').innerHTML = `
       <td class='panel' width='100%'>
         <table width='100%'>
           <tr>
@@ -47,53 +47,53 @@ function loadNavBar() {
 }
 
 function navigation(role) {
-    if (tgsResources || tgsrResources) {
-        switch (role) {
-            case 'Network Admin':
-                tgsResources.innerHTML = `<a href='showResources/index.html'>TGS Resources</a>`;
-                tgsrResources.innerHTML = `<a href='showResources/index.html'>TGSR Resources</a>`;
-                break;
-            default:
-                tgsResources.innerHTML = "TGS Resources";
-                tgsrResources.innerHTML = "TGSR Resources";
-                break;
-        }
+  if (tgsResources || tgsrResources) {
+    switch (role) {
+      case 'Network Admin':
+        tgsResources.innerHTML = `<a href='showResources/index.html'>TGS Resources</a>`;
+        tgsrResources.innerHTML = `<a href='showResources/index.html'>TGSR Resources</a>`;
+        break;
+      default:
+        tgsResources.innerHTML = "TGS Resources";
+        tgsrResources.innerHTML = "TGSR Resources";
+        break;
     }
-    if (commands) {
-        switch (role) {
-            case 'Network Admin':
-                commands.innerHTML = `<a href='tgsnbot/commands.html'>Commands</a>`;
-                break;
-            default:
-                commands.innerHTML = 'Commands'
-        }
+  }
+  if (commands) {
+    switch (role) {
+      case 'Network Admin':
+        commands.innerHTML = `<a href='tgsnbot/commands.html'>Commands</a>`;
+        break;
+      default:
+        commands.innerHTML = 'Commands'
     }
-    if (timedMsg) {
-        switch (role) {
-            case 'Network Admin':
-                timedMsg.innerHTML = `<a href='tgsnbot/timedmsg.html'>Current Timed Messages</a>`;
-                break;
-            default:
-                timedMsg.innerHTML = 'Current Timed Messages'
-        }
+  }
+  if (timedMsg) {
+    switch (role) {
+      case 'Network Admin':
+        timedMsg.innerHTML = `<a href='tgsnbot/timedmsg.html'>Current Timed Messages</a>`;
+        break;
+      default:
+        timedMsg.innerHTML = 'Current Timed Messages'
     }
-    if (mainNav) {
-        switch (role) {
-            case 'Network Admin':
-                mainNav.style.display = 'table-row';
-                break;
-            default:
-                mainNav.style.display = 'none'
-        }
+  }
+  if (mainNav) {
+    switch (role) {
+      case 'Network Admin':
+        mainNav.style.display = 'table-row';
+        break;
+      default:
+        mainNav.style.display = 'none'
     }
-    if (sidestreamStreamer) {
-        switch (role) {
-            case 'Network Admin':
-                sidestreamStreamer.style.display = `table-row`;
-                break;
-            default:
-                sidestreamStreamer.style.display = `none`
-        }
+  }
+  if (sidestreamStreamer) {
+    switch (role) {
+      case 'Network Admin':
+        sidestreamStreamer.style.display = `table-row`;
+        break;
+      default:
+        sidestreamStreamer.style.display = `none`
     }
+  }
 
 }
