@@ -18,8 +18,8 @@ tgsArticles.onSnapshot(doc => {
           <tr>
             <td align='center' id='body'>
               Enter the new link for TGS Articles:<input id='tgsArticleLink'><br>
-              <button onclick='updateTGSArticles()'>Update Articles</button>
-              <button onclick='clearTGSArticles()'>Clear Link Field</button>
+              <button style="border: outset; width: 170px; display:inline-block; background-color:orange;font-family: Sancreek; color: black; font-size: 15px;" onclick='updateTGSArticles()'>Update Articles</button>
+              <button style="border: outset; width: 170px; display:inline-block; background-color:orange;font-family: Sancreek; color: black; font-size: 15px;"  onclick='clearTGSArticles()'>Clear Link Field</button>
             </td>
           </tr>`]
 })
@@ -40,7 +40,7 @@ tgsrVideos.onSnapshot(doc => {
             <td align='center>
               <div id='body' align='left'>Videos: <input type='text' id='v1'><br>
               Notes: <input type='text' id='v2'>
-              <button onclick='changeVideos()'>Change Resources</button></div>
+              <button style="border: outset; width: 170px; display:inline-block; background-color:orange;font-family: Sancreek; color: black; font-size: 15px;"  onclick='changeVideos()'>Change Resources</button></div>
             </td>
           </tr>`]
 })
