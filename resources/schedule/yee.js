@@ -20,6 +20,7 @@ yee.onSnapshot(doc => {
     let day = 2;
 
     for (i in data) {
+        document.getElementById(i).value = data[i];
         //console.log(data[i])
         if (data[i] != '') {
             scheduleTable += '<tr><td class="schedule-day" align="center">' + days[day] + ' 12/' + i + '</td><td>&nbsp;</td><td class="schedule-day">' + data[i] + '</td></tr><tr><td colspan="3" style="font-size:8px">&nbsp;</td></tr>'
