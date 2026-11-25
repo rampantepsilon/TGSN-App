@@ -96,35 +96,72 @@
             </td>
         </tr>
         <!--Main Body Content-->
-        <!--Changelog Builder (Show if RampantEpsilon)-->
         <tr>
             <td class="panel" style="vertical-align: top; padding-bottom: 10px;" align='center'>
                 <table width="100%">
                     <tr>
-                        <td id="changeLogBuilder" class="panel" width="30%" align="center"
-                            style="display: none; vertical-align: top;">
-                            <h3 align='center'><u>Change Log</u></h3>
-                            Version Name (e.g. 4.0.0-alpha5):<br>
-                            <input size="50" type="text" id="versionName"><br>
-                            Version Base (e.g. 4.0.0):<br>
-                            <input size="50" type="text" id="versionBase"><br>
-                            Version Type:<br>
-                            <input type="radio" name="versionType" id="versionType" value="Alpha"> Alpha
-                            <input type="radio" name="versionType" id="versionType" value="Beta"> Beta <input
-                                type="radio" name="versionType" id="versionType" value="Stable" checked> Stable<br>
-                            Changes:<br>
-                            <textarea rows="7" cols="50" id="changes"></textarea><br>
-                            Link to Release:<br>
-                            <input size="50" type="text" id="releaseLink" placeholder=" "><br><br>
-                            <button
-                                style="border: outset; width: 170px; display:inline-block; background-color:orange;font-family: Sancreek; color: black; font-size: 18px;"
-                                align='center' onclick='updateLog()' class='button'>Update Changelog & Publish Version
-                            </button>
+                        <td class="panel" style="width: 256px; vertical-align:top;" align="center" id="rotatorList">
+                            <h3 align="center"><u>Current Rotator Messages</u></h3>
                         </td>
                         <td class="panel" style="vertical-align:top;" align="center" id="changeLogHistory">
                             <h2 align='center'><u>Changelog</u></h2>
                             <div id="changelogHistory" align="left"
                                 style="margin-left: 25px; height:500px; overflow-y: auto; overflow-x: hidden;"></div>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <!--Changelog Builder (Show if RampantEpsilon)-->
+        <tr>
+            <td class="panel" style="vertical-align: top; padding-bottom: 10px;" align='center'>
+                <table width="100%">
+                    <tr>
+                        <td class="panel" align="center" id="rotatorBuilder"
+                            style="display: none; vertical-align: top;">
+                            <h3 align="center"><u>Rotator Editor</u></h3>
+                            Title:<br>
+                            <input type="text" size="50" id="rotatorTitle"><br>
+                            Message:<br>
+                            <input type="text" size="50" id="rotatorMsg"><br><br>
+                            <button
+                                style="border: outset; width: 300px; display:inline-block; background-color:orange;font-family: Sancreek; color: black; font-size: 18px;"
+                                align='center' onclick='addRotator()' class='button'>Add Rotator
+                            </button>
+                            <button
+                                style="border: outset; width: 300px; display:inline-block; background-color:orange;font-family: Sancreek; color: black; font-size: 18px;"
+                                align='center' onclick='remRotator()' class='button'>Remove Rotator by Title
+                            </button>
+                        </td>
+                        <td id="changeLogBuilder" class="panel" align="center"
+                            style="display: none; vertical-align: top;">
+                            <h3 align='center'><u>Changelog Editor</u></h3>
+                            <table>
+                                <tr>
+                                    <td align="center" style="vertical-align: top;">
+                                        Version Name (e.g. 4.0.0-alpha5):<br>
+                                        <input size="50" type="text" id="versionName"><br>
+                                        Version Base (e.g. 4.0.0):<br>
+                                        <input size="50" type="text" id="versionBase"><br>
+                                        Version Type:<br>
+                                        <input type="radio" name="versionType" id="versionType" value="Alpha"> Alpha
+                                        <input type="radio" name="versionType" id="versionType" value="Beta"> Beta
+                                        <input type="radio" name="versionType" id="versionType" value="Stable" checked>
+                                        Stable<br><br>
+                                        <button
+                                            style="border: outset; width: 330px; display:inline-block; background-color:orange;font-family: Sancreek; color: black; font-size: 18px;"
+                                            align='center' onclick='updateLog()' class='button'>Update Changelog &
+                                            Publish Version
+                                        </button>
+                                    </td>
+                                    <td align="center" style="vertical-align: top;">
+                                        Changes:<br>
+                                        <textarea rows="7" cols="50" id="changes"></textarea><br>
+                                        Link to Release:<br>
+                                        <input size="50" type="text" id="releaseLink" placeholder=" ">
+                                    </td>
+                                </tr>
+                            </table>
                         </td>
                     </tr>
                 </table>

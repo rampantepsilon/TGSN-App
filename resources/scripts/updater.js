@@ -2,6 +2,9 @@
 const changelog = db.collection("app").doc("changelog");
 let changeLogHistory = document.getElementById('changeLogHistory')
 
+const rotatorFB = db.collection('app').doc('rotator');
+let rotatorList = document.getElementById('rotatorList')
+
 changelog.onSnapshot(doc => {
     const data = doc.data();
     //console.log(data);
@@ -24,6 +27,15 @@ changelog.onSnapshot(doc => {
         for (j in data[keys[i]]['changes']) {
             history.innerHTML += data[keys[i]]['changes'][j] + "<br>"
         }
+    }
+})
+
+rotatorFB.onSnapshot(doc => {
+    const data = doc.data();
+    rotatorList.innerHTML = `<h3 align="center"><u>Current Rotator Messages</u></h3>`
+
+    for (i in data['titles']) {
+        rotatorList.innerHTML += "<span style='font-size:14px;'>" + data['titles'][i] + "</span><br><span style='font-size:12px;'>" + data['bodies'][i] + "</span><br><br>"
     }
 })
 
@@ -52,4 +64,44 @@ function updateLog() {
     }
 
     changelog.set(updateData, { merge: true })
+}
+
+function addRotator() {
+    let title = document.getElementById('rotatorTitle').value;
+    let message = document.getElementById('rotatorMsg').value;
+
+    rotatorFB.set({
+        titles: firebase.firestore.FieldValue.arrayUnion(title),
+        bodies: firebase.firestore.FieldValue.arrayUnion(message),
+    }, { merge: true })
+}
+
+function remRotator() {
+    let title = document.getElementById('rotatorTitle').value;
+
+    rotatorFB.get().then((doc) => {
+        let titles = doc.data().titles
+        let bodies = doc.data().bodies
+        console.log(titles)
+        let indexToRemove = -1;
+
+        for (i in titles) {
+            console.log(titles[i])
+            if (titles[i] == title) {
+                indexToRemove = i;
+            }
+        }
+
+        if (indexToRemove > -1 && indexToRemove < titles.length) {
+            titles.splice(indexToRemove, 1)
+            bodies.splice(indexToRemove, 1)
+
+            return rotatorFB.update({
+                titles: titles,
+                bodies: bodies
+            });
+        } else {
+            console.log('No Entry Found')
+        }
+    })
 }

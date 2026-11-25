@@ -64,6 +64,13 @@ function getDiscordUser(token) {
                 if (document.getElementById('changeLogBuilder')) {
                     document.getElementById('changeLogBuilder').style.display = 'table-cell'
                 }
+                if (document.getElementById('rotatorBuilder')) {
+                    document.getElementById('rotatorBuilder').style.display = 'table-cell'
+                }
+            } else if (user.global_name == 'peacemaker2448') {
+                if (document.getElementById('rotatorBuilder')) {
+                    document.getElementById('rotatorBuilder').style.display = 'table-cell'
+                }
             }
 
             //Set token to local storage if not stored
