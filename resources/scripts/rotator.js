@@ -12,6 +12,7 @@ rotatorFirestore.onSnapshot(doc => {
   if (doc.exists) {
     titles = doc.data().titles;
     bodies = doc.data().bodies;
+    special = doc.data().special;
 
     /* Add Custom Tiles */
 
@@ -19,10 +20,15 @@ rotatorFirestore.onSnapshot(doc => {
     const today = new Date();
     const year = today.getFullYear();
     const month = today.getMonth() + 1;
-    if (year == 2026) {
-      if (month == 11 || month == 10) {
-        titles.push("Year-End Extravaganza '26");
-        bodies.push("Schedule is completed! See it on Discord in the Year-End Extravaganza 26 chat!");
+
+    // Grab from Special List
+
+    for (i in special['year']) {
+      if (special['year'][i] == year) {
+        if (month >= parseInt(special['monthStart'][i]) && month <= parseInt(special['monthEnd'][i])) {
+          titles.push(special['titles'][i])
+          bodies.push(special['bodies'][i])
+        }
       }
     }
   } else {
